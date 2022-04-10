@@ -1,0 +1,70 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}New Book{% endblock %}
+
+{% block body %}
+
+<!-- newletter_area_start  -->
+    <div class="newletter_area overlay">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-10">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5">
+                            <div class="newsletter_text">
+                                <h4>Book now</h4>
+                                <p>Thank me later!  </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+ 
+                    
+    {{form_start(form,{'attr': {'novalidate': 'novalidate' }} ) }}
+ 
+    <!-- newletter_area_end  -->
+<section class="contact-section">
+            <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="contact-title">Please enter your credentials !</h2>
+        </div>
+        <div class="col-lg-8">
+            <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                <label for="start">Start date:</label>
+                {{ form_widget(form.startdate , {'attr' : {'type' : 'date'  }}  ) }}
+
+                {{ form_errors(form.startdate) }}
+
+                
+                </div>
+            </div> 
+            <div class="col-12">
+                <div class="form-group">
+                <label for="start">End date:</label>
+                {{ form_widget(form.enddate , {'attr' : {'type' : 'date'  }}  ) }}
+                {{ form_errors(form.enddate) }}
+                </div>
+            </div>
+                        
+                </div>
+                
+                
+            <div class="form-group mt-3">
+                <button class="button button-contactForm boxed-btn">{{ button_label|default('Send') }}</button>
+            </div>
+        </div>
+            
+    </div> 
+    </div>
+    </section>
+
+        {{ form_end(form) }}  
+{% endblock %}

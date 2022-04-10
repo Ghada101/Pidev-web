@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room{% endblock %}
+
+{% block body %}
+    <h1>Room</h1>
+
+<a href="{{ path('app_room_index') }}">
+ <span style="margin-left: 90%">Back to the list</span>
+  <i class="fa fa-angle-right"></i>
+</a>
+    <table class="table">
+        <tbody>
+             
+            <tr>
+                <th>RoomType</th>
+                <td>{{ room.roomType }}</td>
+            </tr>
+            <tr>
+                <th>RoomCapacity</th>
+                <td>{{ room.roomCapacity }}</td>
+            </tr>
+            <tr>
+                <th>Nbrroom</th>
+                <td>{{ room.nbrroom }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ room.price }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>                           
+                 <img src="{{ asset('uploads/') ~room.image}}" alt="" style="border: 1px solid #ddd; max-width:300px;height:200px; display: block;" }>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+ 
+ 
+    {{ include('room/_delete_form.html.twig') }}
+{% endblock %}

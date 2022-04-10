@@ -1,0 +1,30 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Book{% endblock %}
+
+{% block body %}
+    <h1>Book</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Startdate</th>
+                 <td>{{ book.startdate ? book.startdate|date('Y-m-d , h:m') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enddate</th>
+               <td>{{ book.enddate ? book.enddate|date('Y-m-d , h:m') : '' }}</td>
+            </tr>
+            <tr>
+                <th>nbr</th>
+                <td>{{ book.idRoom.nbrroom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_book_index') }}">back to list</a>
+
+    <a href="{{ path('app_book_edit', {'idbook': book.idbook}) }}">edit</a>
+
+    {{ include('book/_delete_form.html.twig') }}
+{% endblock %}

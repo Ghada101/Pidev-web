@@ -1,0 +1,52 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Book index{% endblock %}
+
+{% block body %}
+    <h1>Book index</h1>
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %} 
+
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+        {% endfor %}
+        
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Nbr room</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+               <td>{{ book.startdate ? book.startdate|date('Y-m-d , h:m') : '' }}</td>
+               <td>{{ book.enddate ? book.enddate|date('Y-m-d , h:m') : '' }}</td>
+               <td>{{ book.idRoom.nbrroom }}</td>
+                <td>
+                    <a href="{{ path('app_book_show', {'idbook': book.idbook}) }}">show</a>
+                    <a href="{{ path('app_book_edit', {'idbook': book.idbook}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
