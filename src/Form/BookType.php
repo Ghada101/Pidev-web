@@ -25,7 +25,7 @@ class BookType extends AbstractType
             ->add('idRoom', EntityType::class, [
                 'class' => Room::class,
                 'choice_label' => 'idRoom',
-             ]) ;
+            ]) ;
       }
 
     public function configureOptions(OptionsResolver $resolver): void
