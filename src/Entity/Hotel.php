@@ -17,7 +17,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\Table(name="hotel", indexes={@ORM\Index(name="fk_HotelChain", columns={"fk_HotelChain"})})
  * @UniqueEntity(fields={"hotelName"}, message="There is already an hotel with this name")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\HotelRepository")
+ * @ORM\Table(name="`hotel`")
  */
 class Hotel
 {

@@ -12,7 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Hotelchain
  *
  * @ORM\Table(name="hotelchain")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\HotelchainRepository")
+ * @ORM\Table(name="`hotelchain`")
  * @UniqueEntity(fields={"hotelchainName"}, message="There is already an hotelChain with this name")
 
  */

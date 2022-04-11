@@ -33,7 +33,6 @@
                     <div class="blog_left_sidebar"> 
                     
                     {% for room in rooms %}
-                    {% if room.fkHotel.hotelName == "El Mouradi" %}
                         <article class="blog_item">
                             <div class="blog_item_img">
                             <img class="card-img rounded-0" src="{{ asset('uploads/') ~room.image}}" alt="">
@@ -56,9 +55,7 @@
                             </div>
                         </article> 
                        
-                         {% else %}
-                         <h2>arja3 ghodwa</h2>
-                        {% endif %}
+                        
                          
                         {% endfor %}
                     </div>

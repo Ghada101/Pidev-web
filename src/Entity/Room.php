@@ -11,7 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Room
  *
  * @ORM\Table(name="room", indexes={@ORM\Index(name="fk_Hotel", columns={"fk_Hotel"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\RoomRepository")
+ * @ORM\Table(name="`room`")
  * @UniqueEntity(fields={"nbrroom"}, message="There is already a room with this number")
 
  */

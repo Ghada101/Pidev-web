@@ -15,7 +15,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Book
  *
  * @ORM\Table(name="book", indexes={@ORM\Index(name="fkUser", columns={"idUser"}), @ORM\Index(name="fkRoom", columns={"idRoom"}), @ORM\Index(name="fkHotelChain", columns={"idHotelChain"}), @ORM\Index(name="fkHotel", columns={"idHotel"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
+ * @ORM\Table(name="`book`")
  */
 class Book
 {
