@@ -1,0 +1,99 @@
+{% extends 'BackOffice/baseBackSubject.html.twig' %}
+
+{% block title %}Topic{% endblock %}
+
+{% block bodyn %}
+    <h1>Topic</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>TopicId</th>
+                <td>{{ topic.topicId }}</td>
+            </tr>
+            <tr>
+                <th>TopicTitle</th>
+                <td>{{ topic.topicTitle }}</td>
+            </tr>
+            <tr>
+                <th>TopicDescription</th>
+                <td>{{ topic.topicDescription }}</td>
+            </tr>
+            <tr>
+                <th>TopicNumSubjects</th>
+                <td>{{ topic.topicNumSubjects }}</td>
+            </tr>
+            <tr>
+                <th>TopicDate</th>
+                <td>{{ topic.topicDate ? topic.topicDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Accepttopic</th>
+                <td>{{ topic.accepttopic }}</td>
+            </tr>
+            <tr>
+                <th>Hidetopic</th>
+                <td>{{ topic.hidetopic }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_topic_index') }}">back to list</a>
+
+    <a href="{{ path('app_topic_edit', {'topicId': topic.topicId}) }}">edit</a>
+
+    {{ include('topic/_delete_form.html.twig') }}
+{% endblock %}
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">All Topics </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead style="background-color: #00d363">
+                <tr>
+                    <th>Poster Name</th>
+                    <th>Topic Title</th>
+                    <th>Topic Description</th>
+                    <th>Num of Subjects</th>
+                    <th>Post Date </th>
+                    <th>Action</th>
+
+                </tr>
+                </thead>
+                <tfoot style="background-color: #1cc88a">
+                <tr>
+                    <th >Poster Name</th>
+                    <th>Topic Title</th>
+                    <th>Topic Description</th>
+                    <th>Num of Subjects</th>
+                    <th>Post Date </th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+                {% for topic in topics %}
+                <tbody>
+                <tr>
+                    <td>{{ topic.user.name }} </td>
+                    <td><a href="{{ path('app_subject_indexBack',{'IdTopic':topic.topicId}) }}">{{ topic.topicTitle }}</a></td>
+                    <td>{{ topic.topicDescription }}</td>
+                    <td>{{ topic.topicNumSubjects }}</td>
+                    <td>{{ topic.topicDate ? topic.topicDate|date('Y-m-d') : '' }}</td>
+                    <td>
+                        {{ include('BackOffice/topic/_delete_form.html.twig') }}
+
+                    </td>
+                </tr>
+
+                </tr>
+
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

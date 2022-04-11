@@ -1,0 +1,29 @@
+{% extends 'FrontOffice/baseFrontFinal.html.twig' %}
+ {% block body %}
+
+     {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    <center>
+        <section class="blog_area section-padding">
+         <div class="container">
+                 <div class="col-lg-6 mb-5 mb-lg-0">
+                     <div class="blog_left_sidebar">
+                         <div class="form-group">
+                             <br></br>
+                             <div style="text-align: center;"> <h4 class="widget_title">Update your Comment </h4></div>
+                             <div class="input-group mb-3">
+
+                                 {{ form_widget(form.commentDescription, {'attr': {'class': 'form-control' , 'placeholder' : 'Comment Description'}}) }}
+                                 {{ form_errors(form.commentDescription) }}
+                             </div>
+
+                         </div>
+
+                         <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">{{ button_label|default('Save') }}</button>
+                     </div>
+                 </div>
+
+         </div>
+     </section>
+    </center>
+     {{ form_end(form) }}
+ {% endblock %}

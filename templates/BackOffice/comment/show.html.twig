@@ -1,0 +1,89 @@
+{% extends 'BackOffice/baseBackSubject.html.twig' %}
+
+{% block title %}Comment{% endblock %}
+
+{% block bodyn %}
+    <h1>Comment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>CommentId</th>
+                <td>{{ comment.commentId }}</td>
+            </tr>
+            <tr>
+                <th>CommentDescription</th>
+                <td>{{ comment.commentDescription }}</td>
+            </tr>
+            <tr>
+                <th>CommentDate</th>
+                <td>{{ comment.commentDate ? comment.commentDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nblike</th>
+                <td>{{ comment.nblike }}</td>
+            </tr>
+            <tr>
+                <th>Nbdislike</th>
+                <td>{{ comment.nbdislike }}</td>
+            </tr>
+            <tr>
+                <th>CommentImage</th>
+                <td>{{ comment.commentImage }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_comment_index') }}">back to list</a>
+
+    <a href="{{ path('app_comment_edit', {'commentId': comment.commentId}) }}">edit</a>
+
+    {{ include('comment/_delete_form.html.twig') }}
+{% endblock %}
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+
+            <h6 class="m-0 font-weight-bold text-primary">Comments   </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead style="background-color: #73fbaf">
+                    <tr>
+                        <th>Poster Name</th>
+                        <th>Comment Description</th>
+                        <th>Post Date </th>
+                        <th>Action</th>
+
+                    </tr>
+                    </thead>
+                    <tfoot style="background-color: #AA3333">
+                    <tr>
+                        <th>Poster Name</th>
+                        <th>Comment Description</th>
+                        <th>Post Date </th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    {% for comment in comments %}
+                    <tr>
+                        <td>{{ comment.user.name }} </td>
+                        <td>{{ comment.commentDescription }}</td>
+                        <td>{{ comment.commentDate ? comment.commentDate|date('Y-m-d') : '' }}</td>
+                        <td>
+                            {{ include('BackOffice/comment/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+
+                    </tr>
+
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
