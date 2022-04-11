@@ -6,8 +6,7 @@
 
 parameters:
     uploads_directory: 'uploads'
-    app.path.hotels_images: /uploads/images/hotels
-   
+    app.path.hotels_images: /uploads
 services:
     # default configuration for services in *this* file
     _defaults:
