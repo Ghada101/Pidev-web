@@ -32,30 +32,32 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/new/{idRoom}", name="app_book_new", methods={"GET", "POST"})
+     * @Route("/new/{idroom}", name="app_book_new", methods={"GET", "POST"})
      */
-    public function new( Request $request, EntityManagerInterface $entityManager ,$idRoom): Response
+    public function new( Request $request, EntityManagerInterface $entityManager ,$idroom): Response
     {
-
         $book = new Book();
+        // $book->idRoom = 44;
+        //dd($book);
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
+        $room = $entityManager->getRepository(Room::class)->find($idroom);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+             //$book->setIdRoom($book->getIdroom());
+            //$book->setIdRoom($test);
+            $book->setIdroom($room);
             $entityManager->persist($book);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_book_index',
-            [], Response::HTTP_SEE_OTHER);
-
+            return $this->redirectToRoute('app_book_index');
         }
-        $room = $entityManager
-        ->getRepository(Room::class)
-        ->findBy(['idRoom' => $idRoom]);
-
         return $this->render('book/new.html.twig', [
             'book' => $book,
             'room' => $room,
+            'idRoom' => $idroom,
             'form' => $form->createView(),
         ]);
     }

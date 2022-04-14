@@ -82,7 +82,7 @@ class Hotel
      * @var \Hotelchain
      *
      * @ORM\ManyToOne(targetEntity="Hotelchain")
-     * @Assert\NotBlank
+     * @Assert\NotBlank 
      * @ORM\JoinColumns({
      * @ORM\JoinColumn(name="fk_HotelChain", referencedColumnName="id_HotelChain")
      * })
