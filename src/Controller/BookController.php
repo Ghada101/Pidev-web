@@ -37,7 +37,6 @@ class BookController extends AbstractController
     public function new( Request $request, EntityManagerInterface $entityManager ,$idroom): Response
     {
         $book = new Book();
-        // $book->idRoom = 44;
         //dd($book);
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
@@ -46,8 +45,6 @@ class BookController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-             //$book->setIdRoom($book->getIdroom());
-            //$book->setIdRoom($test);
             $book->setIdroom($room);
             $entityManager->persist($book);
             $entityManager->flush();
