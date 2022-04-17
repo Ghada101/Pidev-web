@@ -1,0 +1,123 @@
+{% extends 'Backoffice/baseback.html.twig'%}
+{% block title %}Agency{% endblock %}
+
+
+{% block body %}
+    <h1>Agency</h1>
+
+<div class="popular_places_area">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="filter_result_wrap">
+                        <h3>Filter Result</h3>
+                        <div class="filter_bordered">
+                            <div class="filter_inner">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="single_select">
+                                            <select>
+                                                <option data-display="Country">Country</option>
+                                                <option value="1">Manouba</option>
+                                                <option value="2">Sousse</option>
+                                                <option value="4">Monastir</option>
+                                                <option value="5">Mahdia</option>
+                                                <option value="6">Sfax</option>
+                                                <option value="7">Kairouan</option>
+                                                <option value="8">Kasserine</option>
+                                                <option value="9">Sidi Bouzid</option>
+                                                <option value="10">Gabes</option>
+                                                <option value="11">Tataouine</option>
+                                                <option value="12">Tozeur</option>
+                                                <option value="13">Mednine</option>
+                                                <option value="14">Nabeul</option>
+                                                <option value="15">Jendouba</option>
+                                                <option value="16">Bizerte</option>
+                                                <option value="17">Kebili</option>
+                                                <option value="18">Siliana</option>
+                                                <option value="19">Zaghouan</option>
+                                                <option value="20">Beja</option>
+                                                <option value="21">Ben Arous</option>
+                                                <option value="22">Tunis</option>
+                                                <option value="23">Manouba</option>
+                                                <option value="24">Sousse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_select">
+                                            <select>
+                                                <option data-display="Travel type">Travel type</option>
+                                                <option value="1">advance</option>
+                                                <option value="2">advance</option>
+                                                <option value="4">premium</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reset_btn">
+                                <a href={{path('app_agency_new')}}>
+                                <button class="boxed-btn4" type="submit" >Create Agency</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8" style="margin-left: 100px">
+        <div class="row">
+            {% for agency in agencies %}
+                    <div class="col-lg-5">
+                    <div class="col-lg-10 col-md-15">
+                        <div class="single_place">
+                            <div class="thumb">
+                                <img src="{{ asset('upload/images/'~agency.imageagency)}}" alt="" />
+                                <a href="#" class="prise">{{ agency.numberofavailablecars }}</a>
+                            </div>
+                            <div class="place_info">
+                                <a href="{{ path('app_car_index',{'idAgency':agency.idAgency}) }}"><h3>{{ agency.nameagency }}</h3></a>
+                                <p>{{ agency.agencyphonenumber}}</p>
+                                <p>{{agency.agencylocation}}</p>
+                                <div class="rating_days d-flex justify-content-between">
+                                <span class="d-flex justify-content-center align-items-center">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <a href="#">(20 Review)</a>
+                                </span>
+                                    <div class="days">
+                                        <i class="fa fa-clock-o"></i>
+                                        <a href="#">5 Days</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-right: auto;align-items: center">
+                                <div>
+                                <a href="{{ path('app_agency_delete', {'idAgency': agency.idAgency}) }}">
+                                <button class="boxed-btn4" style="margin-left:35px;margin-bottom: 15px; " type="submit" > Delete</button>
+                                </a>
+                                    </div>
+                                <div>
+                                <a href={{path('app_agency_edit',{'idAgency':agency.idAgency})}}>
+                                <button class="boxed-btn3" style="margin-right: auto;margin-bottom: 15px;margin-left: 15px;padding:  13px 39px"  type="submit" >Update</button>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    </div>
+    {% endfor %}
+        </div>
+
+    </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rent index{% endblock %}
+
+{% block body %}
+    <h1>Rent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idrent</th>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rent in rents %}
+            <tr>
+                <td>{{ rent.idrent }}</td>
+                <td>{{ rent.startdate }}</td>
+                <td>{{ rent.enddate }}</td>
+                <td>
+                    <a href="{{ path('app_rent_show', {'idrent': rent.idrent}) }}">show</a>
+                    <a href="{{ path('app_rent_edit', {'idrent': rent.idrent}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rent_new') }}">Create new</a>
+{% endblock %}
