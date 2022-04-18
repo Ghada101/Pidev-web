@@ -1,0 +1,33 @@
+
+<div class="filter_result_wrap">
+    <h3>Filter Result</h3>
+    <div class="filter_bordered">
+        <div class="filter_inner">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="single_select">
+                        {{ form_ start(form) }}
+                        {{ form_row(form.q) }}
+                        <h4>Categories </h4>
+                        {{ form_row(form.categories) }}
+                        <h4>price </h4>
+                        <div id="price-slider"></div>
+                        {{ form_row(form.min) }}
+                        {{ form_row(form.max) }}
+
+                        <button class="boxed-btn4" type="submit">Search</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="reset_btn">
+
+        </div>
+    </div>
+
+</div>

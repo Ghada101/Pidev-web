@@ -1,0 +1,18 @@
+<link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+/>
+
+<!-- Bootstrap icons -->
+<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+/>
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    {{ form_row(form.image) }}
+
+<button class="btn btn-success btn-rounded" class="btn"><i class="fa fa-check-square" style="font-size:18px"></i>
+        {{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

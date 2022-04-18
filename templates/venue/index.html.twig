@@ -1,0 +1,61 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Venue index{% endblock %}
+
+{% block body %}
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+
+    <!-- Bootstrap icons -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>VenueName</th>
+                <th>Address</th>
+                <th>ContactNumber</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for venue in venues %}
+            <tr>
+
+                <td>{{ venue.venueName }}</td>
+                <td>{{ venue.address }}</td>
+                <td>{{ venue.ContactNumber }}</td>
+                <td>
+                    <li class="list-inline-item">
+                        <a href="{{ path('app_venue_show', {'id': venue.id}) }}">
+                            <button type="button" class="btn btn-info btn-rounded">Info</button>
+
+                        </a>
+                    </li>
+
+                    <li class="list-inline-item">
+                        <a href="{{ path('app_venue_edit', {'id': venue.id}) }}">
+
+                            <button type="button" class="btn btn-danger btn-floating">
+                                <i class="fas fa-magic"></i>
+                            </button>
+                        </a>
+                    </li>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_venue_new') }}"><button type="button" class="btn btn-success">Create New Venue</button></a>
+{% endblock %}
