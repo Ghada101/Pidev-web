@@ -53,6 +53,7 @@
                 <div class="blog_left_sidebar">
 
                     {% for topic in topics %}
+                        {% if topic.accepttopic==1%}
                     <article class="blog_item">
                         <div class="blog_item_img">
                             <img class="card-img rounded-0" src="{{ vich_uploader_asset(topic) }}" alt="">
@@ -66,10 +67,10 @@
                             <a class="d-inline-block" href="{{ path('app_subject_index',{'IdTopic':topic.topicId}) }}">
                                 <h2>{{ topic.topicTitle }}</h2>
                             </a>
-                            <p>{{ topic.topicDescription }}.</p>
+                            <p>{{ topic.topicDescription  }}.</p>
                             <ul class="blog-info-link">
 
-                                <li><a href="#"><i class="fa fa-user"></i>{{ topic.user.name }}</a></li>
+                                <li><a href="#"><i class="fa fa-user"></i>{{ topic.user.name  }}</a></li>
                                 <li><a href="#"><i class="fa fa-comments"></i>Number of Subjects : {{ topic.topicNumSubjects}}</a></li>
                                <li>{{ include('FrontOffice/topic/_delete_form.html.twig') }}</li>
 
@@ -78,9 +79,11 @@
                             <div class="bradcam_overlay"><a href="{{ path('app_topic_edit', {'topicId': topic.topicId}) }}">
                                     <i class="fa fa-edit">  Click here to Update your topic</i>
                                 </a></div>
+                            <div><a href="{{ path('app_topic_index_Transl', {'idTopic': topic.topicId}) }}">Translate</a></div>
                         </div>
 
                     </article>
+                        {% endif %}
                     {% endfor %}
 
 
@@ -114,13 +117,16 @@
                     <aside class="single_sidebar_widget add_widget">
                         <form action="#">
                             <div class="form-group">
-                                <h4 class="widget_title">Add a new Topic here :  </h4>
+
+                                <h4 class="widget_title">{% trans %}Add a new Topic here : {% endtrans %}</h4>
                                 <div class="input-group mb-3">
-                                    {{ form_widget(form.topicTitle, {'attr': {'class': 'form-control' , 'placeholder' : 'Topic Title'}}) }}
+
+                                    {{ form_widget(form.topicTitle, {'attr': {'class': 'form-control' , 'placeholder' :  'Topic Title' | trans }}) }}
                                     {{ form_errors(form.topicTitle) }}
+
                                 </div>
                                 <div class="input-group mb-3">
-                                    {{ form_widget(form.topicDescription, {'attr': {'class': 'form-control w-100' , 'placeholder' : 'Topic Description'}}) }}
+                                    {{ form_widget(form.topicDescription, {'attr': {'class': 'form-control w-100' , 'placeholder' : 'Topic Description' | trans }}) }}
                                     {{ form_errors(form.topicDescription) }}
                                 </div>
                                 <div class="input-group mb-3">
@@ -129,7 +135,7 @@
                                 </div>
                             </div>
 
-                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">{{ button_label|default('Add') }}</button>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">{{ button_label|default('Add'| trans )  }}</button>
                             {{ form_rest(form) }}
                         </form>
                     </aside>

@@ -175,6 +175,14 @@
                                                     <i class="fa fa-edit"> Update</i>
                                                 </a>
                                             </div>
+                                            <div class="reply-btn">
+                                            <a href="{{ path('app_comment_like', {'IdSubject':subject.subjectId,'idcom':comment.commentId}) }}">
+                                                <i style="color: #0062cc" class="fa fa-thumbs-up close-icon" aria-hidden="true"></i></a>
+                                            <a href="{{ path('app_comment_dislike', {'IdSubject':subject.subjectId,'idcom':comment.commentId}) }}">({{ comment.nblike }})
+                                                <i style="color: orangered" class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                            </a>({{ comment.nbdislike }})
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

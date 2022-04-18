@@ -7,6 +7,7 @@ use App\Repository\TopicRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
 
 /**
  * Topic
@@ -30,6 +31,8 @@ class Topic
      * @var string
      *
      * @ORM\Column(name="topic_title", type="string", length=255, nullable=false)
+     * @ProfanityAssert\ProfanityCheck
+     * @Assert\NotBlank(message="Title is required")
      */
     private $topicTitle;
 
@@ -43,6 +46,8 @@ class Topic
      *      minMessage = "the discription must have {{ limit }} caracters at least",
      *      maxMessage = "the discription must not exceed {{ limit }} caracters"
      * )
+     * @ProfanityAssert\ProfanityCheck
+     * @Assert\NotBlank(message="Description is required")
      */
     private $topicDescription;
 

@@ -7,7 +7,7 @@
 
     {{ include('FrontOffice/subject/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_subject_show', {'IdTopic': subject.topic.topicId}) }}">back to list</a>
+    <a href="{{ path('app_subject_index', {'IdTopic': subject.topic.topicId}) }}">back to list</a>
 
     {{ include('FrontOffice/subject/_delete_form.html.twig') }}
 {% endblock %}

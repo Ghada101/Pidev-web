@@ -134,6 +134,9 @@
       <path value="$PROJECT_DIR$/vendor/jms/metadata" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/vangrg/profanity-bundle" />
+      <path value="$PROJECT_DIR$/vendor/nlpcloud/nlpcloud-client" />
+      <path value="$PROJECT_DIR$/vendor/nategood/httpful" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

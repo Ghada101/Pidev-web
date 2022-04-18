@@ -8,6 +8,7 @@ use App\Repository\SubjectRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
 
 /**
  * Subject
@@ -32,6 +33,7 @@ class Subject
      *
      * @ORM\Column(name="subject_title", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Title is required")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $subjectTitle;
 
@@ -40,6 +42,7 @@ class Subject
      *
      * @ORM\Column(name="subject_description", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="Description is required")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $subjectDescription;
 

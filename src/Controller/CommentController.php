@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Dislikee;
+use App\Entity\Likee;
 use App\Entity\Subject;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use App\Repository\SubjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -109,5 +112,62 @@ class CommentController extends AbstractController
         }
 
         return $this->redirectToRoute('app_comment_index', ['IdSubject'=>$IdSubject], Response::HTTP_SEE_OTHER);
+    }
+    /**
+     * @Route("/{IdSubject}/{idcom}/like", name="app_comment_like", methods={"GET"})
+     */
+    public function like(Request $request, Comment $idcom, EntityManagerInterface $entityManager,Subject $IdSubject): Response
+    {   $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findoneBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+        $likeee=$this->getDoctrine()->getRepository(likee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+        if($likeee==null){
+
+            $idcom->setNblike($idcom->getNblike()+1);
+            $like = new likee();
+            $like->setCommentid($idcom);
+            $user=$this->getDoctrine()->getRepository(User::class)->find(90);
+            $like->setUserid($user);
+            $entityManager->persist($like);
+            if($dislikeee!=null)
+            {
+                $idcom->setNbdislike($idcom->getNbdislike()-1);
+                $entityManager->remove($dislikeee);
+
+            }
+            $entityManager->flush();}
+        else
+        {
+            dump($likeee);
+        }
+        return $this->redirectToRoute('app_comment_show', [ 'IdSubject' => $IdSubject->getSubjectId()], Response::HTTP_SEE_OTHER);
+    }
+    /**
+     * @Route("/{IdSubject}/{idcom}/dislike", name="app_comment_dislike", methods={"GET"})
+     */
+    public function dislike(Request $request, Comment $idcom, EntityManagerInterface $entityManager,Subject $IdSubject): Response
+    {
+        $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+        $likeee=$this->getDoctrine()->getRepository(Likee::class)->findOneBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+
+        if($dislikeee==null){
+
+            $idcom->setNbdislike($idcom->getNbdislike()+1);
+            $dislike = new Dislikee();
+            $dislike->setCommentid($idcom);
+            $user=$this->getDoctrine()->getRepository(User::class)->find(90);
+            $dislike->setUserid($user);
+
+            if($likeee!=null)
+            {
+                $idcom->setNblike($idcom->getNblike()-1);
+                $entityManager->remove($likeee);
+
+            }
+            $entityManager->persist($dislike);
+            $entityManager->flush();}
+        else
+        {
+            dump($dislikeee);
+        }
+        return $this->redirectToRoute('app_comment_show', [ 'IdSubject' => $IdSubject->getSubjectId()], Response::HTTP_SEE_OTHER);
     }
 }

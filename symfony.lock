@@ -97,8 +97,14 @@
     "myclabs/deep-copy": {
         "version": "1.11.0"
     },
+    "nategood/httpful": {
+        "version": "0.3.2"
+    },
     "nikic/php-parser": {
         "version": "v4.13.2"
+    },
+    "nlpcloud/nlpcloud-client": {
+        "version": "1.0.19"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
@@ -590,6 +596,9 @@
     },
     "twig/twig": {
         "version": "v3.3.9"
+    },
+    "vangrg/profanity-bundle": {
+        "version": "v1.1.6"
     },
     "vich/uploader-bundle": {
         "version": "1.19",

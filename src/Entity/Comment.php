@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -26,6 +28,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="comment_description", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="comment blank")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $commentDescription;
 
