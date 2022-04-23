@@ -4,12 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use App\Form\HotelType;
+use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+// Include PhpSpreadsheet required namespaces
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  * @Route("/hotel")
@@ -98,7 +105,6 @@ class HotelController extends AbstractController
     {
         $form = $this->createForm(HotelType::class, $hotel);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $file= $request->files->get('hotel')['hotelImg'];
 
@@ -119,7 +125,6 @@ class HotelController extends AbstractController
             );          
         return $this->redirectToRoute('app_hotel_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('hotel/edit.html.twig', [
             'hotel' => $hotel,
             'form' => $form->createView(),
@@ -134,12 +139,42 @@ class HotelController extends AbstractController
         $hotel = $entityManager->getRepository(Hotel::class)->find($idHotel);
             $entityManager->remove($hotel);
             $entityManager->flush();
-       
             $this->addFlash(
                 'danger',
                 'Deleted Successfully!'
             );
         return $this->redirectToRoute('app_hotel_index');
     }
+
+    /**
+         * @Route("/Search", name="demo_create")
+         * @return Response|JsonResponse 
+         * 
+    */
+        public function index3(Request $request, HotelRepository $hotelRepository,PaginatorInterface $paginator) : Response
+        {
+            $emailValue = $request->get('search');
+            //dd($emailValue);
+            $allhotel= $hotelRepository->search($emailValue);
+            $arr = (object) $allhotel;
+
+            $hotels=$paginator->paginate($allhotel,$request->query->getInt('page',1),3);
+
+            if($request->get('path')){
+            return new JsonResponse([
+                'content' => $this->renderView('hotel/contentajax.html.twig', ["hotels" => $hotels])
+            ]); 
+        }
+            return new JsonResponse([
+            "html" => $this->renderView("hotel/index.html.twig", ["hotels" => $hotels]),
+            ]);
+            return Response::json($allhotel);
+
+            // $response = new JsonResponse();
+            // $response->setStatusCode(200);
+            return $response->setData(['search' => $allhotel ]);
+
+        }
+
 
 }

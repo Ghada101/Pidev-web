@@ -89,6 +89,10 @@ class Hotel
      */
     private $fkHotelchain;
 
+   
+
+   
+
     public function getIdHotel(): ?int
     {
         return $this->idHotel;
@@ -177,6 +181,9 @@ class Hotel
 
         return $this;
     }
+
+   
+    
 
 
 }

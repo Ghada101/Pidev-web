@@ -1,0 +1,37 @@
+
+<table id='commandeSection' class="table table-bordered" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>HotelName</th>
+                <th>HotelStaff</th>
+                <th>HotelLocation</th>
+                <th>HotelPhone</th>
+                <th>HotelDescription</th>
+                <th>Hotel Chain</th>
+                <th>HotelImg</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hotel in hotels %}
+            <tr>
+                <td>{{ hotel.hotelName }}</td>
+                <td>{{ hotel.hotelStaff }}</td>
+                <td>{{ hotel.hotelLocation }}</td>
+                <td>{{ hotel.hotelPhone }}</td> 
+                <td>{{ hotel.hotelDescription }}</td>
+                <td>{{ hotel.fkHotelchain.hotelchainName }}</td>
+                <td><img src="{{ asset('uploads/') ~hotel.hotelImg}}" alt="" style="border: 1px solid #ddd; max-width:100px;height:auto; display: block;margin-left: auto;margin-right: auto;" }></td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_hotel_show', {'idHotel': hotel.idHotel}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_hotel_edit', {'idHotel': hotel.idHotel}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
