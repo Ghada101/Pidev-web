@@ -41,7 +41,7 @@ class Book
      * @Groups("post:read")
      * @Assert\GreaterThanOrEqual(propertyPath="startdate", message="End booking date should be greater than start date")
      * @Assert\GreaterThan("today")
-     
+
 
      */
     private $enddate;
@@ -49,7 +49,7 @@ class Book
     /**
      * @var int
      *
-     * @ORM\Column(name="idBook", type="integer", nullable=false)
+     * @ORM\Column(name="idBook", type="integer" )
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -80,7 +80,7 @@ class Book
      *
      * @ORM\ManyToOne(targetEntity="Room")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idRoom", referencedColumnName="id_Room" , nullable= false)
+     *   @ORM\JoinColumn(name="idRoom", referencedColumnName="id_Room" )
      * })
      */
     private $idroom;
@@ -95,6 +95,7 @@ class Book
      */
     private $idhotelchain;
 
+    
     public function getStartdate(): ?\DateTimeInterface
     {
         return $this->startdate;
@@ -156,7 +157,7 @@ class Book
     public function setIdroom(?Room $idroom): self
     {
         $this->idroom = $idroom;
-
+        
         return $this;
     }
 
@@ -171,6 +172,8 @@ class Book
 
         return $this;
     }
+
+    
 
 
 }

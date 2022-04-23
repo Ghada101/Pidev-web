@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -81,6 +83,12 @@ class Room
      * @ORM\Column(name="image", type="string", nullable=false)
      */
     private $image;
+
+    
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     public function getIdRoom(): ?int
     {
@@ -167,6 +175,36 @@ class Room
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Book>
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(Book $book): self
+    {
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->setIdRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->removeElement($book)) {
+            // set the owning side to null (unless already changed)
+            if ($book->getIdRoom() === $this) {
+                $book->setIdRoom(null);
+            }
+        }
 
         return $this;
     }

@@ -30,16 +30,17 @@ class RoomController extends AbstractController
         ]); 
     } 
 
-    public function indexFront( Request $request,EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
+    public function indexFront($idHotel, Request $request,EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
     {
         $rooms = $entityManager
             ->getRepository(Room::class)
-            ->findAll();  
-
+            ->findBy(['fkHotel' => $idHotel]); 
+            //dd($rooms);
         $rooms=$paginator->paginate($rooms,$request->query->getInt('page',1),2);
 
         return $this->render('room/indexFront.html.twig', [
             'rooms' => $rooms,
+            'idHotel' => $idHotel,
         ]);
     }
 

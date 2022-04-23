@@ -26,49 +26,25 @@
         {% endfor %}
 
 
-       <div class="card shadow mb-4">
+    <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h4 class="m-0 font-weight-bold text-primary">Hotel List</h4>
             </div>
                 <div class="card-body">
                 
                     <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                   
-        <thead>
-            <tr>
-                <th>HotelName</th>
-                <th>HotelStaff</th>
-                <th>HotelLocation</th>
-                <th>HotelPhone</th>
-                <th>HotelDescription</th>
-                <th>Hotel Chain</th>
-                <th>HotelImg</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for hotel in hotels %}
-            <tr>
-                <td>{{ hotel.hotelName }}</td>
-                <td>{{ hotel.hotelStaff }}</td>
-                <td>{{ hotel.hotelLocation }}</td>
-                <td>{{ hotel.hotelPhone }}</td> 
-                <td>{{ hotel.hotelDescription }}</td>
-                <td>{{ hotel.fkHotelchain.hotelchainName }}</td>
-                <td><img src="{{ asset('uploads/') ~hotel.hotelImg}}" alt="" style="border: 1px solid #ddd; max-width:100px;height:auto; display: block;margin-left: auto;margin-right: auto;" }></td>
-                <td>
-                    <a class="btn btn-success" href="{{ path('app_hotel_show', {'idHotel': hotel.idHotel}) }}">show</a>
-                    <a class="btn btn-warning" href="{{ path('app_hotel_edit', {'idHotel': hotel.idHotel}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    
+        <form>
+	       <div class="sidebar-search">
+		      <div class="input-group custom-search-form">
+			    <input type="text" id="searchinput" name="search" class="form-control" placeholder="Search">
+		      </div>
+	       </div>
+        </form>
+{{ include('hotel/contentajax.html.twig') }}
+     {#  <div class="navigation">
+        {{ knp_pagination_render(hotels) }}
+    </div> #}
     </div>
     </div>
     </div>

@@ -6,9 +6,9 @@ use App\Entity\Book;
 use App\Entity\Room;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class BookType extends AbstractType
@@ -22,9 +22,10 @@ class BookType extends AbstractType
             ->add('enddate' , DateType::class, [
                 // renders it as a single text box
                 'widget' => 'single_text'])
-            //->add('idRoom');
-            ->add('idRoom',HiddenType::class) ;
-      }
+            
+            ->add('idRoom',HiddenType::class ) ; 
+            
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
