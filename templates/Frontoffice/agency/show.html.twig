@@ -72,7 +72,9 @@
                                 <a href="#" class="prise">${agency.numberofavailablecars}</a>
                             </div>
                             <div class="place_info">
-                                <a href="/car/front/${agency.idAgency}"><h3>${agency.nameagency}</h3></a>
+                                <a href="/car/front/${agency.idAgency}">
+                                    <h3>${agency.nameagency}</h3>
+                                </a>
                                 <p>${agency.agencyphonenumber}</p>
                                 <p>${agency.agencylocation}</p>
                                 <div class="rating_days d-flex justify-content-between" style="padding-left: 290px">
@@ -91,20 +93,21 @@
                 })
             }).catch((err) => console.log(err))
         }
+
         getAgencies(null)
         searchField.addEventListener('change', getAgencies)
     </script>
-<script>
-    var botmanWidget = {
-        frameEndpoint: '{{ path("chatframe") }}',
-        chatServer: '{{ path("msg") }}',
-        introMessage: 'Well, hello customer\n i am AllInTravel assistant , What can I do for you?',
-        title: 'My Chatbot',
-        mainColor: '#DC143C',
-        bubbleBackground: '#DC143C',
-        aboutText: ''
-    };
-</script>
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    <script>
+        var botmanWidget = {
+            frameEndpoint: '{{ path("chatframe") }}',
+            chatServer: '{{ path("msg") }}',
+            introMessage: 'Well, hello customer\n i am AllInTravel assistant , What can I do for you?',
+            title: 'My Chatbot',
+            mainColor: '#DC143C',
+            bubbleBackground: '#DC143C',
+            aboutText: ''
+        };
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 
 {% endblock %}

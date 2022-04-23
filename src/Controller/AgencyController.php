@@ -193,6 +193,12 @@ class AgencyController extends AbstractController
             $agency=$this->getDoctrine()->getRepository(Agency::class)->findAll();
             $botman->reply("the number of agencies is ".count($agency));
         });
+        $botman->hears("(thanks|ty|thank you|THANKS A LOT|thanks alot)",function(BotMan $botman){
+            $botman->reply("Thats what i am here for");
+        });
+        $botman->hears("help",function(BotMan $botman){
+            $botman->reply("You can find the guides in this menu : \n 1-best agency \n 2-number of cars \n 3-number of agencies \n 4-help");
+        });
         $botman->fallback(function($bot){
             $bot->reply("Sorry, I don't understand you");
         });

@@ -24,9 +24,9 @@ class RentType extends AbstractType
 
                 // prevents rendering it as type="date", to avoid HTML5 date pickers
               ])
+            ->add('iduser',HiddenType::class)
             ->add('idcar',HiddenType::class)
             ->add('idagency',HiddenType::class)
-                ->add('iduser',HiddenType::class)
         ;
     }
 
