@@ -152,7 +152,7 @@ class BookController extends AbstractController
         $png2 = file_get_contents("logo2.png");
         $pngbase64 = base64_encode($png);
         $pngbase643 = base64_encode($png2);
-
+ 
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('book/liste.html.twig', [
             'book' => $book,
