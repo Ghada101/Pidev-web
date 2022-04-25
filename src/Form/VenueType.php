@@ -15,6 +15,8 @@ class VenueType extends AbstractType
             ->add('venueName')
             ->add('address')
             ->add('ContactNumber')
+            ->add('latitude')
+            ->add('longitude')
         ;
     }
 

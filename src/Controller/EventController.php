@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use Api2Pdf\Api2Pdf;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Form\SearchEventType;
 use App\Repository\EventRepository;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +30,24 @@ class EventController extends AbstractController
         ]);
     }
     /**
+     * @Route("/location", name="app_leaflet")
+     */
+    public function leafletLocation(): Response
+    {
+        return $this->render('leaflet/leaflet.html.twig', [
+        ]);
+    }
+    /**
+     * @Route("/pdf", name="app_pdf", methods={"GET"})
+     */
+    public function pdfSecond(EventRepository $eventRepository): Response
+    {
+        return $this->render('event/pdf.html.twig', [
+            'events' => $eventRepository->findAll(),
+        ]);
+
+    }
+    /**
      * @Route("/frontview", name="app_event_indexFront", methods={"GET"})
      */
     public function indexFront(EventRepository $eventRepository, Request $request): Response
@@ -41,6 +63,41 @@ class EventController extends AbstractController
             'form'=> $form->createView()
         ]);
     }
+    /**
+     * @Route("/download", name="app_event_download", methods={"GET"})
+     */
+    public function EventDataDownload(): Response
+    {
+       //pdf options
+        $pdfOptions = new Options();
+        //Police par defaut
+        $pdfOptions->set('defaultFront','Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        /// Dompdf instance
+        $dompdf = new Dompdf();
+        $context = stream_context_create([
+            'ssl'=>[
+                'verify_peer'=> FALSE,
+                'verify_peer_name'=> FALSE,
+                'allow_self_signed'=>TRUE,
+                'allow_url_fopen'=>TRUE
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+        // HTM  generate
+        $html = $this->renderView('event/pdf.html.twig');
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4','portrait');
+        $dompdf->render();
+        /// generate file name
+        $fichier ='Event-data.pdf';
+        //send pdf to webrowser
+        $dompdf->stream($fichier,[
+            'Attachment'=> true
+        ]);
+        return new Response();
+    }
+
     /**
      * @Route("/new", name="app_event_new", methods={"GET", "POST"})
      */

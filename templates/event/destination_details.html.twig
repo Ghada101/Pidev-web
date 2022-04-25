@@ -39,6 +39,23 @@
 <![endif]-->
 
 <!-- header-start -->
+<script>
+    var met= document.getElementById("meteo");
+    window.onload = function() {
+
+        fetch('https://api.openweathermap.org/data/2.5/weather?lat='+"{{ event.venue.latitude }}"+'&lon='+"{{ event.venue.latitude }}"+'&units=metric&appid=0b8dd4c0f165a47750f48f30251acee7')
+            .then(response => response.json())
+            .then(data => {
+                var tempValue = data['main']['temp'];
+                var nameValue = data['name'];
+                document.getElementById("meteo").innerHTML = tempValue;
+                console.log(tempValue)
+               // var descValue = data['weather'][0]['description'];
+
+    });
+
+    }
+</script>
 <header>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -120,7 +137,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-9">
                 <div class="destination_info">
-                    <h3>Description </h3>
+
+                        <h4><strong>#{{ event.category }}</strong></h4>
+                    <h2>Description </h2>
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <div class="h3 mb-0 text-gray-800" style="font-size:30px"> <span class="label label-info">Price {{ event.price }}TND</span>
@@ -129,7 +148,15 @@
                                 <a href="{{ path('app_event_show_location', {'id': event.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                 <i class="glyphicon glyphicon-map-marker" style="font-size:20px">location</i>
                             </a>
-                        </div>             </a>
+                        </div>
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+                            <button class="d-none d-sm-inline-block btn btn-sm " style='font-size:24px'  ><i class='fas fa-temperature-high'><div id="meteo"></div></i><p>°C</p></button>
+
+                        </div>
+
+
+                       <h1><p ></p></h1>
 
                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
                     <p>Variations of passages of lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
@@ -146,31 +173,33 @@
                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
                     </div>
                 </div>
+                    <div class="col-rSg-4">
+                        {% include 'event/map.html.twig' %}
+                    </div>
                 <div class="bordered_1px"></div>
                 <div class="contact_join">
-                    <h3>Contact for join</h3>
+                    <h3>                              </h3>
                     <form action="#">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="single_input">
-                                    <input type="text" placeholder="Your Name">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="single_input">
-                                    <input type="text" placeholder="Phone no.">
-                                </div>
-                            </div>
                             <div class="col-lg-12">
-                                <div class="single_input">
-                                    <textarea name="" id="" cols="30" rows="10"placeholder="Message" ></textarea>
-                                </div>
+
+                                <div class="submit_btn">
+
+
+                                    <button class="boxed-btn4" href="{{ path('checkout') }}">
+                                        <a  class="boxed-btn4" href="{{ path('checkout') }}">Proceed to Payment</a>
+                                        </button>
+                                   </div>
+
                             </div>
+
+                        </div>
+                        <div class="row">
                             <div class="col-lg-12">
                                 <div class="submit_btn">
-                                    <button class="boxed-btn4" type="submit">submit</button>
                                 </div>
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -180,39 +209,7 @@
 </div>
 
 <!-- newletter_area_start  -->
-<div class="newletter_area overlay">
-    <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-10">
-                <div class="row align-items-center">
-                    <div class="col-lg-5">
-                        <div class="newsletter_text">
-                            <h4>Subscribe Our Newsletter</h4>
-                            <p>Subscribe newsletter to get offers and about
-                                new places to discover.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="mail_form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-9 col-md-8">
-                                    <div class="newsletter_field">
-                                        <input type="email" placeholder="Your mail" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="newsletter_btn">
-                                        <button class="boxed-btn4 " type="submit" >Subscribe</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- newletter_area_end  -->
 
 <div class="popular_places_area">
@@ -306,7 +303,40 @@
         </div>
     </div>
 </div>
+    <div class="newletter_area overlay">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-10">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5">
+                            <div class="newsletter_text">
+                                <h4>Subscribe Our Newsletter</h4>
+                                <p>Subscribe newsletter to get offers and about
+                                    new places to discover.</p>
 
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="mail_form">
+                                <div class="row no-gutters">
+                                    <div class="col-lg-9 col-md-8">
+                                        <div class="newsletter_field">
+                                            <input type="email" placeholder="Your mail" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="newsletter_btn">
+                                            <button class="boxed-btn4 " type="submit" >Subscribe</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <footer class="footer">
     <div class="footer_top">
         <div class="container">
@@ -503,6 +533,8 @@
         }
     });
 </script>
+</div>
 </body>
-
 </html>
+
+
