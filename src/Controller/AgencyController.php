@@ -155,14 +155,10 @@ class AgencyController extends AbstractController
     /**
      * @Route("/SearchAll/{pageNumber}", name="app_agency_findall"), methods={"GET"})
      */
-    public function searchAllAgencies(PaginatorInterface $paginator, Request $request,$pageNumber):Response
+    public function searchAllAgencies(Request $request,$pageNumber):Response
     {
-
         $rep = $this->getDoctrine()->getRepository(Agency::class);
         $agencies = $rep->findAllAgencies($pageNumber);
-
-
-
         $response = new JsonResponse();
         $response->setData($agencies);
         $response->headers->set('Content-Type', 'application/json');
