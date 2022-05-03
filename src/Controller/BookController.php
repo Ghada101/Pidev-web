@@ -61,11 +61,11 @@ class BookController extends AbstractController
                 if ($books->getStartdate() <= $book->getStartdate() && $book->getStartdate() <= $books->getEnddate()) {
                     $this->addFlash('danger', 'Sorry , Room already Booked !');
                     return $this->redirectToRoute('app_book_new', ['idroom'=>$idroom ,'bookList'=>$bookList]);
-                
-             } elseif ($books->getStartdate() <= $book->getEnddate() && $book->getEnddate() <= $books->getEnddate()) {
-                            $this->addFlash('danger', 'condit2');
+                 
+                     } elseif ($books->getStartdate() <= $book->getEnddate() && $book->getEnddate() <= $books->getEnddate()) {
+                            $this->addFlash('danger', 'Sorry , Room already Booked !');
                             return $this->redirectToRoute('app_book_new', ['idroom'=>$idroom, 'bookList'=>$bookList]);
-                    } elseif ($books->getStartdate() <= $book->getStartdate() && $book->getEnddate() <= $books->getEnddate()) {
+                     } elseif ($books->getStartdate() <= $book->getStartdate() && $book->getEnddate() <= $books->getEnddate()) {
                             $this->addFlash('danger', 'Sorry , Room already Booked !');
                             return $this->redirectToRoute('app_book_new', ['idroom'=>$idroom, 'bookList'=>$bookList]);
                         } elseif ($books->getStartdate() <= $book->getStartdate() && $book->getStartdate() <= $books->getEnddate()) {
@@ -73,13 +73,13 @@ class BookController extends AbstractController
                             return $this->redirectToRoute('app_book_new', ['idroom'=>$idroom, 'bookList'=>$bookList]);
                     //$book->setIdRoom($book->getIdroom());
                    //$book->setIdRoom($test);
-                   } else {
+                        } else {
                        $book->setIdroom($room);
                        $entityManager->persist($book);
                        $entityManager->flush();
                        return $this->redirectToRoute('app_book_index', ['idroom'=>$idroom , 'bookList'=>$bookList]);
-                        }
-                       } 
+                         }
+                       }  
                    
             }
             //dd($book);
