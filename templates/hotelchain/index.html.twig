@@ -68,9 +68,13 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+        
         </tbody>
     </table>
   </div>
+        <div class="navigation">
+                {{ knp_pagination_render(hotelchains) }}
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -84,6 +84,11 @@ class Room
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ratings;
+
     
     public function __construct()
     {
@@ -205,6 +210,18 @@ class Room
                 $book->setIdRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRatings(): ?string
+    {
+        return $this->ratings;
+    }
+
+    public function setRatings(string $ratings): self
+    {
+        $this->ratings = $ratings;
 
         return $this;
     }

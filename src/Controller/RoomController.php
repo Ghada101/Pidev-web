@@ -19,11 +19,13 @@ class RoomController extends AbstractController
     /**
      * @Route("/", name="app_room_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
         $rooms = $entityManager
             ->getRepository(Room::class)
             ->findAll();
+    
+        $rooms=$paginator->paginate($rooms, $request->query->getInt('page', 1), 2);
 
         return $this->render('room/index.html.twig', [
             'rooms' => $rooms,
@@ -127,5 +129,4 @@ class RoomController extends AbstractController
             );
         return $this->redirectToRoute('app_room_index');
     }
-
 }
