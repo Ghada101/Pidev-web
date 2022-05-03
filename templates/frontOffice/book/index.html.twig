@@ -1,4 +1,4 @@
-{% extends 'baseFront.html.twig' %}
+{% extends 'frontOffice/baseFront.html.twig' %}
 
 {% block title %}Book index{% endblock %}
 
@@ -42,7 +42,7 @@
                     <td>{{ book.startdate ? book.startdate|date('Y-m-d') : '' }}</td>
                     <td>{{ book.enddate ? book.enddate|date('Y-m-d') : '' }}</td>
                         <td>
-                            {{ include('book/_delete_form.html.twig') }}
+                            {{ include('frontOffice/book/_delete_form.html.twig') }}
                         </td>
                         <td>
                         <div class="blog__details__comment__item__text">

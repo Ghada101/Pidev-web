@@ -40,7 +40,7 @@ class HotelController extends AbstractController
         }
         $hotels=$paginator->paginate($allhotel, $request->query->getInt('page', 1), 3);
         
-        return $this->render('hotel/index.html.twig', [
+        return $this->render('backOffice/hotel/index.html.twig', [
             'hotels' => $hotels,
             'form' => $form->createView()
             ]);
@@ -57,7 +57,7 @@ class HotelController extends AbstractController
 
         $hotels=$paginator->paginate($hotels, $request->query->getInt('page', 1), 1);
 
-        return $this->render('hotel/indexFront.html.twig', [
+        return $this->render('frontOffice/hotel/indexFront.html.twig', [
         'hotels' => $hotels,
     ]);
     }
@@ -91,7 +91,7 @@ class HotelController extends AbstractController
             return $this->redirectToRoute('app_hotel_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('hotel/new.html.twig', [
+        return $this->render('backOffice/hotel/new.html.twig', [
             'hotel' => $hotel,
             'form' => $form->createView(),
         ]);
@@ -102,7 +102,7 @@ class HotelController extends AbstractController
      */
     public function show(Hotel $hotel): Response
     {
-        return $this->render('hotel/show.html.twig', [
+        return $this->render('backOffice/hotel/show.html.twig', [
             'hotel' => $hotel,
         ]);
     }
@@ -134,7 +134,7 @@ class HotelController extends AbstractController
             );
             return $this->redirectToRoute('app_hotel_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('hotel/edit.html.twig', [
+        return $this->render('backOffice/hotel/edit.html.twig', [
             'hotel' => $hotel,
             'form' => $form->createView(),
         ]);
@@ -171,11 +171,11 @@ class HotelController extends AbstractController
 
         if ($request->get('path')) {
             return new JsonResponse([
-                'content' => $this->renderView('hotel/contentajax.html.twig', ["hotels" => $hotels])
+                'content' => $this->renderView('backOffice/hotel/contentajax.html.twig', ["hotels" => $hotels])
             ]);
         }
         return new JsonResponse([
-            "html" => $this->renderView("hotel/index.html.twig", ["hotels" => $hotels]),
+            "html" => $this->renderView("backOffice/hotel/index.html.twig", ["hotels" => $hotels]),
             ]);
         return Response::json($allhotel);
 
@@ -193,7 +193,7 @@ class HotelController extends AbstractController
     public function rating(Request $request, HotelRepository $hotelRepository, EntityManagerInterface $entityManager): Response
     {
 
-       /*   $hotel = $hotelRepository->find(112);
+        /*   $hotel = $hotelRepository->find(112);
         $hotel->setRating(5);
         $hotelRepository->add($hotel);
   */

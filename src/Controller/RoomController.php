@@ -27,7 +27,7 @@ class RoomController extends AbstractController
     
         $rooms=$paginator->paginate($rooms, $request->query->getInt('page', 1), 2);
 
-        return $this->render('room/index.html.twig', [
+        return $this->render('backOffice/room/index.html.twig', [
             'rooms' => $rooms,
         ]); 
     } 
@@ -40,7 +40,7 @@ class RoomController extends AbstractController
             //dd($rooms);
         $rooms=$paginator->paginate($rooms,$request->query->getInt('page',1),2);
 
-        return $this->render('room/indexFront.html.twig', [
+        return $this->render('frontOffice/room/indexFront.html.twig', [
             'rooms' => $rooms,
             'idHotel' => $idHotel,
         ]);
@@ -76,7 +76,7 @@ class RoomController extends AbstractController
             return $this->redirectToRoute('app_room_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('room/new.html.twig', [
+        return $this->render('backOffice/room/new.html.twig', [
             'room' => $room,
             'form' => $form->createView(),
         ]);
@@ -87,7 +87,7 @@ class RoomController extends AbstractController
      */
     public function show(Room $room): Response
     {
-        return $this->render('room/show.html.twig', [
+        return $this->render('backOffice/room/show.html.twig', [
             'room' => $room,
         ]);
     }
@@ -109,7 +109,7 @@ class RoomController extends AbstractController
             return $this->redirectToRoute('app_room_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('room/edit.html.twig', [
+        return $this->render('backOffice/room/edit.html.twig', [
             'room' => $room,
             'form' => $form->createView(),
         ]);

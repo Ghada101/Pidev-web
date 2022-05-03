@@ -31,7 +31,7 @@ class HotelchainController extends AbstractController
 
         $hotelchains=$paginator->paginate($hotelchains, $request->query->getInt('page', 1), 1);
 
-        return $this->render('hotelchain/index.html.twig', [
+        return $this->render('backOffice/hotelchain/index.html.twig', [
             'hotelchains' => $hotelchains,
         ]);
 
@@ -60,7 +60,7 @@ class HotelchainController extends AbstractController
             return $this->redirectToRoute('app_hotelchain_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('hotelchain/new.html.twig', [
+        return $this->render('backOffice/hotelchain/new.html.twig', [
             'hotelchain' => $hotelchain,
             'form' => $form->createView(),
         ]);
@@ -71,7 +71,7 @@ class HotelchainController extends AbstractController
      */
     public function show(Hotelchain $hotelchain): Response
     {
-        return $this->render('hotelchain/show.html.twig', [
+        return $this->render('backOffice/hotelchain/show.html.twig', [
             'hotelchain' => $hotelchain,
         ]);
     }
@@ -94,7 +94,7 @@ class HotelchainController extends AbstractController
             return $this->redirectToRoute('app_hotelchain_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('hotelchain/edit.html.twig', [
+        return $this->render('backOffice/hotelchain/edit.html.twig', [
             'hotelchain' => $hotelchain,
             'form' => $form->createView(),
         ]);
