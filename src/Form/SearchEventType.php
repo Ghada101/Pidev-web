@@ -69,7 +69,8 @@ public function buildForm(FormBuilderInterface $builder, array $options)
 {
     $resolver->setDefaults([
         'data_class' => SearchController::class,
-        'method' => 'GET',
+        'method' => '
+        GET',
         'csrf_protection' => false
     ]);
 }

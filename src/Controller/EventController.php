@@ -11,6 +11,7 @@ use App\Repository\EventRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +26,13 @@ class EventController extends AbstractController
      */
     public function index(EventRepository $eventRepository): Response
     {
-        return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
-        ]);
+        $events = $eventRepository->findAll();
+        $data = array();
+        foreach ($events as $key => $event){
+            $data[$key]['title'] = $event->getTitle();
+
+        }
+        return new JsonResponse($data);
     }
     /**
      * @Route("/location", name="app_leaflet")
@@ -42,7 +47,7 @@ class EventController extends AbstractController
      */
     public function pdfSecond(EventRepository $eventRepository): Response
     {
-        return $this->render('event/pdf.html.twig', [
+        return $this->render('event/pdf .html.twig', [
             'events' => $eventRepository->findAll(),
         ]);
 
