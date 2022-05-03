@@ -5,7 +5,6 @@
 {% block body %}
 
 <body>
-   
     <!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_2">
         <div class="container">
@@ -13,139 +12,13 @@
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
                         <h3>Hotels</h3>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!--/ bradcam_area  -->
-
-    <!-- where_togo_area_start  
-    <div class="where_togo_area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-3">
-                    <div class="form_area">
-                        <h3>Where you want to go?</h3>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="search_wrap">
-                        <form class="search_form" action="#">
-                            <div class="input_field">
-                                <input type="text" placeholder="Where to go?">
-                            </div>
-                            <div class="input_field">
-                                <input id="datepicker" placeholder="Date">
-                            </div>
-                            <div class="input_field">
-                                <select>
-                                    <option data-display="Travel type">Travel type</option>
-                                    <option value="1">Some option</option>
-                                    <option value="2">Another option</option>
-                                </select>
-                            </div>
-                            <div class="search_btn">
-                                <button class="boxed-btn4 " type="submit" >Search</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-     where_togo_area_end  -->
-
-
-    <div class="popular_places_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="filter_result_wrap">
-                        <h3>Filter Result</h3>
-                        <div class="filter_bordered">
-                            <div class="filter_inner">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="single_select">
-                                            <select>
-                                                <option data-display="Country">Country</option>
-                                                <option value="1">Africa</option>
-                                                <option value="2">canada</option>
-                                                <option value="4">USA</option>
-                                              </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single_select">
-                                            <select>
-                                                <option data-display="Travel type">Travel type</option>
-                                                <option value="1">advance</option>
-                                                <option value="2">advance</option>
-                                                <option value="4">premium</option>
-                                              </select>
-                                        </div>
-                                    </div>
-                                     
-                                </div>
-
-
-                            </div>
-
-                            <div class="reset_btn">
-                                <button class="boxed-btn4" type="submit">Reset</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-             
-                <div class="col-lg-8">
-                    <div class="row">
-                      {% for hotel in hotels %}
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="{{ asset('uploads/') ~hotel.hotelImg}}" alt=""
-                                    style="width:100%;height:100%;
-                                    display: block; margin-left: auto; margin-right: auto;" }>
-                                <a class ="prise" href="{{ path('indexFront' , {'idHotel': hotel.idHotel }) }}">{{ hotel.hotelLocation }}</a>
- 
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3>{{ hotel.hotelName }}</h3></a>
-                                    <a href="#"><h4>{{ hotel.hotelDescription }}</h4></a>
-                                    <p><i class="fa fa-phone" aria-hidden="true"> </i> {{ hotel.hotelPhone  }}</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            <a href="#">{{ hotel.fkHotelchain.hotelchainName }}</a>
-{#                                             <a class="btn btn-success" href="{{ path('app_room_by_hotel', {'idHotel': hotel.idHotel }) }}">show</a>
- #}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        
-                    </div> 
-                     <div class="navigation">
-                            {{ knp_pagination_render(hotels) }}
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-
-
-    
-
+    {{ include('hotel/scriptRatings.html.twig') }}
   <!-- Modal -->
   <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -158,8 +31,7 @@
     </div>
   </div>
     <!-- link that opens popup -->
-    
 
-    
+
 </body>
 {% endblock %}

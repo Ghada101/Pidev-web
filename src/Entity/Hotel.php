@@ -89,6 +89,11 @@ class Hotel
      */
     private $fkHotelchain;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $rating;
+
    
 
    
@@ -178,6 +183,18 @@ class Hotel
     public function setFkHotelchain(?Hotelchain $fkHotelchain): self
     {
         $this->fkHotelchain = $fkHotelchain;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
 
         return $this;
     }
