@@ -28,7 +28,6 @@ class Book
      * @Assert\NotBlank
      * @Assert\GreaterThan("today")
      * @Groups("post:read")
-     
 
      */
     private $startdate;
@@ -60,7 +59,7 @@ class Book
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id" , nullable=true)
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
      * })
      */
     private $iduser;
