@@ -1,0 +1,77 @@
+{% extends 'frontOffice/baseFront.html.twig' %}
+
+
+{% block title %}HotelRoom index{% endblock %}
+
+{% block body %}
+<body>
+    <!-- bradcam_area  -->
+    <div class="bradcam_area bradcam_bg_4 mb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <h3>Rooms</h3>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area   -->
+    <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_80">
+                        <h3>Take a Look !</h3>
+                    </div>
+                </div>
+            </div>
+
+<!--================Blog Area =================-->
+    <section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar"> 
+                    
+                    {% for room in rooms %}
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                            <img class="card-img rounded-0" src="{{ asset('uploads/') ~room.image}}" alt="">
+                            <a href="{{ path('app_book_new' , {'idroom': room.idRoom}) }}"class="blog_item_date">
+                                    <h3>Book</h3>
+                                    <p>NOW</p>
+                                </a>
+                            </div>
+
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="single-blog.html">
+                                    <h2> Capacity: {{ room.roomCapacity }}</h2>
+                                    <h2> Type: {{ room.roomType}}</h2>
+                                </a>
+                                <ul class="blog-info-link">
+                                    <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i>
+                            {{ room.price }} DT</a> </li>
+                                    <li><a href="#"><i class="fa fa-building" aria-hidden="true"></i> {{ room.fkHotel.hotelName }} </a></li>
+                                </ul>
+                            </div>
+                        </article> 
+
+                        
+                         
+                        {% endfor %}
+                    </div>
+                </div>
+              
+               
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(rooms) }}
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+
+</body>
+
+{% endblock %}

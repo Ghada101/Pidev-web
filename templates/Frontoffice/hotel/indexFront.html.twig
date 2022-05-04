@@ -1,0 +1,37 @@
+{% extends 'frontOffice/baseFront.html.twig' %}
+
+{% block title %}Hotel index{% endblock %}
+
+{% block body %}
+
+<body>
+    <!-- bradcam_area  -->
+    <div class="bradcam_area bradcam_bg_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <h3>Hotels</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+    {{ include('frontOffice/hotel/scriptRatings.html.twig') }}
+  <!-- Modal -->
+  <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="serch_form">
+            <input type="text" placeholder="Search" >
+            <button type="submit">search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- link that opens popup -->
+
+
+</body>
+{% endblock %}
