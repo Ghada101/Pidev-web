@@ -137,9 +137,14 @@
       <path value="$PROJECT_DIR$/vendor/vangrg/profanity-bundle" />
       <path value="$PROJECT_DIR$/vendor/nlpcloud/nlpcloud-client" />
       <path value="$PROJECT_DIR$/vendor/nategood/httpful" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-time-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />

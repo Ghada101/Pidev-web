@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Topic
@@ -24,6 +26,7 @@ class Topic
      * @ORM\Column(name="topic_Id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups ("topic")
      */
     private $topicId;
 
@@ -33,6 +36,7 @@ class Topic
      * @ORM\Column(name="topic_title", type="string", length=255, nullable=false)
      * @ProfanityAssert\ProfanityCheck
      * @Assert\NotBlank(message="Title is required")
+     * @Groups ("topic")
      */
     private $topicTitle;
 
@@ -48,6 +52,7 @@ class Topic
      * )
      * @ProfanityAssert\ProfanityCheck
      * @Assert\NotBlank(message="Description is required")
+     * @Groups ("topic")
      */
     private $topicDescription;
 
@@ -55,6 +60,7 @@ class Topic
      * @var int
      *
      * @ORM\Column(name="topic_num_subjects", type="integer", nullable=false)
+     * @Groups ("topic")
      */
     private $topicNumSubjects;
 
@@ -62,6 +68,7 @@ class Topic
      * @var \DateTime
      *
      * @ORM\Column(name="topic_date", type="date", nullable=false)
+     * @Groups ("topic")
      */
     private $topicDate;
 
@@ -69,6 +76,7 @@ class Topic
      * @var int|null
      *
      * @ORM\Column(name="accepttopic", type="integer", nullable=true)
+     * @Groups ("topic")
      */
     private $accepttopic = '0';
 
@@ -76,6 +84,7 @@ class Topic
      * @var int|null
      *
      * @ORM\Column(name="hidetopic", type="integer", nullable=true)
+     * @Groups ("topic")
      */
     private $hidetopic = '0';
 
@@ -86,12 +95,14 @@ class Topic
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="User_Id", referencedColumnName="id")
      * })
+     * @Groups ("topic")
      */
     private $user;
     /**
      * @var string|null
      *
      * @ORM\Column(name="topic_image", type="string", length=255, nullable=true)
+     * @Groups ("topic")
      */
     private $topicImage;
     /**

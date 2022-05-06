@@ -6,15 +6,20 @@ use App\Entity\User;
 use App\Form\TopicType;
 use App\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use NLPCloud\NLPCloud;
 use phpDocumentor\Reflection\Types\Null_;
 use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-
+use Knp\Bundle\TimeBundle\DateTimeFormatter;
 /**
  * @Route("/topic")
  */
@@ -22,18 +27,17 @@ class TopicController extends AbstractController
 {
     /**
      * @Route("/show", name="app_topic_index", methods={"GET", "POST"})
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request,TopicRepository $topicRepository): Response
     {
         $topic = new Topic();
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
-      //  $client = new NLPCloud('opus-mt-en-fr','4352881aedef35e459f323edac54e9d865119731');
 
-       // $client->tokens('4352881aedef35e459f323edac54e9d865119731');
-      //  $client->sentiment("hello");
-     //  $this->json($client.translation("Hello world!"));
+      /* $client = new NLPCloud('opus-mt-en-fr','4352881aedef35e459f323edac54e9d865119731');
+
+        $client->translation("Hello world!");*/
 
     //  $content = json_decode($client->translation('hello'), true);
 
@@ -48,9 +52,12 @@ class TopicController extends AbstractController
             'topics' => $topicRepository->findAll(),
             'topic' => $topic,
             'form' => $form->createView(),
-           //'client' => ,
+            //'client' => $client,
+
         ]);
-    }
+
+        }
+
     /**
      * @Route("/showTransl/{idTopic}", name="app_topic_index_Transl", methods={"GET", "POST"})
      */
@@ -59,7 +66,7 @@ class TopicController extends AbstractController
         $topic =$topicRepository->find($idTopic);
         $topic->setTopicTitle($translator->trans($topic->getTopicTitle()));
         $topic->setTopicDescription($translator->trans($topic->getTopicDescription()));
-        return $this->redirectToRoute('app_topic_index', [], Response::HTTP_SEE_OTHER);
+       // return $this->redirectToRoute('app_topic_index', [], Response::HTTP_SEE_OTHER);
 
         return $this->render('FrontOffice/topic/show.html.twig', [
             'topicc' => $topic,
@@ -69,10 +76,13 @@ class TopicController extends AbstractController
     /**
      * @Route("/showBack", name="app_topic_index_Back", methods={"GET", "POST"})
      */
-    public function indexBack(TopicRepository $topicRepository): Response
-    {
+    public function indexBack(TopicRepository $topicRepository,DateTimeFormatter $dateTimeFormatter): Response
+    {   $someDate = new \DateTime('2022-04-18'); //or $entity->publishedDate()
+        $now = new \DateTime();
+        $agoTime = $dateTimeFormatter->formatDiff($someDate, $now);
         return $this->render('BackOffice/topic/show.html.twig', [
             'topics' => $topicRepository->findAll(),
+            'agoTime' => $agoTime,
 
         ]);
     }
@@ -156,10 +166,17 @@ class TopicController extends AbstractController
     /**
      * @Route("/Accept/{idTopic}", name="app_topic_Accept", methods={"GET", "POST"})
      */
-    public function AcceptTopic(TopicRepository $topicRepository,Topic $idTopic): Response
+    public function AcceptTopic(TopicRepository $topicRepository,Topic $idTopic,\Swift_Mailer $mailer): Response
     {
 
         $idTopic->setAccepttopic(1);
+        $message = (new \Swift_Message('Topic Accepted '))
+            ->setFrom('boussettaoussama7@gmail.com')
+            ->setTo('oussama.boussetta@esprit.tn')
+            ->setBody($this->renderView(
+                'BackOffice/topic/mailProfanity.html.twig',['topic'=>$idTopic->getTopicTitle(),'user'=>$idTopic->getUser()->getName()]
+                ), 'text/html');
+        $mailer->send($message);
         $this->getDoctrine()->getManager()->flush();
 
         return $this->redirectToRoute('app_topic_index_Back', [], Response::HTTP_SEE_OTHER);
@@ -175,5 +192,117 @@ class TopicController extends AbstractController
             'topics' => $topicRepository->findAll(),
         ]);
     }
+
+//   /**
+//     * @Route("/search/{TopicName}", name="app_topic_search", methods={"GET"})
+//     */
+//    public function search(TopicRepository $topicRepository,$TopicName): Response
+//    {
+//        $response = new JsonResponse();
+//        if ($TopicName != "") {
+//            $topics = $topicRepository->findByTitle($TopicName);
+//            $response->setData(($topics));
+//        } else{
+//            $response->setData([]);
+//        }
+//        $response->headers->set('Content-Type', 'application/json');
+//       return  $response;
+//    }
+//    /**
+//     * @Route("/topics/allTopics", name="app_topicsearchall", methods={"GET"})
+//     */
+//    public function searchallTopic(): Response
+//    {
+//        $rep = $this->getDoctrine()->getRepository(Topic::class);
+//        $topics = $rep->findallTopicss();
+//        $response = new JsonResponse();
+//        $response->setData($topics);
+//        $response->headers->set('Content-Type', 'application/json');
+//        return  $response;
+//    }
+//
+    /**
+     * @Route("/searchTopics/firas", name="apptopicsearch")
+     */
+public function search(Request $request,SerializerInterface $serializer)
+{
+
+    $rep = $this->getDoctrine()->getRepository(Topic::class);
+    $requestString = $request->get('searchValue');
+    $topics =  $rep->findByTitle($requestString);
+    $jsoncontent = $serializer->serialize($topics, 'json', ['groups' => ['topics']]);
+    $retour = json_encode($jsoncontent);
+    return new Response($retour, 200, [
+        'Content-Type' => 'application/json'
+    ]);
+
+}
+
+    /**
+     * @Route("/mobile/listTopics", name="mobile_liste_topic", methods={"GET"})
+     */
+    public function liste_topics(Request $request,NormalizerInterface $Normalizer)
+    {
+        $repository = $this->getDoctrine()->getRepository(Topic::class);
+        $topics = $repository->findAll();
+        $jsonContent = $Normalizer->normalize($topics, 'json',['groups'=>'topic']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/mobile/topicbyid/{id}", name="mobile_topicbyid", methods={"GET"})
+     */
+    public function topicbyid(Request $request,$id,NormalizerInterface $Normalizer)
+    {
+        $repository = $this->getDoctrine()->getRepository(Topic::class);
+        $topic = $repository->find($id);
+        $jsonContent = $Normalizer->normalize($topic, 'json',['groups'=>'topic']);
+        return new Response(json_encode($jsonContent));
+    }
+    /**
+     * @Route("/mobile/delete/{id}", name="mobile_delete_topic")
+     */
+    public function deletetopic(Request $request,$id,NormalizerInterface $Normalizer)
+    {
+        $repository = $this->getDoctrine()->getRepository(Topic::class);
+        $topic = $repository->find($id);
+        $em= $this->getDoctrine()->getManager();
+        $em->remove($topic);
+        $em->flush();
+        return new Response("topic deleted successfully");
+    }
+    /**
+     * @Route("/mobile/modifier/{id}", name="mobile_modifier_topic",  )
+     */
+    public function modifiertopic(Request $request,$id,NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Topic::class);
+        $topic = $repository->find($id);
+        $topic->setTopicDescription($request->get('description'));
+        $topic->setTopicTitle($request->get('titre'));
+        $em->flush();
+        return new Response("topic updated successfully");
+    }
+    /**
+     * @Route("/mobile/ajouter", name="mobile_ajouter_topic")
+     */
+    public function ajoutertopic(Request $request,NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $topic=new Topic();
+        $topic->setTopicDescription($request->get('description'));
+        $topic->setTopicTitle($request->get('titre'));
+        $topic->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+        $topic->setTopicDate(new \DateTime('now'));
+        $topic->setTopicNumSubjects(0);
+
+        $em->persist($topic);
+        $em->flush();
+        return new Response("topic added successfully");
+    }
+
+
+
 
 }

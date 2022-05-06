@@ -56,6 +56,24 @@ class SubjectRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function findNextSubject(int $value) : array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.subjectId = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findPreviousSubject(int $value) : array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.subjectId = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     public function translate(TranslatorInterface $translator,String $value) : String
     {
@@ -92,31 +110,7 @@ class SubjectRepository extends ServiceEntityRepository
 
     }
 
-    public function findByidtopicPrevious(int $value) : array
-    { $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery(
-            'WITH CTE as (
-                  SELECT
-                    RN = ROW_NUMBER() OVER (ORDER BY EmployeeID),
-                    *
-                  FROM HumanResources.Employee
-                )
-                SELECT
-                  [Previous Row].*,
-                  [Current Row].*,
-                  [Next Row].*
-                FROM CTE [Current Row]
-                LEFT JOIN CTE [Previous Row] ON
-                  [Previous Row].RN = [Current Row].RN - 1
-                LEFT JOIN CTE [Next Row] ON
-                  [Next Row].RN = [Current Row].RN + 1
-                WHERE
-                  [Current Row].EmployeeID = 5 '
 
-        )->setParameter('val', $value);
-        return  $query->getResult();
-
-    }
     // /**
     //  * @return Subject[] Returns an array of Subject objects
     //  */

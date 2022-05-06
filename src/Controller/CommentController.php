@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/comment")
  */
@@ -34,10 +34,12 @@ class CommentController extends AbstractController
     /**
      * @Route("/show/{IdSubject}", name="app_comment_show", methods={"GET", "POST"})
      */
-    public function new(Request $request, CommentRepository $commentRepository,SubjectRepository $subjectRepository,$IdSubject): Response
+    public function new(Request $request, CommentRepository $commentRepository,SubjectRepository $subjectRepository,$IdSubject,PaginatorInterface $paginator): Response
     {
         $comment = new Comment();
         $subject = $subjectRepository->find($IdSubject);
+        $subjectNext = $subjectRepository->findNextSubject( $IdSubject+1);
+        $subjectPrevious = $subjectRepository->findPreviousSubject( $IdSubject-1);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -46,6 +48,7 @@ class CommentController extends AbstractController
             $comment->setSubject($this->getDoctrine()->getRepository(Subject::class)->findOneBy(['subjectId' => $IdSubject]));
             $comment->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
             $subject->setSubjectNumComments($subject->getSubjectNumComments()+1);
+
             $commentRepository->add($comment);
             return $this->redirectToRoute('app_comment_show', ['IdSubject'=> $IdSubject], Response::HTTP_SEE_OTHER);
         }
@@ -54,6 +57,8 @@ class CommentController extends AbstractController
             '$idSubject' => $IdSubject,
             'comment' => $comment,
             'subject' => $subject,
+            'subjectNexts' => $subjectNext,
+            'subjectPreviouss' => $subjectPrevious,
             'form' => $form->createView(),
         ]);
 
@@ -79,6 +84,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCommentDate(new \DateTime("now"));
             $commentRepository->add($comment);
             return $this->redirectToRoute('app_comment_show', ['IdSubject'=> $comment->getSubject()->getSubjectId()], Response::HTTP_SEE_OTHER);
         }
@@ -149,7 +155,7 @@ class CommentController extends AbstractController
         $likeee=$this->getDoctrine()->getRepository(Likee::class)->findOneBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
 
         if($dislikeee==null){
-
+          if($idcom->getNbdislike()==0){
             $idcom->setNbdislike($idcom->getNbdislike()+1);
             $dislike = new Dislikee();
             $dislike->setCommentid($idcom);
@@ -163,11 +169,53 @@ class CommentController extends AbstractController
 
             }
             $entityManager->persist($dislike);
-            $entityManager->flush();}
+            $entityManager->flush();
+            }
+            elseif ($idcom->getNbdislike()==1){
+                $entityManager->remove($dislikeee);
+            }
+
+
+        }
         else
         {
             dump($dislikeee);
         }
         return $this->redirectToRoute('app_comment_show', [ 'IdSubject' => $IdSubject->getSubjectId()], Response::HTTP_SEE_OTHER);
+    }
+    /**
+     * @Route("/jaime", name="app_commentjaime", methods={"GET, POST"})
+     */
+    public function likeeee(Request $request, EntityManagerInterface $entityManager,Subject $IdSubject): Response
+    {
+        $post_data = $request->request->get('id');
+
+        $idcom=$this->getDoctrine()->getRepository(Comment::class)->find($post_data);
+        $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findoneBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+        $likeee=$this->getDoctrine()->getRepository(likee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+        if($likeee==null){
+
+            $idcom->setNblike($idcom->getNblike()+1);
+            $like = new likee();
+            $like->setCommentid($idcom);
+            $user=$this->getDoctrine()->getRepository(User::class)->find(90);
+            $like->setUserid($user);
+            $entityManager->persist($like);
+            if($dislikeee!=null)
+            {
+                $idcom->setNbdislike($idcom->getNbdislike()-1);
+                $entityManager->remove($dislikeee);
+
+            }
+            $entityManager->flush();}
+        else
+        {
+            dump($likeee);
+        }
+        $retour=true;
+        return new Response($retour, 200, [
+            'Content-Type' => 'application/json'
+        ]);
+
     }
 }

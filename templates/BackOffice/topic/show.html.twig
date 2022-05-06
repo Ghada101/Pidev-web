@@ -2,56 +2,15 @@
 
 {% block title %}Topic{% endblock %}
 
-{% block bodyn %}
-    <h1>Topic</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>TopicId</th>
-                <td>{{ topic.topicId }}</td>
-            </tr>
-            <tr>
-                <th>TopicTitle</th>
-                <td>{{ topic.topicTitle }}</td>
-            </tr>
-            <tr>
-                <th>TopicDescription</th>
-                <td>{{ topic.topicDescription }}</td>
-            </tr>
-            <tr>
-                <th>TopicNumSubjects</th>
-                <td>{{ topic.topicNumSubjects }}</td>
-            </tr>
-            <tr>
-                <th>TopicDate</th>
-                <td>{{ topic.topicDate ? topic.topicDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Accepttopic</th>
-                <td>{{ topic.accepttopic }}</td>
-            </tr>
-            <tr>
-                <th>Hidetopic</th>
-                <td>{{ topic.hidetopic }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_topic_index') }}">back to list</a>
-
-    <a href="{{ path('app_topic_edit', {'topicId': topic.topicId}) }}">edit</a>
-
-    {{ include('topic/_delete_form.html.twig') }}
-{% endblock %}
 {% block body %}
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">All Topics </h6>
+        <input id="search" type="text" placeholder="Search..">
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="t" >
                 <thead style="background-color: #00d363">
                 <tr>
                     <th>Poster Name</th>
@@ -60,7 +19,6 @@
                     <th>Num of Subjects</th>
                     <th>Post Date </th>
                     <th>Action</th>
-
                 </tr>
                 </thead>
                 <tfoot style="background-color: #1cc88a">
@@ -73,31 +31,67 @@
                     <th>Action</th>
                 </tr>
                 </tfoot>
+
+                <tbody id="all">
                 {% for topic in topics %}
-                <tbody>
                 <tr>
                     <td>{{ topic.user.name }} </td>
                     <td><a href="{{ path('app_subject_indexBack',{'IdTopic':topic.topicId}) }}">{{ topic.topicTitle }}</a></td>
                     <td>{{ topic.topicDescription }}</td>
                     <td>{{ topic.topicNumSubjects }}</td>
-                    <td>{{ topic.topicDate ? topic.topicDate|date('Y-m-d') : '' }}</td>
+                    <td>{{ topic.topicDate | ago (locale='en')}}</td>
                     <td>
                       <li> {{ include('BackOffice/topic/_delete_form.html.twig') }}</li>
                         {% if topic.accepttopic==0%}
-                        <li> <a class="fa fa-check-square" href="{{ path('app_topic_Accept',{'idTopic':topic.topicId}) }}">Accept</a></li>
+                        <li> <a class="fa fa-check-square" href="{{ path('app_topic_Accept',{'idTopic':topic.topicId}) }}" >Accept</a></li>
                         {% endif %}
                     </td>
-
-
                 </tr>
-
-                </tr>
-                </tbody>
                 {% endfor %}
+                </tbody>
 
             </table>
         </div>
     </div>
 </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{#    <script>#}
+{#        $(document).ready(function(){#}
+{#            $("#search_input").on("keyup", function() {#}
+{#                var value = $(this).val().toLowerCase();#}
+{#                $("#myTable tr").filter(function() {#}
+{#                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)#}
+{#                });#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+    <script>
+        $(document).ready(function(){
+            $("#search").on("keyup", function() {
+                var value = $(this).val();
+                $.ajax({
+                    url: '{{ path('apptopicsearch') }}',
+                    type: 'get',
+                    data: {'searchValue': value},
+                    success: function (retour) {
+                        if (retour) {
+                            $.each(JSON.parse(retour), function (index, obj) {
+
+                                $("#all tr").filter(function() {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+
+
+                            });
+                        }
+                    },
+                });
+                return false;
+                    });
+                    });
+    </script>
+
+
 {% endblock %}
 
