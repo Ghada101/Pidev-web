@@ -1,0 +1,80 @@
+
+
+<div id="whatToPrint">
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Mail address</th>
+            <th>Type</th>
+            <th>Active</th>
+            <th>Ban</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><img src="{{ asset('/profil/'~user.image) }}" alt="" width="150"></td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.type }}</td>
+                <td>{{ user.active ? 'Yes' : 'No' }}</td>
+                <td>{{ user.ban ? 'Yes' : 'No' }}</td>
+                <td>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<script>
+
+    async function generatePDF () {
+
+        document.getElementById("downloadButton").innerHTML = "Currently downloading, please wait";
+
+//Downloading
+
+        var downloading= document.getElementById("whatToPrint"); var doc = new jsPDF ('1', 'pt');
+
+        await html2canvas (downloading, {
+
+//allowTaint: true,
+
+//useCORS: true,
+
+            width: 550
+
+        }).then((canvas) => {
+
+//Canvas (convert to PNG)
+
+            doc. addImage (canvas. toDataURL("image/png"), 'PNG', 5, 5, 500, 200);
+
+        })
+
+        doc.save("Document.pdf");
+
+//End of downloading
+
+        document.getElementById("downloadButton").innerHTML = "Click to download";
+
+    }
+
+</script>
+
+</div>
