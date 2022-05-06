@@ -1,14 +1,21 @@
 <?php
 
-namespace APP\Entity;
+namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SubjectRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
 
 /**
  * Subject
  *
  * @ORM\Table(name="subject", indexes={@ORM\Index(name="fk_topic_Id", columns={"topic_Id"}), @ORM\Index(name="fk_useridsub", columns={"User_Id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=SubjectRepository::class)
+ * @Vich\Uploadable
  */
 class Subject
 {
@@ -25,6 +32,8 @@ class Subject
      * @var string
      *
      * @ORM\Column(name="subject_title", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Title is required")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $subjectTitle;
 
@@ -32,6 +41,8 @@ class Subject
      * @var string
      *
      * @ORM\Column(name="subject_description", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="Description is required")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $subjectDescription;
 
@@ -43,7 +54,7 @@ class Subject
     private $subjectNumComments;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="subject_date", type="date", nullable=false)
      */
@@ -55,7 +66,14 @@ class Subject
      * @ORM\Column(name="subject_image", type="string", length=255, nullable=true)
      */
     private $subjectImage;
-
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="subject_image", fileNameProperty="subjectImage")
+     *
+     * @var File|null
+     */
+    private $imageFile;
     /**
      * @var int
      *
@@ -90,5 +108,134 @@ class Subject
      */
     private $topic;
 
+    public function getSubjectId(): ?int
+    {
+        return $this->subjectId;
+    }
 
+    public function getSubjectTitle(): ?string
+    {
+        return $this->subjectTitle;
+    }
+
+    public function setSubjectTitle(string $subjectTitle): self
+    {
+        $this->subjectTitle = $subjectTitle;
+
+        return $this;
+    }
+
+    public function getSubjectDescription(): ?string
+    {
+        return $this->subjectDescription;
+    }
+
+    public function setSubjectDescription(string $subjectDescription): self
+    {
+        $this->subjectDescription = $subjectDescription;
+
+        return $this;
+    }
+
+    public function getSubjectNumComments(): ?int
+    {
+        return $this->subjectNumComments;
+    }
+
+    public function setSubjectNumComments(int $subjectNumComments): self
+    {
+        $this->subjectNumComments = $subjectNumComments;
+
+        return $this;
+    }
+
+    public function getSubjectDate(): ?\DateTimeInterface
+    {
+        return $this->subjectDate;
+    }
+
+    public function setSubjectDate(\DateTimeInterface $subjectDate): self
+    {
+        $this->subjectDate = $subjectDate;
+
+        return $this;
+    }
+
+    public function getSubjectImage(): ?string
+    {
+        return $this->subjectImage;
+    }
+
+    public function setSubjectImage(?string $subjectImage): self
+    {
+        $this->subjectImage = $subjectImage;
+
+        return $this;
+    }
+
+    public function getAcceptsubject(): ?int
+    {
+        return $this->acceptsubject;
+    }
+
+    public function setAcceptsubject(int $acceptsubject): self
+    {
+        $this->acceptsubject = $acceptsubject;
+
+        return $this;
+    }
+
+    public function getHidesubject(): ?int
+    {
+        return $this->hidesubject;
+    }
+
+    public function setHidesubject(int $hidesubject): self
+    {
+        $this->hidesubject = $hidesubject;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTopic(): ?Topic
+    {
+        return $this->topic;
+    }
+
+    public function setTopic(?Topic $topic): self
+    {
+        $this->topic = $topic;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+ 
 }

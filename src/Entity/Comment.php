@@ -1,14 +1,17 @@
 <?php
 
-namespace APP\Entity;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
  *
  * @ORM\Table(name="comment", indexes={@ORM\Index(name="fk_subject_Id", columns={"subject_Id"}), @ORM\Index(name="fk_useridcom", columns={"User_Id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=CommentRepository::class)
  */
 class Comment
 {
@@ -25,6 +28,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="comment_description", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="comment blank")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $commentDescription;
 
@@ -75,6 +80,95 @@ class Comment
      * })
      */
     private $subject;
+
+    public function getCommentId(): ?int
+    {
+        return $this->commentId;
+    }
+
+    public function getCommentDescription(): ?string
+    {
+        return $this->commentDescription;
+    }
+
+    public function setCommentDescription(string $commentDescription): self
+    {
+        $this->commentDescription = $commentDescription;
+
+        return $this;
+    }
+
+    public function getCommentDate(): ?\DateTimeInterface
+    {
+        return $this->commentDate;
+    }
+
+    public function setCommentDate(\DateTimeInterface $commentDate): self
+    {
+        $this->commentDate = $commentDate;
+
+        return $this;
+    }
+
+    public function getNblike(): ?int
+    {
+        return $this->nblike;
+    }
+
+    public function setNblike(?int $nblike): self
+    {
+        $this->nblike = $nblike;
+
+        return $this;
+    }
+
+    public function getNbdislike(): ?int
+    {
+        return $this->nbdislike;
+    }
+
+    public function setNbdislike(int $nbdislike): self
+    {
+        $this->nbdislike = $nbdislike;
+
+        return $this;
+    }
+
+    public function getCommentImage(): ?string
+    {
+        return $this->commentImage;
+    }
+
+    public function setCommentImage(?string $commentImage): self
+    {
+        $this->commentImage = $commentImage;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSubject(): ?Subject
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?Subject $subject): self
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
 
 
 }

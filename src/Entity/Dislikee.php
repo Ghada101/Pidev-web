@@ -1,14 +1,15 @@
 <?php
 
-namespace APP\Entity;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DislikeeRepository;
 
 /**
  * Dislikee
  *
  * @ORM\Table(name="dislikee", indexes={@ORM\Index(name="fk_commentIdd", columns={"commentId"}), @ORM\Index(name="fk_userrid", columns={"userID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=DislikeeRepository::class)
  */
 class Dislikee
 {
@@ -40,6 +41,35 @@ class Dislikee
      * })
      */
     private $commentid;
+
+    public function getDislikeid(): ?int
+    {
+        return $this->dislikeid;
+    }
+
+    public function getUserid(): ?User
+    {
+        return $this->userid;
+    }
+
+    public function setUserid(?User $userid): self
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    public function getCommentid(): ?Comment
+    {
+        return $this->commentid;
+    }
+
+    public function setCommentid(?Comment $commentid): self
+    {
+        $this->commentid = $commentid;
+
+        return $this;
+    }
 
 
 }
