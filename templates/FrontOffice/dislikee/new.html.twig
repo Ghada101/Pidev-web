@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Dislikee{% endblock %}
+
+{% block body %}
+    <h1>Create new Dislikee</h1>
+
+    {{ include('dislikee/_form.html.twig') }}
+
+    <a href="{{ path('app_dislikee_index') }}">back to list</a>
+{% endblock %}
