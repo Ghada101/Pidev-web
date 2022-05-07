@@ -1,0 +1,135 @@
+{% extends 'Frontoffice/basefront.html.twig'%}
+{% block body %}
+<div class="slider_area">
+    <div class="slider_active owl-carousel">
+        <div class="single_slider  d-flex align-items-center slider_bg_c1 overlay">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-12 col-md-12">
+                        <div class="slider_text text-center">
+                            <h3>Cars</h3>
+                            <p>We are delighted to provide you the best services !</p>
+                            <a href="#" class="boxed-btn3">Explore Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="single_slider  d-flex align-items-center slider_bg_c2 overlay">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-12 col-md-12">
+                        <div class="slider_text text-center">
+                            <h3>Cars</h3>
+                            <p>We are delighted to provide you the best services !</p>
+                           <a href="#" class="boxed-btn3">Explore Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="single_slider  d-flex align-items-center slider_bg_c3 overlay">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-12 col-md-12">
+                        <div class="slider_text text-center">
+                            <h3>Cars</h3>
+                            <p>We are delighted to provide you the best services !</p>
+                            <a href="#" class="boxed-btn3">Explore Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- slider_area_end -->
+
+
+    <div class="popular_places_area" style="margin-left: 50px">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="filter_result_wrap">
+                    <h3>Filter Result</h3>
+                    <div class="filter_bordered">
+                        <div class="filter_inner">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="single_select">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_select">
+                                        <select>
+                                            <option data-display="Travel type">Travel type</option>
+                                            <option value="1">advance</option>
+                                            <option value="2">advance</option>
+                                            <option value="4">premium</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="range_slider_wrap">
+                                        <span class="range">Prise range</span>
+                                        <div id="slider-range"></div>
+                                        <p>
+                                            <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-weight:400;">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8" style="margin-left: 5%">
+                <div class="row">
+                    {% for car in cars %}
+                        <div class="col-lg-5">
+                            <div class="col-lg-10 col-md-15">
+                                <div class="single_place">
+                                    <div class="thumb">
+                                        <img src="{{ asset('upload/images/'~car.carimage)}}" alt="" />
+                                        <a href="#" class="prise">{{ car.carbrand }}</a>
+                                    </div>
+                                    <div class="place_info">
+                                        <div class="form-row">
+                                            <div  style="background-color:{{ car.carcolor }};width:20px; height:20px;border-radius: 50%;margin-right: 5px"></div>
+                                            <a href="{{ path('app_rent_new',{'idAgency':idAgency,'idCar':car.idCar}) }}">
+                                                <h3>{{ car.namecar }}</h3>
+
+                                            </a>
+                                        </div>
+                                        <p>{{ car.carnumber}}</p>
+                                        <div class="rating_days d-flex justify-content-between">
+                                <span class="d-flex justify-content-center align-items-center">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <a href="#">(20 Review)</a>
+                                </span>
+                                            <div class="days">
+                                                <i class="fa fa-clock-o"></i>
+                                                <a href="#">5 Days</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(cars) }}
+        </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

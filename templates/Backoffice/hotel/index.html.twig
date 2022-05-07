@@ -1,0 +1,61 @@
+{% extends 'backOffice/baseBack.html.twig' %}
+
+{% block title %}Hotel index{% endblock %}
+
+{% block body %}
+
+<!-- Page Heading -->
+
+        <a class="btn btn-info mb-4"  href="{{ path('app_hotel_new') }}" style="margin-left:90%">Create new</a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %} 
+
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+        {% endfor %}
+        
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% endfor %}
+
+
+    <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">Hotel List</h4>
+            </div>
+                <div class="card-body">
+                
+                    <div class="table-responsive">
+                    
+        <form>
+	       <div class="sidebar-search">
+		      <div class="input-group custom-search-form">
+			    <input type="text" id="searchinput" name="search" class="form-control" placeholder="Search">
+		      </div>
+	       </div> 
+        </form>
+        {{ include('backOffice/hotel/contentajax.html.twig') }}
+    <div class="navigation">
+        {{ knp_pagination_render(hotels) }}
+    </div> 
+    </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
