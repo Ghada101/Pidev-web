@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Dislikee{% endblock %}
+
+{% block body %}
+    <h1>Edit Dislikee</h1>
+
+    {{ include('dislikee/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_dislikee_index') }}">back to list</a>
+
+    {{ include('dislikee/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,57 @@
+<?php //App%255CEntity%255CBook
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Table'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Table')),
+        clone ($p['Doctrine\\ORM\\Mapping\\Index'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Index')),
+        clone $p['Doctrine\\ORM\\Mapping\\Index'],
+        clone $p['Doctrine\\ORM\\Mapping\\Index'],
+        clone $p['Doctrine\\ORM\\Mapping\\Index'],
+        clone ($p['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
+        clone $p['Doctrine\\ORM\\Mapping\\Table'],
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'book',
+                'fkUser',
+                'fkRoom',
+                'fkHotelChain',
+                'fkHotel',
+                6 => '`book`',
+            ],
+            'indexes' => [
+                [
+                    $o[1],
+                    $o[2],
+                    $o[3],
+                    $o[4],
+                ],
+            ],
+            'columns' => [
+                1 => [
+                    'idUser',
+                ],
+                [
+                    'idRoom',
+                ],
+                [
+                    'idHotelChain',
+                ],
+                [
+                    'idHotel',
+                ],
+            ],
+            'repositoryClass' => [
+                5 => 'App\\Repository\\BookRepository',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[5],
+        $o[6],
+    ],
+    []
+); }];

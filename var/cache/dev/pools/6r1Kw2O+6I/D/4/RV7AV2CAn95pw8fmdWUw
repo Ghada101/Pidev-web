@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CTopic%2523getTopicNumSubjects
+
+return [PHP_INT_MAX, []];

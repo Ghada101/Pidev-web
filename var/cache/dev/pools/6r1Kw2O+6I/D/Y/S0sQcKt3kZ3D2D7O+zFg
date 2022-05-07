@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CRoom%2523getRoomCapacity
+
+return [PHP_INT_MAX, []];

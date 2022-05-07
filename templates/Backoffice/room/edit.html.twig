@@ -1,0 +1,68 @@
+{% extends 'backOffice/baseBack.html.twig' %}
+
+{% block title %}New HotelRoom{% endblock %}
+
+{% block body %}
+    <h1>Create new HotelRoom</h1>
+
+ <a href="{{ path('app_room_index') }}">
+ <span style="margin-left: 90%">Back to the list</span>
+  <i class="fa fa-angle-right"></i>
+  </a>
+{{form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+ 
+   <div class="form-group">
+    <label for="name">number</label>
+
+
+      {{ form_widget(form.nbrroom , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.nbrroom) }}
+  </div>
+  
+   <div class="form-group">
+    <label for="name">capacity</label>
+      {{ form_widget(form.roomCapacity , {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.roomCapacity) }}
+  </div>
+  
+   <div class="form-group">
+    <label for="name">type</label>
+
+
+      {{ form_widget(form.roomType , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.roomType) }}
+  </div>
+
+    <div class="form-group">
+    <label for="name">Price</label>
+
+
+      {{ form_widget(form.price , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.price) }}
+  </div>
+<div class="form-group">
+    <label for="name">image</label>
+
+
+      {{ form_widget(form.image , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.image) }}
+  </div>
+<div class="form-group">
+    <label for="name">hotel</label>
+
+
+      {{ form_widget(form.fkHotel , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.fkHotel) }}
+  </div>
+
+      <button class="btn btn-primary mb-2">{{ button_label|default('Save') }}</button>
+
+  {{ form_end(form) }} 
+
+{% endblock %}

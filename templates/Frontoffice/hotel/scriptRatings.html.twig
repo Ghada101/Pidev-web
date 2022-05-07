@@ -1,0 +1,164 @@
+<html> 
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<style>
+
+
+.star-rated {
+  float: left;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  font-size: 28px;
+  margin-top: -11px;
+  color: #c60000;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.star-rated > span {
+  display: inline-block;
+  position: relative;
+  width: 0.7em;
+  cursor: pointer;
+}
+.star-rated > span:hover:before,
+.star-rated > span:hover ~ span:before,
+.star-rated > span.upstar-rated:before,
+.star-rated > span.upstar-rated ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
+
+.rating {
+   width: 180px;
+}
+
+.rating__star {
+   cursor: pointer;
+   color: #dabd18b2;
+}
+</style>
+
+<body>
+<div class="popular_places_area">
+        <div class="container">
+  <div class="row">
+      <div class="col-lg-10">
+          <div class="row">
+              {% for hotel in hotels %}
+              <div class="col-lg-6 col-md-6">
+                  <div class="single_place">
+                      <div class="thumb">
+                          <img src="{{ asset('uploads/') ~hotel.hotelImg}}" alt=""
+                          style="width:100%;height:100%;
+                          display: block; margin-left: auto; margin-right: auto;" }>
+                      <a class ="prise" href="{{ path('indexFront' , {'idHotel': hotel.idHotel }) }}">{{ hotel.hotelLocation }}</a>
+                      </div>
+                      <div class="place_info">
+                          <a href="#"><h3>{{ hotel.hotelName }}</h3></a>
+                          <a href="#"><h4>{{ hotel.hotelDescription }}</h4></a>
+                          <p><i class="fa fa-phone" aria-hidden="true"> </i> {{ hotel.hotelPhone  }}</p>
+                          <div class="rating_days d-flex justify-content-between">        
+                              <div id="Appstar-rated" class="star-rated">
+                                <span id="spanstar-ratedFirst" title="5">☆</span>
+                                  <span id="spanstar-ratedsecond" title="4">☆</span>
+                                  <span id="spanstar-ratedthird" title="3">☆</span>
+                                  <span id="spanstar-ratedFourth" title="2">☆</span>
+                                  <span id="spanstar-ratedFifth" title="1">☆</span>
+                                  <button class="btn btn-info" id="test">test</button>
+                                </div> 
+                              
+
+                                        <div class="days">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            <a href="#">{{ hotel.fkHotelchain.hotelchainName }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                    </div> 
+                    <div class="navigation">
+                            {{ knp_pagination_render(hotels) }}
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+document.getElementById('Appstar-rated').addEventListener('click', function(event) {
+  if (event.target.tagName.toLowerCase() != 'span') return;
+  
+  if (event.target.classList.contains('upstar-rated')) {
+    event.target.classList.remove('upstar-rated');
+  } else {
+    Array.prototype.forEach.call(document.getElementsByClassName('upstar-rated'), function(el) {
+      el.classList.remove('upstar-rated');
+    });
+    event.target.classList.add('upstar-rated');
+    console.log("rating");
+  }
+});
+
+let rating = 0; 
+let star1 = document.getElementById('spanstar-ratedFirst'); 
+let star2 = document.getElementById('spanstar-ratedsecond'); 
+let star3 = document.getElementById('spanstar-ratedthird'); 
+let star4 = document.getElementById('spanstar-ratedFourth'); 
+let star5 = document.getElementById('spanstar-ratedFifth'); 
+star1.onclick=function() {
+rating = 5;
+  console.log(rating);
+}
+star2.onclick=function() {
+rating = 4;
+  console.log(rating);
+}
+star3.onclick=function() {
+rating = 3;
+  console.log(rating);
+}
+star4.onclick=function() {
+rating = 2;
+  console.log(rating);
+}
+star5.onclick=function() {
+rating = 1;
+  console.log(rating);
+
+}
+
+ function greeting() {
+        $.ajax({
+            type: "POST", 
+            url: "{{ path('app_hotel_rating')}}",
+            data:{ rating: rating, path:'ajax' },
+            success: function (response) {
+              //console.log(JSON.parse(response));
+              console.log("sucess");
+              
+            }
+        });
+    }
+
+let buttonVar = document.getElementById("test");
+buttonVar.onclick=function() {
+  greeting();
+  console.log("mchaat");
+}
+ 
+ 
+ 
+</script>
+{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<?php //App%255CEntity%255CHotel
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Table'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Table')),
+        clone ($p['Doctrine\\ORM\\Mapping\\Index'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Index')),
+        clone ($p['Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')),
+        clone ($p['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
+        clone $p['Doctrine\\ORM\\Mapping\\Table'],
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'hotel',
+                'fk_HotelChain',
+                4 => '`hotel`',
+            ],
+            'indexes' => [
+                [
+                    $o[1],
+                ],
+            ],
+            'columns' => [
+                1 => [
+                    'fk_HotelChain',
+                ],
+            ],
+            'message' => [
+                2 => 'There is already an hotel with this name',
+            ],
+            'fields' => [
+                2 => [
+                    'hotelName',
+                ],
+            ],
+            'groups' => [
+                2 => [
+                    'Default',
+                ],
+            ],
+            'repositoryClass' => [
+                3 => 'App\\Repository\\HotelRepository',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[2],
+        $o[3],
+        $o[4],
+    ],
+    []
+); }];

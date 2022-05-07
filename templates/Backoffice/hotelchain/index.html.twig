@@ -1,0 +1,80 @@
+{% extends 'backOffice/baseBack.html.twig' %}
+
+{% block title %}HotelChain index{% endblock %}
+
+{% block body %}
+
+
+<!-- Page Heading -->
+{# <a class="btn btn-success" href="{{ path('excel') }}">EXCEL</a>
+ #}
+        <a class="btn btn-info mb-4"  href="{{ path('app_hotelchain_new') }}" style="margin-left:90%">Create new</a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %} 
+
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+        {% endfor %}
+        
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% endfor %}
+    
+
+
+      <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">Hotel Chains</h4>
+            </div>
+                <div class="card-body">
+                
+                    <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    
+        <thead>
+            <tr>
+                
+                <th>HotelchainName</th>
+                <th>HotelchainStaff</th>
+                <th>HotelchainDescription</th>
+                <th>Phone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hotelchain in hotelchains %}
+            <tr>
+                
+                <td>{{ hotelchain.hotelchainName }}</td>
+                <td>{{ hotelchain.hotelchainStaff }}</td>
+                <td>{{ hotelchain.hotelchainDescription }}</td>
+                <td>{{ hotelchain.phone }}</td>
+                <td>          
+                <a class="btn btn-success" href="{{ path('app_hotelchain_show', {'idHotelchain': hotelchain.idHotelchain}) }}">show</a>
+                <a class="btn btn-warning" href="{{ path('app_hotelchain_edit', {'idHotelchain': hotelchain.idHotelchain}) }}">edit</a>
+                
+                
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+  </div>
+        <div class="navigation">
+                {{ knp_pagination_render(hotelchains) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

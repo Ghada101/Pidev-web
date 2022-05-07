@@ -1,0 +1,97 @@
+{% extends 'BackOffice/baseBackSubject.html.twig' %}
+
+{% block title %}Topic{% endblock %}
+
+{% block body %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">All Topics </h6>
+        <input id="search" type="text" placeholder="Search..">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="t" >
+                <thead style="background-color: #00d363">
+                <tr>
+                    <th>Poster Name</th>
+                    <th>Topic Title</th>
+                    <th>Topic Description</th>
+                    <th>Num of Subjects</th>
+                    <th>Post Date </th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tfoot style="background-color: #1cc88a">
+                <tr>
+                    <th >Poster Name</th>
+                    <th>Topic Title</th>
+                    <th>Topic Description</th>
+                    <th>Num of Subjects</th>
+                    <th>Post Date </th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+
+                <tbody id="all">
+                {% for topic in topics %}
+                <tr>
+                    <td>{{ topic.user.name }} </td>
+                    <td><a href="{{ path('app_subject_indexBack',{'IdTopic':topic.topicId}) }}">{{ topic.topicTitle }}</a></td>
+                    <td>{{ topic.topicDescription }}</td>
+                    <td>{{ topic.topicNumSubjects }}</td>
+                    <td>{{ topic.topicDate | ago (locale='en')}}</td>
+                    <td>
+                      <li> {{ include('BackOffice/topic/_delete_form.html.twig') }}</li>
+                        {% if topic.accepttopic==0%}
+                        <li> <a class="fa fa-check-square" href="{{ path('app_topic_Accept',{'idTopic':topic.topicId}) }}" >Accept</a></li>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{#    <script>#}
+{#        $(document).ready(function(){#}
+{#            $("#search_input").on("keyup", function() {#}
+{#                var value = $(this).val().toLowerCase();#}
+{#                $("#myTable tr").filter(function() {#}
+{#                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)#}
+{#                });#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+    <script>
+        $(document).ready(function(){
+            $("#search").on("keyup", function() {
+                var value = $(this).val();
+                $.ajax({
+                    url: '{{ path('apptopicsearch') }}',
+                    type: 'get',
+                    data: {'searchValue': value},
+                    success: function (retour) {
+                        if (retour) {
+                            $.each(JSON.parse(retour), function (index, obj) {
+
+                                $("#all tr").filter(function() {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+
+
+                            });
+                        }
+                    },
+                });
+                return false;
+                    });
+                    });
+    </script>
+
+
+{% endblock %}
+

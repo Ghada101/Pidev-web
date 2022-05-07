@@ -1,0 +1,29 @@
+{% extends 'Frontoffice/basefront.html.twig ' %}
+{% block body %}
+    <div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>actions</th>
+                /tr>
+        </thead><
+        <tbody>
+        {% for rent in rents %}
+            <tr>
+                <td>{{ rent.startdate ? rent.startdate|date('Y-m-d , h:m') : '' }}</td>
+                <td>{{ rent.enddate ? rent.enddate|date('Y-m-d , h:m') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_rent_edit', {'idrent': rent.idrent ,'idAgency':rent.idagency.idAgency,'idCar':rent.idCar.idCar}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dislikee{% endblock %}
+
+{% block body %}
+    <h1>Dislikee</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Dislikeid</th>
+                <td>{{ dislikee.dislikeid }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_dislikee_index') }}">back to list</a>
+
+    <a href="{{ path('app_dislikee_edit', {'dislikeid': dislikee.dislikeid}) }}">edit</a>
+
+    {{ include('dislikee/_delete_form.html.twig') }}
+{% endblock %}
