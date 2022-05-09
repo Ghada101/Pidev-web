@@ -1,0 +1,55 @@
+{% extends 'BackOffice/backfinal.html.twig' %}
+
+{% block title %}New Restaurant{% endblock %}
+
+{% block body %}
+    <h1>Create new Restaurant</h1>
+       <a href="{{ path('app_restaurant_index') }}">
+   <span style="margin-left: 90%">Back to list</span>
+   <i class="fa fa-angle-right"></i>
+  </a>
+  {{form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+   <div class="form-group">
+    <label for="name">Name</label>
+      {{ form_widget(form.nameRestau , {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.nameRestau ,  {'attr' : {'class' : 'text-danger'  }} ) }}
+  </div>
+  <div class="form-group">
+    <label for="name">Location</label>
+      {{ form_widget(form.locationRestau , {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.locationRestau  ,  {'attr' : {'class' : 'text-danger'  }} ) }}
+  </div>
+  <div class="form-group">
+    <label for="name">Phone</label>
+      {{ form_widget(form.phoneRestau , {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.phoneRestau ,  {'attr' : {'class' : 'text-danger'  }} ) }}
+  </div>
+  <div class="form-group">
+    <label for="name">Description</label>
+      {{ form_widget(form.descriptionRestau , {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.descriptionRestau ,  {'attr' : {'class' : 'text-danger'  }} ) }}
+  </div>
+  <div class="form-group">
+    <label for="name">Image</label>
+      {{ form_widget(form.restaurantimg , {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.restaurantimg  ,  {'attr' : {'class' : 'text-danger'  }} ) }}
+  </div>
+  <div class="form-group">
+    <label for="name">Category</label>
+      {{ form_widget(form.idcategory, {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.idcategory) }}
+  </div>
+<button class="btn btn-primary mb-2">{{ button_label|default('Save') }}</button>
+
+  {{ form_end(form) }} 
+
+{% endblock %}
+
+    

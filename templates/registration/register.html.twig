@@ -1,0 +1,167 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Register{% endblock %}#}
+{% block body %}
+    {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Flashy Notifier here - Molka Louati -->
+
+
+    <link rel="stylesheet" href="{{ asset('FlashyNotifier/css/flashy.css') }}">
+
+
+
+    <!-- Flashy Notifier here Molka Louati -->
+
+
+    <script src="{{ asset('FlashyNotifier/js/flashy.js') }}"></script>
+    <script src="//code.jquery.com/jquery.js"></script>
+
+
+    <!-- link that opens popup -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
+
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+
+
+
+
+    <body class="bg-gradient-primary">
+
+<div class="container">
+
+        <div class="card-body p-0">
+
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        <h1>Register</h1>
+
+
+        {{ form_start(registrationForm) }}
+
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+        {{ form_row(registrationForm.name , {
+            label: 'Name'
+        }) }}
+        {{ form_errors(registrationForm.name) }}
+            </div>
+
+            <div class="col-sm-6 mb-3 mb-sm-0">
+        {{ form_row(registrationForm.lastname, {
+            label: 'Lastname'
+        }) }}
+        {{ form_errors(registrationForm.lastname) }}
+            </div>
+
+        </div>
+
+        {{ form_row(registrationForm.email, {
+            label: 'Email address'
+        }) }}
+        {{ form_errors(registrationForm.email) }}
+
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+
+        {{ form_row(registrationForm.password, {
+            label: 'Password'
+        }) }}
+            </div>
+
+            <div class="col-sm-6 mb-3 mb-sm-0">
+
+            {{ form_row(registrationForm.confirm_password, {
+            label: 'Confirm your password'
+        }) }}
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+
+        {{ form_row(registrationForm.phone, {
+            label: 'Phone number'
+        }) }}
+        {{ form_errors(registrationForm.password) }}
+            </div>
+
+
+            <div class="col-sm-6 mb-3 mb-sm-0">
+
+            {{ form_row(registrationForm.img, {
+            label: 'Image'
+        }) }}
+            </div>
+
+        </div>
+            <a>
+        {{ form_row(registrationForm.agreeTerms) }}
+            </a>
+
+        {{ form_row(registrationForm.captchaCode) }}
+
+
+
+{#        <button type="submit" class="btn">Register</button>#}
+
+        <div class="mt-5 text-center"><button type="submit" class="btn btn-outline-primary profile-button  btn-lg">Register</button></div>
+
+
+{#        <div class="mt-5 text-center"><button class="btn btn-outline-primary"><a href="index.html" class="btn btn-facebook btn-user btn-block">#}
+{#                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook#}
+{#            </a></button>#}
+
+{#        <div class="mt-5 text-center"><button class="btn btn-outline-primary"><a href="index.html" class="btn btn-facebook btn-user btn-block">#}
+{#                <i class="fab fa-facebook-f fa-fw"></i> Register with Github#}
+{#            </a></button>#}
+{#        </div>#}
+
+            <br>
+            <div class="text-center">
+                <a class="meduim" href="{{ path('app_login') }}">Already have an account? Login!</a>
+            </div>
+
+
+            {{ form_end(registrationForm) }}
+        </div>
+</div>
+        </div>
+
+</div>
+</body>
+
+
+
+
+
+{#            <button class="btn btn-secondary"><a href="index.html" class="btn btn-facebook btn-user btn-block">#}
+{#                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook#}
+{#            </a></button>#}
+
+{#            <hr>#}
+
+{#        <button class="btn btn-secondary"><a href="index.html" class="btn btn-facebook btn-user btn-block">#}
+{#                <i class="fab fa-facebook-f fa-fw"></i> Register with Github#}
+{#            </a></button>#}
+
+
+
+
+{% endblock %}
+
+{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+

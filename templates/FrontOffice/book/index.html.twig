@@ -1,0 +1,60 @@
+{% extends 'FrontOffice/frontfinal.html.twig' %}
+{% block title %}Book index{% endblock %}
+
+{% block body %}
+    <div class="container mb-4">
+    <h1>Booking interface</h1>
+{#     <a href="{{ path('excel') }}">Excel</a>
+ #}
+
+    </div>
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %}  
+
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+        {% endfor %}
+        
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% endfor %}
+        <div class="container">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Startdate</th>
+                        <th>Enddate</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                    <td>{{ book.startdate ? book.startdate|date('Y-m-d') : '' }}</td>
+                    <td>{{ book.enddate ? book.enddate|date('Y-m-d') : '' }}</td>
+                        <td>
+                            {{ include('frontOffice/book/_delete_form.html.twig') }}
+                        </td>
+                        <td>
+                        <div class="blog__details__comment__item__text">
+                        <a class="btn btn-warning"href="{{ path('book_list', {'idbook': book.idbook}) }}">Print</a>
+                    </div> 
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

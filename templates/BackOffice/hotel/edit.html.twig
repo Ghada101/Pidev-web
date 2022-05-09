@@ -1,0 +1,73 @@
+{% extends 'BackOffice/backfinal.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>Edit Hotel</h1>
+    
+<a href="{{ path('app_hotel_index') }}">
+ <span style="margin-left: 90%">Back to the list</span>
+  <i class="fa fa-angle-right"></i>
+  </a>
+{{form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+   <div class="form-group">
+    <label for="name">Name</label>
+      {{ form_widget(form.hotelName , {'attr' : {'class' : 'form-control'  }}  ) }}
+         
+        {{ form_errors(form.hotelName) }}
+  </div>
+  
+   <div class="form-group">
+    <label for="name">staff</label>
+
+
+      {{ form_widget(form.hotelStaff , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.hotelStaff) }}
+  </div>
+
+   <div class="form-group">
+    <label for="name">location</label>
+
+
+      {{ form_widget(form.hotelLocation , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.hotelLocation) }}
+  </div>
+<div class="form-group">
+    <label for="name">phone</label>
+
+
+      {{ form_widget(form.hotelPhone , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.hotelPhone) }}
+  </div>
+<div class="form-group">
+    <label for="name">description</label>
+
+
+      {{ form_widget(form.hotelDescription , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.hotelDescription) }}
+  </div>
+<div class="form-group">
+    <label for="name">image</label>
+
+
+      {{ form_widget(form.hotelImg , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.hotelImg) }}
+  </div>
+  <div class="form-group">
+    <label for="name">hotelChain</label>
+
+
+      {{ form_widget(form.fkHotelchain , {'attr' : {'class' : 'form-control'  }}  ) }}
+                                
+        {{ form_errors(form.fkHotelchain) }}
+  </div>
+      <button class="btn btn-primary mb-2">{{ button_label|default('Save') }}</button>
+
+  {{ form_end(form) }} 
+{% endblock %}

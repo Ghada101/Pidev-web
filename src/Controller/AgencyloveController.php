@@ -39,11 +39,13 @@ class AgencyloveController extends AbstractController
         $agencylove = new Agencylove();
         $em = $this->getDoctrine()->getManager();
         $agency = $em->getRepository(Agency::class)->find($idAgency);
-        $user = $em->getRepository(User::class)->find(83);
-        $agencyExistsLikeByUser = $agencyloveRepository->findBy(['idagency' => $agency->getIdAgency(), 'iduser' => $user->getId()]);
+        //$user = $em->getRepository(User::class)->find(90);
+        $user = $this->getUser()->getId();
+        $user1= $em->getRepository(User::class)->find($user);
+        $agencyExistsLikeByUser = $agencyloveRepository->findBy(['idagency' => $agency->getIdAgency(), 'iduser' => $user]);
         if (!$agencyExistsLikeByUser) {
             $agencylove->setIdagency($agency);
-            $agencylove->setIduser($user);
+            $agencylove->setIduser($user1);
             $agency->setNbrlike($agency->getNbrlike() + 1);
             $agencyloveRepository->add($agencylove);
             $em->flush();

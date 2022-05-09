@@ -40,7 +40,7 @@ class HotelController extends AbstractController
         }
         $hotels=$paginator->paginate($allhotel, $request->query->getInt('page', 1), 3);
         
-        return $this->render('backOffice/hotel/index.html.twig', [
+        return $this->render('BackOffice/hotel/index.html.twig', [
             'hotels' => $hotels,
             'form' => $form->createView()
             ]);

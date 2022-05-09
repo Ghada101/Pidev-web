@@ -82,7 +82,7 @@ class Book
      *   @ORM\JoinColumn(name="idRoom", referencedColumnName="id_Room" )
      * })
      */
-    private $idroom;
+    private $idRoom;
 
     /**
      * @var \Hotelchain
@@ -148,14 +148,14 @@ class Book
         return $this;
     }
 
-    public function getIdroom(): ?Room
+    public function getIdRoom(): ?Room
     {
-        return $this->idroom;
+        return $this->idRoom;
     }
 
-    public function setIdroom(?Room $idroom): self
+    public function setIdRoom(?Room $idRoom): self
     {
-        $this->idroom = $idroom;
+        $this->idRoom = $idRoom;
         
         return $this;
     }

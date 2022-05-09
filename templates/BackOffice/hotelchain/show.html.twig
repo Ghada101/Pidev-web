@@ -1,0 +1,36 @@
+{% extends 'BackOffice/backfinal.html.twig' %}
+
+{% block title %}Hotelchain{% endblock %}
+
+{% block body %}
+    <h1>Hotelchain</h1>
+
+<a href="{{ path('app_hotelchain_index') }}">
+ <span style="margin-left: 90%">Back to the list</span>
+  <i class="fa fa-angle-right"></i>
+</a>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>HotelchainName</th>
+                <td>{{ hotelchain.hotelchainName }}</td>
+            </tr>
+            <tr>
+                <th>HotelchainStaff</th>
+                <td>{{ hotelchain.hotelchainStaff }}</td>
+            </tr>
+            <tr>
+                <th>HotelchainDescription</th>
+                <td>{{ hotelchain.hotelchainDescription }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ hotelchain.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+ 
+ 
+    {{ include('hotelchain/_delete_form.html.twig') }}
+{% endblock %}

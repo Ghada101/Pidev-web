@@ -1,0 +1,121 @@
+{% extends 'FrontOffice/frontfinal.html.twig' %}
+{% block title %}New Book{% endblock %}
+
+{% block body %}
+
+<!-- newletter_area_start  -->
+    <div class="newletter_area overlay">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-10">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5"> 
+                            <div class="newsletter_text">
+                                <h4>Book now</h4>
+                                <p>Thank me later!  </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                    
+    {{form_start(form,{'attr': {'novalidate': 'novalidate' }} ) }}
+ 
+    <!-- newletter_area_end  -->
+<section class="contact-section">
+    <div class="container">
+       {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %}  
+
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+        {% endfor %}
+        
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% endfor %} 
+ 
+    <div class="row">
+
+ <div class="col-12">
+            <h2 class="contact-title">Booked dates ! </h2>
+
+            <div class="container">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Startdate</th>
+                        <th>Enddate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for book in bookList %}
+                    <tr>
+                    <td>{{ book.startdate ? book.startdate|date('Y-m-d') : '' }}</td>
+                    <td>{{ book.enddate ? book.enddate|date('Y-m-d') : '' }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        </div>
+    </div> 
+    
+
+
+        <div class="col-12">
+            <h2 class="contact-title">Please enter your credentials !</h2>
+        </div>
+
+
+        <div class="col-lg-8">
+            <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                <label for="start">Start date:</label>
+                {{ form_widget(form.startdate , {'attr' : {'type' : 'date'  }}  ) }}
+
+                {{ form_errors(form.startdate) }}
+
+                
+                </div>
+            </div> 
+            <div class="col-8">
+                <div class="form-group">
+                <label for="start">End date:</label>
+                {{ form_widget(form.enddate , {'attr' : {'type' : 'date'  }}  ) }}
+                {{ form_errors(form.enddate) }}
+                </div>
+            </div>
+            </div>
+                
+                
+            <div class="form-group mt-3">
+                <button class="button button-contactForm boxed-btn">{{ button_label|default('Send') }}</button>
+            </div>
+        </div>
+    
+    </div>
+    
+
+    </section>
+
+        {{ form_end(form) }}  
+{% endblock %}

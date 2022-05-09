@@ -1,0 +1,53 @@
+
+{% extends 'BackOffice/backfinal.html.twig' %}
+
+{% block title %}New HotelChain{% endblock %}
+
+{% block body %}
+    <h1>Create new HotelChain</h1>
+
+{{form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+<a href="{{ path('app_hotelchain_index') }}">
+ <span style="margin-left: 90%">Back to the list</span>
+  <i class="fa fa-angle-right"></i>
+  </a>
+
+   <div class="row">
+   <div class="col-md-6">
+    <label for="name">Name</label>
+      {{ form_widget(form.hotelchainName , {'attr' : {'class' : 'form-control' , 'placeholder' : 'Enter your hotel chain name' }}  ) }}
+         
+        {{ form_errors(form.hotelchainName) }}
+  </div>
+  <div class="col-md-3">
+    <label for="name">Staff</label>
+      {{ form_widget(form.hotelchainStaff , {'attr' : {'class' : 'form-control' , 'placeholder' : 'Enter number of staff' }}  ) }}
+                                
+      {{ form_errors(form.hotelchainStaff) }}
+  </div></div><br>
+   <div class="row">
+    <div class="col-md-3">
+    <label for="name">phone</label>
+      {{ form_widget(form.phone , {'attr' : {'class' : 'form-control' , 'placeholder' : 'Enter phone'  }}  ) }}
+                                
+      {{ form_errors(form.phone , {'attr' : {'class' : 'invalid-feedback' }} ) }}
+  
+</div>
+
+  
+       <div class="col-md-6">
+    <label for="name">description</label>
+
+
+      {{ form_widget(form.hotelchainDescription , {'attr' : {'class' : 'form-control'  , 'placeholder' : 'Describe your hotel chain'}}  ) }}
+                                
+        {{ form_errors(form.hotelchainDescription) }}
+  </div>
+</div>
+<br>
+      <button class="btn btn-primary mb-2">{{ button_label|default('Save') }}</button>
+
+  {{ form_end(form) }} 
+
+{% endblock %}

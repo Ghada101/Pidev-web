@@ -1,0 +1,73 @@
+{% extends 'BackOffice/backfinal.html.twig' %}
+
+{% block title %}HotelRoom index{% endblock %}
+
+{% block body %}
+
+<!-- Page Heading -->
+        <a class="btn btn-info mb-4"  href="{{ path('app_room_new') }}" style="margin-left:90%">Create new</a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %} 
+ 
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+        {% endfor %}
+        
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% endfor %}
+    
+
+      <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">Hotel Rooms</h4>
+            </div>
+                <div class="card-body">
+                
+                    <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              
+        <thead>
+            <tr>
+                <th>RoomType</th>
+                <th>RoomCapacity</th>
+                <th>Nbrroom</th>
+                <th>Price</th>
+                <th>hotel</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+            <tr>               
+                <td>{{ room.roomType }}</td>
+                <td>{{ room.roomCapacity }}</td>
+                <td>{{ room.nbrroom }}</td>
+                <td>{{ room.price }}</td>
+                <td>{{ room.fkHotel.hotelName }}</td>
+                <td><img src="{{ asset('uploads/') ~room.image}}" alt="" style="border: 1px solid #ddd; max-width:100px;height:auto; display: block;margin-left: auto;margin-right: auto;" }></td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_room_show', {'idRoom': room.idRoom}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_room_edit', {'idRoom': room.idRoom}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            <div class="navigation">
+                {{ knp_pagination_render(rooms) }}
+            </div>
+
+{% endblock %}

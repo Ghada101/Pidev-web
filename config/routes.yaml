@@ -1,10 +1,27 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# /app/config/routes.yaml
+captcha_routing:
+  resource: "@CaptchaBundle/Resources/config/routing.yml"
 index:
-    path: /hotels
-    controller: App\Controller\HotelController::indexFront
+  path: /hotels
+  controller: App\Controller\HotelController::indexFront
 
 indexFront:
-    path: /hotelroom/{idHotel}
-    controller: App\Controller\RoomController::indexFront
+  path: /hotelroom/{idHotel}
+  controller: App\Controller\RoomController::indexFront
+
+indexFront2:
+    path: /indexFront
+    controller: App\Controller\RestaurantController::indexFront
+
+indexFronttable:
+    path: /table/{idRestau}
+    controller: App\Controller\TableeController::indexFronttable
+
+dashboard:
+    path: /stat
+    controller: App\Controller\CategoryController::stat
+

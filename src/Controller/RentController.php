@@ -40,13 +40,17 @@ class RentController extends AbstractController
         $rent = new Rent();
         $form = $this->createForm(RentType::class, $rent);
         $form->handleRequest($request);
-        $user = $em->getRepository(User::class)->find(90);
+        
+        $user = $this->getUser()->getId();
+        $user1= $em->getRepository(User::class)->find($user);
+
+       // $user = $em->getRepository(User::class)->find(90);
         $car = $em->getRepository(Car::class)->find($idCar);
         $agency = $em->getRepository(Agency::class)->find($idAgency);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($rentList == null) {
-                $rent->setIduser($user);
+                $rent->setIduser($user1);
                 $rent->setIdcar($car);
                 $rent->setIdagency($agency);
                 $message = (new \Swift_Message('Rent Confirmation'))
@@ -55,7 +59,7 @@ class RentController extends AbstractController
                     ->setBody(
                         $this->renderView(
                             'Frontoffice/rent/mail.html.twig',
-                            ['name' => $user->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(),'phone'=>$agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
+                            ['name' => $user1->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(),'phone'=>$agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
                         ),
                         'text/html'
                     );
@@ -92,7 +96,7 @@ class RentController extends AbstractController
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
                     } else {
-                        $rent->setIduser($user);
+                        $rent->setIduser($user1);
                         $rent->setIdcar($car);
                         $rent->setIdagency($agency);
                         $message = (new \Swift_Message('Rent Confirmation'))
@@ -101,7 +105,7 @@ class RentController extends AbstractController
                             ->setBody(
                                 $this->renderView(
                                     'Frontoffice/rent/mail.html.twig',
-                                    ['name' => $user->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(),'phone'=>$agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
+                                    ['name' => $user1->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(),'phone'=>$agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
                                 ),
                                 'text/html'
                             );
