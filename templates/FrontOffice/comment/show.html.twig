@@ -155,6 +155,11 @@
                         </div>
                     </div>
                     <div class="comments-area">
+                        {% for message in app.flashes('warning') %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
                         <h4>{{ subject.subjectNumComments}} Comments</h4>
                         {% for comment in comments  %}
                         <div class="comment-list">
@@ -177,14 +182,17 @@
                                             <div class="reply-btn">
                                                 <a  class="btn-reply text-uppercase"></a>
                                             </div>
+                                            {% if comment.user.id == app.user.id %}
                                             <div class="reply-btn">
                                                 {{ include('FrontOffice/comment/_delete_form.html.twig') }}
                                             </div>
+
                                             <div class="reply-btn">
                                                 <a  class="btn-reply text-uppercase" href="{{ path('app_comment_edit', {'commentId': comment.commentId}) }}">
                                                     <i class="fa fa-edit"> Update</i>
                                                 </a>
                                             </div>
+                                            {% endif %}
                                             <div class="reply-btn">
                                             <a href="{{ path('app_comment_like', {'IdSubject':subject.subjectId,'idcom':comment.commentId}) }}" >
                                                 <i style="color: #0062cc" class="fa fa-thumbs-up close-icon" aria-hidden="true"></i>({{ comment.nblike }})</a>

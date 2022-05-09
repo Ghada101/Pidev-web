@@ -42,11 +42,13 @@ class CommentController extends AbstractController
         $subjectPrevious = $subjectRepository->findPreviousSubject( $IdSubject-1);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-
+        $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCommentDate(new \DateTime("now"));
             $comment->setSubject($this->getDoctrine()->getRepository(Subject::class)->findOneBy(['subjectId' => $IdSubject]));
-            $comment->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+            $user = $this->getUser()->getId();
+            $user1= $em->getRepository(User::class)->find($user);
+            $comment->setUser($this->getDoctrine()->getRepository(User::class)->find($user1));
             $subject->setSubjectNumComments($subject->getSubjectNumComments()+1);
 
             $commentRepository->add($comment);
@@ -99,11 +101,12 @@ class CommentController extends AbstractController
      * @Route("/{commentId}/{IdSubject}", name="app_comment_delete", methods={"POST"})
      */
     public function delete(Request $request, Comment $comment, CommentRepository $commentRepository,SubjectRepository $subjectRepository,$IdSubject): Response
-    {  $subject = $subjectRepository->find($IdSubject);
-        if ($this->isCsrfTokenValid('delete'.$comment->getCommentId(), $request->request->get('_token'))) {
-            $subject->setSubjectNumComments($subject->getSubjectNumComments()-1);
-            $commentRepository->remove($comment);
-        }
+    {
+            $subject = $subjectRepository->find($IdSubject);
+            if ($this->isCsrfTokenValid('delete' . $comment->getCommentId(), $request->request->get('_token'))) {
+                $subject->setSubjectNumComments($subject->getSubjectNumComments() - 1);
+                $commentRepository->remove($comment);
+            }
 
         return $this->redirectToRoute('app_comment_show', ['IdSubject'=>$IdSubject], Response::HTTP_SEE_OTHER);
     }
@@ -123,15 +126,18 @@ class CommentController extends AbstractController
      * @Route("/{IdSubject}/{idcom}/like", name="app_comment_like", methods={"GET"})
      */
     public function like(Request $request, Comment $idcom, EntityManagerInterface $entityManager,Subject $IdSubject): Response
-    {   $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findoneBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
-        $likeee=$this->getDoctrine()->getRepository(likee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+    {   $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser()->getId();
+        $user1= $em->getRepository(User::class)->find($user);
+        $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findoneBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
+        $likeee=$this->getDoctrine()->getRepository(likee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
         if($likeee==null){
 
             $idcom->setNblike($idcom->getNblike()+1);
             $like = new likee();
             $like->setCommentid($idcom);
-            $user=$this->getDoctrine()->getRepository(User::class)->find(90);
-            $like->setUserid($user);
+            $user2=$this->getDoctrine()->getRepository(User::class)->find($user1);
+            $like->setUserid($user2);
             $entityManager->persist($like);
             if($dislikeee!=null)
             {
@@ -142,7 +148,7 @@ class CommentController extends AbstractController
             $entityManager->flush();}
         else
         {
-            dump($likeee);
+            $this->addFlash('warning', 'You can only like once');
         }
         return $this->redirectToRoute('app_comment_show', [ 'IdSubject' => $IdSubject->getSubjectId()], Response::HTTP_SEE_OTHER);
     }
@@ -150,17 +156,19 @@ class CommentController extends AbstractController
      * @Route("/{IdSubject}/{idcom}/dislike", name="app_comment_dislike", methods={"GET"})
      */
     public function dislike(Request $request, Comment $idcom, EntityManagerInterface $entityManager,Subject $IdSubject): Response
-    {
-        $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
-        $likeee=$this->getDoctrine()->getRepository(Likee::class)->findOneBy(['commentid'=>$idcom->getCommentId(),'userid'=>90]);
+    {   $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser()->getId();
+        $user1= $em->getRepository(User::class)->find($user);
+        $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
+        $likeee=$this->getDoctrine()->getRepository(Likee::class)->findOneBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
 
         if($dislikeee==null){
           if($idcom->getNbdislike()==0){
             $idcom->setNbdislike($idcom->getNbdislike()+1);
             $dislike = new Dislikee();
             $dislike->setCommentid($idcom);
-            $user=$this->getDoctrine()->getRepository(User::class)->find(90);
-            $dislike->setUserid($user);
+            $user2=$this->getDoctrine()->getRepository(User::class)->find($user1);
+            $dislike->setUserid($user2);
 
             if($likeee!=null)
             {
@@ -179,7 +187,7 @@ class CommentController extends AbstractController
         }
         else
         {
-            dump($dislikeee);
+            $this->addFlash('warning', 'You can only dislike once');
         }
         return $this->redirectToRoute('app_comment_show', [ 'IdSubject' => $IdSubject->getSubjectId()], Response::HTTP_SEE_OTHER);
     }

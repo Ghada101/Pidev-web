@@ -43,12 +43,14 @@ class SubjectController extends AbstractController
         $topic= $topicRepository->find($IdTopic);
         $form = $this->createForm(SubjectType::class, $subject);
         $form->handleRequest($request);
-
+        $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
             $subject->setSubjectDate(new \DateTime("now"));
             $subject->setSubjectNumComments(0);
             $subject->setTopic($this->getDoctrine()->getRepository(Topic::class)->findOneBy(['topicId' => $IdTopic]));
-            $subject->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+            $user = $this->getUser()->getId();
+            $user1= $em->getRepository(User::class)->find($user);
+            $subject->setUser($this->getDoctrine()->getRepository(User::class)->find($user1));
             $topic->setTopicNumSubjects($topic->getTopicNumSubjects()+1);
 
             $subjectRepository->add($subject);
@@ -72,12 +74,14 @@ class SubjectController extends AbstractController
         $subject = new Subject();
         $form = $this->createForm(SubjectType::class, $subject);
         $form->handleRequest($request);
-
+        $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
             $subject->setSubjectDate(new \DateTime("now"));
             $subject->setSubjectNumComments(0);
             $subject->setTopic($this->getDoctrine()->getRepository(Topic::class)->findOneBy(['topicId' => $IdTopic]));
-            $subject->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+            $user = $this->getUser()->getId();
+            $user1= $em->getRepository(User::class)->find($user);
+            $subject->setUser($this->getDoctrine()->getRepository(User::class)->find($user1));
             $subjectRepository->add($subject);
             return $this->redirectToRoute('app_subject_index',['IdTopic'=> $IdTopic], Response::HTTP_SEE_OTHER);
         }

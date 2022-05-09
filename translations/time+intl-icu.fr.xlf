@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="jqQ_Cob" resname="Add a new Topic here :">
+        <source>Add a new Topic here :</source>
+        <target>Ajouter un nouveau sujet ici :</target>
+      </trans-unit>
+      <trans-unit id="n9coxmy" resname="Add">
+        <source>Add</source>
+        <target>Ajouter</target>
+      </trans-unit>
+      <trans-unit id="PdiPvem" resname="Topic Title">
+        <source>Topic Title</source>
+        <target>Titre de sujet </target>
+      </trans-unit>
+      <trans-unit id="u4JlDiZ" resname="Topic Description">
+        <source>Topic Description</source>
+        <target>Description de sujet</target>
+      </trans-unit>
+      <trans-unit id="LPJNul_" resname="hello">
+        <source>hello</source>
+        <target>Bonjour</target>
+      </trans-unit>
+      <trans-unit id="M4RAXb_" resname="diff.empty">
+        <source>diff.empty</source>
+        <target>__diff.empty</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

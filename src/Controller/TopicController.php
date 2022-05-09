@@ -34,17 +34,14 @@ class TopicController extends AbstractController
         $topic = new Topic();
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
-
-      /* $client = new NLPCloud('opus-mt-en-fr','4352881aedef35e459f323edac54e9d865119731');
-
-        $client->translation("Hello world!");*/
-
-    //  $content = json_decode($client->translation('hello'), true);
+        $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $topic->setTopicDate(new \DateTime("now")) ;
             $topic->setTopicNumSubjects(0);
-            $topic->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+            $user = $this->getUser()->getId();
+            $user1= $em->getRepository(User::class)->find($user);
+            $topic->setUser($this->getDoctrine()->getRepository(User::class)->find($user1));
             $topicRepository->add($topic);
             return $this->redirectToRoute('app_topic_index', [], Response::HTTP_SEE_OTHER);
         }
