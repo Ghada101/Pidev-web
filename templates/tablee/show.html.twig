@@ -1,0 +1,31 @@
+{% extends 'BackOffice/baseback.html.twig' %}
+
+{% block title %}Tablee{% endblock %}
+
+{% block body %}
+    <h1>Tablee</h1>
+
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>NbrPlace</th>
+                <td>{{ tablee.nbrPlace }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ tablee.description }}</td>
+            </tr>
+             <tr>
+                <th>id_Restau</th>
+                <td>{{ tablee.id_Restau }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tablee_index') }}">back to list</a>
+
+    <a href="{{ path('app_tablee_edit', {'idTable': tablee.idTable}) }}">edit</a>
+
+    {{ include('tablee/_delete_form.html.twig') }}
+{% endblock %}

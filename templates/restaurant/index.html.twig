@@ -1,0 +1,87 @@
+{% extends 'BackOffice/baseback.html.twig' %}
+
+{% block title %}Restaurant index{% endblock %}
+{% block body %}
+    <h1>Restaurant index</h1>
+    <!-- Page Heading -->
+        
+        <a class="btn btn-info mb-4"  href="{{ path('app_restaurant_new') }}" style="margin-left:90%">Create new</a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %}
+       <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Restaurants</h6>
+            </div>
+            <div>
+        <p style="100px" > <input  id="myInput"  type="text" placeholder="search">
+            <img src="https://img.icons8.com/nolan/344/google-web-search.png
+" style="width:50px;height:50px;"/></a>
+
+           </div>
+                <div class="card-body">
+                
+                    <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+        <thead>
+            <tr>
+                 <th>NameRestau</th>
+                <th>DescriptionRestau</th>
+                <th>PhoneRestau</th>
+                <th>LocationRestau</th>
+                <th>category</th>
+                <th>Image</th>
+                <th>show</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tbody id="myTable">
+        {% for restaurant in restaurants %}
+            <tr>
+                 <td>{{ restaurant.nameRestau }}</td>
+                <td>{{ restaurant.descriptionRestau }}</td>
+                <td>{{ restaurant.phoneRestau }}</td>
+                <td>{{ restaurant.locationRestau }}</td>
+                <td>{{ restaurant.idCategory.nameCategory}}</td>
+                <td><img src="{{ asset('uploads/') ~restaurant.restaurantimg}}" alt="" style="border: 1px solid #ddd; max-width:100px;height:auto; display: block;margin-left: auto;margin-right: auto;" }></td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_restaurant_show', {'idRestau': restaurant.idRestau}) }}">show</a>
+                    </td>
+                    <td>
+                    <a class="btn btn-warning"  href="{{ path('app_restaurant_edit', {'idRestau': restaurant.idRestau}) }}">edit</a>
+                </td>
+                <td>
+                <a class="btn btn-danger"  href="{{ path('app_restaurant_delete', {'idRestau': restaurant.idRestau}) }}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tbody id="search">
+    </table>
+ </div>
+    </div>
+    </div>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>   
+    
+{% endblock %}
+ 

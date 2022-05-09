@@ -1,0 +1,13 @@
+{% extends 'BackOffice/baseback.html.twig' %}
+
+{% block title %}Edit Reservetable{% endblock %}
+
+{% block body %}
+    <h1>Edit Reservetable</h1>
+
+    {{ include('reservetable/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reservetable_index') }}">back to list</a>
+
+    {{ include('reservetable/_delete_form.html.twig') }}
+{% endblock %}

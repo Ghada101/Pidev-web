@@ -1,0 +1,16 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+indexFront:
+    path: /indexFront
+    controller: App\Controller\RestaurantController::indexFront
+
+indexFronttable:
+    path: /table/{idRestau}
+    controller: App\Controller\TableeController::indexFronttable
+
+dashboard:
+    path: /stat
+    controller: App\Controller\CategoryController::stat
+

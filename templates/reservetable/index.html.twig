@@ -1,0 +1,50 @@
+{% extends 'FrontOffice/basefont.html.twig' %}
+
+{% block title %}Reservetable index{% endblock %}
+
+{% block body %}
+    <div class="container mb-4">
+    <h1>Reservetable index</h1>
+    </div>
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% endfor %}
+        <div class="container">
+            <table class="table">
+               <thead>
+                   <tr>
+                <th>startdate</th>
+                <th>enddate</th>
+                <th>actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+        {% for reservetable in reservation %}
+            <tr>
+                <td>{{ reservetable.startdate ? reservetable.startdate|date('Y-m-d') : ''  }}</td>
+                <td>{{ reservetable.enddate ? reservetable.enddate|date('Y-m-d') : ''  }}</td>
+               <td>
+                            {{ include('reservetable/_delete_form.html.twig') }}
+                        </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+              </tbody>
+           </table>
+        </div>
+{% endblock %}

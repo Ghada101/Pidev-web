@@ -1,0 +1,29 @@
+{% extends 'BackOffice/baseback.html.twig' %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+<a style="margin-left:90%" href="{{ path('app_category_index') }}"><span>Back to the list</span>
+  <i class="fa fa-angle-right"></i></a>
+    <h1>Category</h1>
+    
+    <table class="table">
+        <tbody>
+           
+            <tr>
+                <th>NameCategory</th>
+                <td>{{ category.nameCategory }}</td>
+            </tr>
+            <tr>
+                <th>DescriptionCategory</th>
+                <td>{{ category.descriptionCategory }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+
+    <a class ="btn btn-warning mb-4" href="{{ path('app_category_edit', {'idcategory': category.idcategory}) }}">edit</a>
+
+    {{ include('category/_delete_form.html.twig') }}
+{% endblock %}

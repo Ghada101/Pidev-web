@@ -1,0 +1,60 @@
+{% extends 'BackOffice/baseback.html.twig' %}
+
+{% block title %}Tablee index{% endblock %}
+
+{% block body %}
+<!-- Page Heading -->
+        <a class="btn btn-info mb-4" href="{{ path('app_new') }}" style="margin-left:90%"> Create new</a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %}
+    
+    <h1>Tablee index</h1>
+    <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tables</h6>
+            </div>
+                <div class="card-body">
+                
+                    <div class="table-responsive">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdTable</th>
+                <th>NbrPlace</th>
+                <th>Description</th>
+                <th>Restaurant</th>
+                <th>show</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tablee in tablee %}
+            <tr>
+                <td>{{ tablee.idTable }}</td>
+                <td>{{ tablee.nbrPlace }}</td>
+                <td>{{ tablee.description }}</td>
+                <td>{{ tablee.idRestau.NameRestau }} </td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_tablee_show', {'idTable': tablee.idTable}) }}">show</a>
+                </td>
+                <td>    
+                    <a class="btn btn-warning"  href="{{ path('app_tablee_edit', {'idTable': tablee.idTable}) }}">edit</a>
+                </td>
+                <td>    
+                    <a class="btn btn-danger"  href="{{ path('app_tablee_delete', {'idTable': tablee.idTable}) }}">delete</a>
+                </td>                              
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
