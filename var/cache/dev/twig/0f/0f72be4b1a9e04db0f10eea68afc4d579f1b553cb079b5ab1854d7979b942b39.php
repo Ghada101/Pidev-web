@@ -236,7 +236,6 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
         // line 141
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_agency_index");
         echo "\">Agency</a>
-                    <a class=\"collapse-item\" href=\"cards.html\">Car</a>
                 </div>
             </div>
         </li>
@@ -423,7 +422,7 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
                             <a class=\"dropdown-item d-flex align-items-center\" href=\"#\">
                                 <div class=\"dropdown-list-image mr-3\">
                                     <img class=\"rounded-circle\" src=\"";
-        // line 328
+        // line 327
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/img/undraw_profile_1.svg"), "html", null, true);
         echo "\"
                                          alt=\"...\">
@@ -438,7 +437,7 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
                             <a class=\"dropdown-item d-flex align-items-center\" href=\"#\">
                                 <div class=\"dropdown-list-image mr-3\">
                                     <img class=\"rounded-circle\" src=\"";
-        // line 340
+        // line 339
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/img/undraw_profile_2.svg"), "html", null, true);
         echo "\"
                                          alt=\"...\">
@@ -453,7 +452,7 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
                             <a class=\"dropdown-item d-flex align-items-center\" href=\"#\">
                                 <div class=\"dropdown-list-image mr-3\">
                                     <img class=\"rounded-circle\" src=\"";
-        // line 352
+        // line 351
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/img/undraw_profile_3.svg"), "html", null, true);
         echo "\"
                                          alt=\"...\">
@@ -490,7 +489,7 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
                             <span class=\"mr-2 d-none d-lg-inline text-gray-600 small\">Douglas McGee</span>
                             <img class=\"img-profile rounded-circle\"
                                  src=\"";
-        // line 386
+        // line 385
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/img/undraw_profile.svg"), "html", null, true);
         echo "\">
                         </a>
@@ -528,9 +527,9 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
                 <!-- Page Heading -->
 
                 ";
-        // line 421
+        // line 420
         $this->displayBlock('body', $context, $blocks);
-        // line 423
+        // line 422
         echo "
 
 
@@ -580,153 +579,153 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
 </div>
 <!-- Bootstrap core JavaScript-->
 <script src=\"";
-        // line 471
+        // line 470
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/vendor/jquery/jquery.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 472
+        // line 471
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/vendor/bootstrap/js/bootstrap.bundle.min.js"), "html", null, true);
         echo "\"></script>
 
 <!-- Core plugin JavaScript-->
 <script src=\"";
-        // line 475
+        // line 474
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/vendor/jquery-easing/jquery.easing.min.js"), "html", null, true);
         echo "\"></script>
 
 <!-- Custom scripts for all pages-->
 <script src=\"";
-        // line 478
+        // line 477
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/js/sb-admin-2.min.js"), "html", null, true);
         echo "\"></script>
 
 <!-- Page level plugins -->
 <script src=\"";
-        // line 481
+        // line 480
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/vendor/chart.js/Chart.min.js"), "html", null, true);
         echo "\"></script>
 
 <!-- Page level custom scripts -->
 <script src=\"";
-        // line 484
+        // line 483
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/js/demo/chart-area-demo.js"), "html", null, true);
+        echo "\"></script>
+<script src=\"";
+        // line 484
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/js/demo/chart-pie-demo.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
         // line 485
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/js/demo/chart-pie-demo.js"), "html", null, true);
-        echo "\"></script>
-<script src=\"";
-        // line 486
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/js/demo/chart-area-demo.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 487
+        // line 486
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("BackOffice/js/demo/chart-pie-demo.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 488
+        // line 487
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/vendor/modernizr-3.5.0.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 489
+        // line 488
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/vendor/jquery-1.12.4.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 490
+        // line 489
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/popper.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 491
+        // line 490
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 492
+        // line 491
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/owl.carousel.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 493
+        // line 492
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/isotope.pkgd.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 494
+        // line 493
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/ajax-form.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 495
+        // line 494
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/waypoints.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 496
+        // line 495
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.counterup.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 497
+        // line 496
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/imagesloaded.pkgd.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 498
+        // line 497
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/scrollIt.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 499
+        // line 498
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.scrollUp.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 500
+        // line 499
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/wow.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 501
+        // line 500
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery-ui.min.js"), "html", null, true);
         echo "\"> </script>
 <script src=\"";
-        // line 502
+        // line 501
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/nice-select.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 503
+        // line 502
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.slicknav.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 504
+        // line 503
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.magnific-popup.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 505
+        // line 504
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/plugins.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 506
+        // line 505
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/range.js"), "html", null, true);
         echo "\"></script>
 <!-- < script src=\"js/gijgo.min.js\"></script> -->
 <script src=\"";
-        // line 508
+        // line 507
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/slick.min.js"), "html", null, true);
         echo "\"></script>
 <!--contact js-->
 <script src=\"";
-        // line 510
+        // line 509
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/contact.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 511
+        // line 510
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.ajaxchimp.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 512
+        // line 511
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.form.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 513
+        // line 512
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.validate.min.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 514
+        // line 513
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/mail-script.js"), "html", null, true);
         echo "\"></script>
 <script src=\"";
-        // line 515
+        // line 514
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/main.js"), "html", null, true);
         echo "\"></script>
 <script>
@@ -750,7 +749,7 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
 
     }
 
-    // line 421
+    // line 420
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -760,7 +759,7 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 422
+        // line 421
         echo "                ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -782,7 +781,7 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
 
     public function getDebugInfo()
     {
-        return array (  764 => 422,  754 => 421,  730 => 515,  726 => 514,  722 => 513,  718 => 512,  714 => 511,  710 => 510,  705 => 508,  700 => 506,  696 => 505,  692 => 504,  688 => 503,  684 => 502,  680 => 501,  676 => 500,  672 => 499,  668 => 498,  664 => 497,  660 => 496,  656 => 495,  652 => 494,  648 => 493,  644 => 492,  640 => 491,  636 => 490,  632 => 489,  628 => 488,  624 => 487,  620 => 486,  616 => 485,  612 => 484,  606 => 481,  600 => 478,  594 => 475,  588 => 472,  584 => 471,  534 => 423,  532 => 421,  494 => 386,  457 => 352,  442 => 340,  427 => 328,  237 => 141,  144 => 51,  127 => 37,  123 => 36,  119 => 35,  115 => 34,  111 => 33,  107 => 32,  103 => 31,  99 => 30,  95 => 29,  91 => 28,  87 => 27,  83 => 26,  79 => 25,  73 => 22,  69 => 21,  60 => 15,  44 => 1,);
+        return array (  763 => 421,  753 => 420,  729 => 514,  725 => 513,  721 => 512,  717 => 511,  713 => 510,  709 => 509,  704 => 507,  699 => 505,  695 => 504,  691 => 503,  687 => 502,  683 => 501,  679 => 500,  675 => 499,  671 => 498,  667 => 497,  663 => 496,  659 => 495,  655 => 494,  651 => 493,  647 => 492,  643 => 491,  639 => 490,  635 => 489,  631 => 488,  627 => 487,  623 => 486,  619 => 485,  615 => 484,  611 => 483,  605 => 480,  599 => 477,  593 => 474,  587 => 471,  583 => 470,  533 => 422,  531 => 420,  493 => 385,  456 => 351,  441 => 339,  426 => 327,  237 => 141,  144 => 51,  127 => 37,  123 => 36,  119 => 35,  115 => 34,  111 => 33,  107 => 32,  103 => 31,  99 => 30,  95 => 29,  91 => 28,  87 => 27,  83 => 26,  79 => 25,  73 => 22,  69 => 21,  60 => 15,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -928,7 +927,6 @@ class __TwigTemplate_751f211cf4cee100ff40e4b770019b172ca61b14cef76283fc148152db2
                 <div class=\"bg-white py-2 collapse-inner rounded\">
                     <h6 class=\"collapse-header\">Car:</h6>
                     <a class=\"collapse-item\" href=\"{{ path('app_agency_index') }}\">Agency</a>
-                    <a class=\"collapse-item\" href=\"cards.html\">Car</a>
                 </div>
             </div>
         </li>

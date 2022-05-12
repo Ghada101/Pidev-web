@@ -8,6 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 /**
@@ -24,6 +26,7 @@ class Car
      * @ORM\Column(name="id_Car", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups ("Car")
      */
     private $idCar;
 
@@ -31,6 +34,7 @@ class Car
      * @var string|null
      * @ORM\Column(name="NameCar", type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Car name required")
+     * @Groups ("Car")
      */
     private $namecar;
 
@@ -39,6 +43,7 @@ class Car
      * @ORM\Column(name="CarNumber", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Car Number required")
      * @Assert\Regex("/^[0-9]{3}(tunis|TUNIS)[0-9]{4}/", message="Car name must be like 111 tunis|TUNIS 2222")
+     * @Groups ("Car")
      */
     private $carnumber;
 
@@ -46,6 +51,7 @@ class Car
      * @var string
      * @ORM\Column(name="Description", type="string", length=255, nullable=false)
      * @Assert\NotBlank ( message="Car description required" )
+     * @Groups ("Car")
      */
     private $description;
 
@@ -53,6 +59,7 @@ class Car
      * @var string
      * @ORM\Column(name="CarColor", type="string", length=255, nullable=false)
      * @Assert\NotBlank ( message="Car color required" )
+     * @Groups ("Car")
      */
     private $carcolor;
 
@@ -61,6 +68,7 @@ class Car
      *
      * @ORM\Column(name="CarBrand", type="string", length=255, nullable=false)
      * @Assert\NotBlank ( message="Car brand required" )
+     * @Groups ("Car")
      */
     private $carbrand;
 
@@ -68,12 +76,14 @@ class Car
      * @var string|null
      *
      * @ORM\Column(name="CarImage", type="string", length=255, nullable=true)
+     * @Groups ("Car")
      */
     private $carimage;
 
     /**
      * @Vich\UploadableField(mapping="Images", fileNameProperty="carimage")
      * @var File
+     * @Groups ("Car")
      */
     private $imageFile;
 
@@ -81,6 +91,7 @@ class Car
      * @var bool
      *
      * @ORM\Column(name="RentStatus", type="boolean", nullable=false)
+     * @Groups ("car")
      */
     private $rentstatus = '0';
 
@@ -89,6 +100,7 @@ class Car
      *
      * @ORM\ManyToOne(targetEntity="Agency")
      * @ORM\JoinColumns({@ORM\JoinColumn(name="fk_Agency", referencedColumnName="Id_Agency")})
+     * @Groups ("Car")
      */
     private $fkAgency;
 

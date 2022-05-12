@@ -65,7 +65,6 @@ class CarController extends AbstractController
             $fromNumber = '+17622429912';
             $toNumber = '+21692294022';
             $client = new Client($twillioAccountSid, $twillioAuthToken);
-
             $client->messages->create(
                 $toNumber,
                 array(

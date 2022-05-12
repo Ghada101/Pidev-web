@@ -411,6 +411,20 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\AgencyController"/>
       </call>
     </service>
+    <service id="App\Controller\AgencyLoveMobileController" class="App\Controller\AgencyLoveMobileController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\AgencyLoveMobileController"/>
+      </call>
+    </service>
+    <service id="App\Controller\AgencyMobileController" class="App\Controller\AgencyMobileController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\AgencyMobileController"/>
+      </call>
+    </service>
     <service id="App\Controller\AgencyloveController" class="App\Controller\AgencyloveController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -423,6 +437,13 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\CarController"/>
+      </call>
+    </service>
+    <service id="App\Controller\CarMobileController" class="App\Controller\CarMobileController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\CarMobileController"/>
       </call>
     </service>
     <service id="App\Controller\RentController" class="App\Controller\RentController" public="true" autowire="true" autoconfigure="true">
@@ -5548,12 +5569,21 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AgencyController" class="App\Controller\AgencyController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AgencyController" class="App\Controller\AgencyController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AgencyController" class="App\Controller\AgencyController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AgencyLoveMobileController" class="App\Controller\AgencyLoveMobileController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AgencyLoveMobileController" class="App\Controller\AgencyLoveMobileController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\AgencyLoveMobileController" class="App\Controller\AgencyLoveMobileController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AgencyMobileController" class="App\Controller\AgencyMobileController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AgencyMobileController" class="App\Controller\AgencyMobileController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\AgencyMobileController" class="App\Controller\AgencyMobileController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AgencyloveController" class="App\Controller\AgencyloveController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AgencyloveController" class="App\Controller\AgencyloveController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AgencyloveController" class="App\Controller\AgencyloveController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CarController" class="App\Controller\CarController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CarController" class="App\Controller\CarController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CarController" class="App\Controller\CarController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CarMobileController" class="App\Controller\CarMobileController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CarMobileController" class="App\Controller\CarMobileController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CarMobileController" class="App\Controller\CarMobileController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RentController" class="App\Controller\RentController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RentController" class="App\Controller\RentController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RentController" class="App\Controller\RentController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5882,6 +5912,20 @@
         <argument key="agencyRepository" type="service_closure" id="App\Repository\AgencyRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.QmfX27w" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="agencyloveRepository" type="service_closure" id="App\Repository\AgencyloveRepository"/>
+        <argument key="mailer" type="service_closure" id="swiftmailer.mailer.default"/>
+        <argument key="normalizer" type="service_closure" id="serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.BvcyOg1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="normalizer" type="service_closure" id="serializer"/>
+      </argument>
+    </service>
     <service id=".service_locator.F2PLdAV" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5934,6 +5978,26 @@
         <argument key="carRepository" type="service_closure" id="App\Repository\CarRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.D2Tzdlr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="agencyRepository" type="service_closure" id="App\Repository\AgencyRepository"/>
+        <argument key="carRepository" type="service_closure" id="App\Repository\CarRepository"/>
+        <argument key="normalizer" type="service_closure" id="serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.qE9t_GR" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="normalizerInterface" type="service_closure" id="serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.8hVFgMp" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="normalizerInterface" type="service_closure" id="serializer"/>
+      </argument>
+    </service>
     <service id=".service_locator.ssG8pz9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5960,7 +6024,7 @@
         <argument key="rentRepository" type="service_closure" id="App\Repository\RentRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.47b3wxj" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.NjtDfQw" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AgencyController::Frontindex" type="service_closure" id=".service_locator.6ClJ1.P"/>
@@ -5969,6 +6033,11 @@
         <argument key="App\Controller\AgencyController::index" type="service_closure" id=".service_locator.CTfCdpf"/>
         <argument key="App\Controller\AgencyController::new" type="service_closure" id=".service_locator.CTfCdpf"/>
         <argument key="App\Controller\AgencyController::show" type="service_closure" id=".service_locator.XXE6C.b"/>
+        <argument key="App\Controller\AgencyLoveMobileController::new" type="service_closure" id=".service_locator.QmfX27w"/>
+        <argument key="App\Controller\AgencyMobileController::addAgenciesMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\AgencyMobileController::deleteAgencyMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\AgencyMobileController::getAgenciesMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\AgencyMobileController::updateAgencyMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
         <argument key="App\Controller\AgencyloveController::countLove" type="service_closure" id=".service_locator.F2PLdAV"/>
         <argument key="App\Controller\AgencyloveController::edit" type="service_closure" id=".service_locator.o2M52RZ"/>
         <argument key="App\Controller\AgencyloveController::index" type="service_closure" id=".service_locator.F2PLdAV"/>
@@ -5979,6 +6048,11 @@
         <argument key="App\Controller\CarController::index" type="service_closure" id=".service_locator.OaAVb7K"/>
         <argument key="App\Controller\CarController::new" type="service_closure" id=".service_locator.QAs41i4"/>
         <argument key="App\Controller\CarController::show" type="service_closure" id=".service_locator.uzilRCW"/>
+        <argument key="App\Controller\CarMobileController::GetCars" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\CarMobileController::deleteCar" type="service_closure" id=".service_locator.qE9t_GR"/>
+        <argument key="App\Controller\CarMobileController::new" type="service_closure" id=".service_locator.D2Tzdlr"/>
+        <argument key="App\Controller\CarMobileController::updateCar" type="service_closure" id=".service_locator.8hVFgMp"/>
+        <argument key="App\Controller\CarMobileController::uploadImg" type="service_closure" id=".service_locator.BvcyOg1"/>
         <argument key="App\Controller\RentController::delete" type="service_closure" id=".service_locator.rvZvZ8I"/>
         <argument key="App\Controller\RentController::edit" type="service_closure" id=".service_locator.rvZvZ8I"/>
         <argument key="App\Controller\RentController::index" type="service_closure" id=".service_locator.ssG8pz9"/>
@@ -5990,6 +6064,11 @@
         <argument key="App\Controller\AgencyController:index" type="service_closure" id=".service_locator.CTfCdpf"/>
         <argument key="App\Controller\AgencyController:new" type="service_closure" id=".service_locator.CTfCdpf"/>
         <argument key="App\Controller\AgencyController:show" type="service_closure" id=".service_locator.XXE6C.b"/>
+        <argument key="App\Controller\AgencyLoveMobileController:new" type="service_closure" id=".service_locator.QmfX27w"/>
+        <argument key="App\Controller\AgencyMobileController:addAgenciesMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\AgencyMobileController:deleteAgencyMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\AgencyMobileController:getAgenciesMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\AgencyMobileController:updateAgencyMobile" type="service_closure" id=".service_locator.BvcyOg1"/>
         <argument key="App\Controller\AgencyloveController:countLove" type="service_closure" id=".service_locator.F2PLdAV"/>
         <argument key="App\Controller\AgencyloveController:edit" type="service_closure" id=".service_locator.o2M52RZ"/>
         <argument key="App\Controller\AgencyloveController:index" type="service_closure" id=".service_locator.F2PLdAV"/>
@@ -6000,6 +6079,11 @@
         <argument key="App\Controller\CarController:index" type="service_closure" id=".service_locator.OaAVb7K"/>
         <argument key="App\Controller\CarController:new" type="service_closure" id=".service_locator.QAs41i4"/>
         <argument key="App\Controller\CarController:show" type="service_closure" id=".service_locator.uzilRCW"/>
+        <argument key="App\Controller\CarMobileController:GetCars" type="service_closure" id=".service_locator.BvcyOg1"/>
+        <argument key="App\Controller\CarMobileController:deleteCar" type="service_closure" id=".service_locator.qE9t_GR"/>
+        <argument key="App\Controller\CarMobileController:new" type="service_closure" id=".service_locator.D2Tzdlr"/>
+        <argument key="App\Controller\CarMobileController:updateCar" type="service_closure" id=".service_locator.8hVFgMp"/>
+        <argument key="App\Controller\CarMobileController:uploadImg" type="service_closure" id=".service_locator.BvcyOg1"/>
         <argument key="App\Controller\RentController:delete" type="service_closure" id=".service_locator.rvZvZ8I"/>
         <argument key="App\Controller\RentController:edit" type="service_closure" id=".service_locator.rvZvZ8I"/>
         <argument key="App\Controller\RentController:index" type="service_closure" id=".service_locator.ssG8pz9"/>
@@ -6313,6 +6397,18 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\AgencyLoveMobileController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\AgencyLoveMobileController"/>
+      <argument>App\Controller\AgencyLoveMobileController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\AgencyMobileController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\AgencyMobileController"/>
+      <argument>App\Controller\AgencyMobileController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
     <service id=".service_locator.vdmMuyE.App\Controller\AgencyloveController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\AgencyloveController"/>
       <argument>App\Controller\AgencyloveController</argument>
@@ -6322,6 +6418,12 @@
     <service id=".service_locator.vdmMuyE.App\Controller\CarController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\CarController"/>
       <argument>App\Controller\CarController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\CarMobileController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\CarMobileController"/>
+      <argument>App\Controller\CarMobileController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
@@ -6477,12 +6579,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.47b3wxj"/>
+      <argument type="service" id=".service_locator.NjtDfQw"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.47b3wxj"/>
+      <argument type="service" id=".service_locator.NjtDfQw"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6932,7 +7034,7 @@
     <service id="mailer" alias="swiftmailer.mailer.default" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.47b3wxj"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.NjtDfQw"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

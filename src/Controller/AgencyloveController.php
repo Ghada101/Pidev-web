@@ -46,7 +46,6 @@ class AgencyloveController extends AbstractController
             $agencylove->setIduser($user);
             $agency->setNbrlike($agency->getNbrlike() + 1);
             $agencyloveRepository->add($agencylove);
-
             $em->flush();
             return $this->redirectToRoute('app_agency_frontindex', [
                 'agencylove' => $agencylove,

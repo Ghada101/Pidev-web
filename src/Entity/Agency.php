@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 
@@ -26,6 +27,7 @@ class Agency
 * @ORM\Column(name="Id_Agency", type="integer", nullable=false)
 * @ORM\Id
 * @ORM\GeneratedValue(strategy="IDENTITY")
+* @Groups ("Agency")
 */
 private $idAgency;
 
@@ -34,6 +36,7 @@ private $idAgency;
 *
 * @ORM\Column(name="nameAgency", type="string", length=255, nullable=false)
 * @Assert\NotBlank(message="name agency required")
+ * @Groups ("Agency")
 */
 private $nameagency;
 
@@ -43,7 +46,9 @@ private $nameagency;
 * @ORM\Column(name="agencyPhoneNumber", type="string", length=255, nullable=false)
 * @Assert\NotBlank(message="Phone number required")
 * @Assert\Regex("/^[0-9]{8}$/", message="Phone number must be 8 digits")
-*/
+* @Groups ("Agency")
+
+ */
 private $agencyphonenumber;
 
 /**
@@ -51,6 +56,7 @@ private $agencyphonenumber;
 *
 * @ORM\Column(name="agencyLocation", type="string", length=255, nullable=false)
 * @Assert\NotBlank(message="Location required")
+* @Groups ("Agency")
 */
 private $agencylocation;
 
@@ -60,6 +66,7 @@ private $agencylocation;
 * @ORM\Column(name="agencyDescription", type="string", length=255, nullable=false)
 * @Assert\NotBlank(message="Description required")
 * @Assert\Regex ("/^[a-zA-Z0-9\s]*$/", message="Description must be alphanumeric")
+* @Groups ("Agency")
 */
 private $agencydescription;
 
@@ -67,6 +74,7 @@ private $agencydescription;
 * @var int
 * @ORM\Column(name="numberOfCars", type="integer", nullable=false)
 * @Assert\NotBlank(message=" number of cars required")
+* @Groups ("Agency")
 */
 private $numberofcars;
 
@@ -76,6 +84,7 @@ private $numberofcars;
 * @ORM\Column(name="numberOfAvailableCars", type="integer", nullable=false)
 * @Assert\NotBlank(message=" number of available cars required")
 * @Assert\LessThanOrEqual(propertyPath="numberofcars", message="Number of available cars must be less than or equal to number of cars")
+*@Groups ("Agency")
 */
 private $numberofavailablecars;
 
@@ -83,6 +92,7 @@ private $numberofavailablecars;
 * @var string|null
 *
 * @ORM\Column(name="imageAgency", type="string", length=255, nullable=true)
+*@Groups ("Agency")
 */
 private $imageagency;
 
@@ -97,6 +107,7 @@ private $imageFile;
 * @var int|null
 *
 * @ORM\Column(name="nbrLike", type="integer", nullable=true)
+*@Groups ("Agency")
 */
 private $nbrlike ;
 

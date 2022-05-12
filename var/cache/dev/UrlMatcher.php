@@ -19,7 +19,14 @@ return [
         '/agency/new' => [[['_route' => 'app_agency_new', '_controller' => 'App\\Controller\\AgencyController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/agency/admin/msg' => [[['_route' => 'msg', '_controller' => 'App\\Controller\\AgencyController::msg'], null, null, null, false, false, null]],
         '/agency/chatframe' => [[['_route' => 'chatframe', '_controller' => 'App\\Controller\\AgencyController::chatframeAction'], null, null, null, false, false, null]],
+        '/agency/love/mobile' => [[['_route' => 'app_agency_love_mobile', '_controller' => 'App\\Controller\\AgencyLoveMobileController::index'], null, null, null, false, false, null]],
+        '/agency/mobile' => [[['_route' => 'app_agency_mobile', '_controller' => 'App\\Controller\\AgencyMobileController::index'], null, null, null, false, false, null]],
+        '/mobile/getAgencies' => [[['_route' => 'GetAgenciesMobile', '_controller' => 'App\\Controller\\AgencyMobileController::getAgenciesMobile'], null, null, null, false, false, null]],
+        '/mobile/addAgency' => [[['_route' => 'AddAgencyMobile', '_controller' => 'App\\Controller\\AgencyMobileController::addAgenciesMobile'], null, null, null, false, false, null]],
+        '/mobile/deleteAgency' => [[['_route' => 'DeleteAgencyMobile', '_controller' => 'App\\Controller\\AgencyMobileController::deleteAgencyMobile'], null, null, null, false, false, null]],
         '/agencylove' => [[['_route' => 'app_agencylove_index', '_controller' => 'App\\Controller\\AgencyloveController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/mobile/deleteCar' => [[['_route' => 'mobile_delete_cars', '_controller' => 'App\\Controller\\CarMobileController::deleteCar'], null, null, null, false, false, null]],
+        '/mobile/uploadImg' => [[['_route' => 'uploadImg', '_controller' => 'App\\Controller\\CarMobileController::uploadImg'], null, null, null, false, false, null]],
         '/rent' => [[['_route' => 'app_rent_index', '_controller' => 'App\\Controller\\RentController::index'], null, ['GET' => 0], null, true, false, null]],
     ],
     [ // $regexpList
@@ -60,23 +67,31 @@ return [
                         .'|count(*:364)'
                     .')'
                 .')'
+                .'|/mobile/(?'
+                    .'|Like/([^/]++)(*:398)'
+                    .'|updatAgency/([^/]++)(*:426)'
+                    .'|addCar/([^/]++)(*:449)'
+                    .'|getCars/([^/]++)(*:473)'
+                    .'|carUpdate/([^/]++)(*:499)'
+                .')'
                 .'|/car/(?'
-                    .'|([^/]++)(*:390)'
-                    .'|front/([^/]++)(*:412)'
-                    .'|new/([^/]++)(*:432)'
+                    .'|([^/]++)(*:524)'
+                    .'|front/([^/]++)(*:546)'
+                    .'|new/([^/]++)(*:566)'
                     .'|([^/]++)(?'
-                        .'|(*:451)'
+                        .'|(*:585)'
                         .'|/(?'
-                            .'|edit(*:467)'
-                            .'|delete(*:481)'
+                            .'|edit(*:601)'
+                            .'|delete(*:615)'
                         .')'
                     .')'
+                    .'|mobile(*:631)'
                 .')'
                 .'|/rent/(?'
-                    .'|new/([^/]++)/([^/]++)(*:522)'
-                    .'|([^/]++)(*:538)'
-                    .'|edit/([^/]++)/([^/]++)/([^/]++)(*:577)'
-                    .'|([^/]++)(*:593)'
+                    .'|new/([^/]++)/([^/]++)(*:670)'
+                    .'|([^/]++)(*:686)'
+                    .'|edit/([^/]++)/([^/]++)/([^/]++)(*:725)'
+                    .'|([^/]++)(*:741)'
                 .')'
             .')/?$}sD',
     ],
@@ -97,16 +112,22 @@ return [
         337 => [[['_route' => 'app_agencylove_show', '_controller' => 'App\\Controller\\AgencyloveController::show'], ['idagencylove'], ['GET' => 0], null, false, true, null]],
         350 => [[['_route' => 'app_agencylove_edit', '_controller' => 'App\\Controller\\AgencyloveController::edit'], ['idagencylove'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         364 => [[['_route' => 'app_agencylove_count', '_controller' => 'App\\Controller\\AgencyloveController::countLove'], [], null, null, false, false, null]],
-        390 => [[['_route' => 'app_car_index', '_controller' => 'App\\Controller\\CarController::index'], ['idAgency'], ['GET' => 0], null, false, true, null]],
-        412 => [[['_route' => 'app_car_front_index', '_controller' => 'App\\Controller\\CarController::Frontindex'], ['idAgency'], ['GET' => 0], null, false, true, null]],
-        432 => [[['_route' => 'app_car_new', '_controller' => 'App\\Controller\\CarController::new'], ['idAgency'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        451 => [[['_route' => 'app_car_show', '_controller' => 'App\\Controller\\CarController::show'], ['idCar'], ['GET' => 0], null, false, true, null]],
-        467 => [[['_route' => 'app_car_edit', '_controller' => 'App\\Controller\\CarController::edit'], ['idCar'], null, null, false, false, null]],
-        481 => [[['_route' => 'app_car_delete', '_controller' => 'App\\Controller\\CarController::deleteCar'], ['idCar'], null, null, false, false, null]],
-        522 => [[['_route' => 'app_rent_new', '_controller' => 'App\\Controller\\RentController::new'], ['idAgency', 'idCar'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        538 => [[['_route' => 'app_rent_show', '_controller' => 'App\\Controller\\RentController::show'], ['idrent'], ['GET' => 0], null, false, true, null]],
-        577 => [[['_route' => 'app_rent_edit', '_controller' => 'App\\Controller\\RentController::edit'], ['idrent', 'idAgency', 'idCar'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        593 => [
+        398 => [[['_route' => 'app_agencylove_newLike', '_controller' => 'App\\Controller\\AgencyLoveMobileController::new'], ['idAgency'], null, null, false, true, null]],
+        426 => [[['_route' => 'UpdateAgecyMobile', '_controller' => 'App\\Controller\\AgencyMobileController::updateAgencyMobile'], ['idAgency'], null, null, false, true, null]],
+        449 => [[['_route' => 'mobile_add_car', '_controller' => 'App\\Controller\\CarMobileController::new'], ['idAgency'], null, null, false, true, null]],
+        473 => [[['_route' => 'mobile_get_cars', '_controller' => 'App\\Controller\\CarMobileController::GetCars'], ['idAgency'], null, null, false, true, null]],
+        499 => [[['_route' => 'mobile_update_cars', '_controller' => 'App\\Controller\\CarMobileController::updateCar'], ['idCar'], null, null, false, true, null]],
+        524 => [[['_route' => 'app_car_index', '_controller' => 'App\\Controller\\CarController::index'], ['idAgency'], ['GET' => 0], null, false, true, null]],
+        546 => [[['_route' => 'app_car_front_index', '_controller' => 'App\\Controller\\CarController::Frontindex'], ['idAgency'], ['GET' => 0], null, false, true, null]],
+        566 => [[['_route' => 'app_car_new', '_controller' => 'App\\Controller\\CarController::new'], ['idAgency'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        585 => [[['_route' => 'app_car_show', '_controller' => 'App\\Controller\\CarController::show'], ['idCar'], ['GET' => 0], null, false, true, null]],
+        601 => [[['_route' => 'app_car_edit', '_controller' => 'App\\Controller\\CarController::edit'], ['idCar'], null, null, false, false, null]],
+        615 => [[['_route' => 'app_car_delete', '_controller' => 'App\\Controller\\CarController::deleteCar'], ['idCar'], null, null, false, false, null]],
+        631 => [[['_route' => 'app_car_mobile', '_controller' => 'App\\Controller\\CarMobileController::index'], [], null, null, false, false, null]],
+        670 => [[['_route' => 'app_rent_new', '_controller' => 'App\\Controller\\RentController::new'], ['idAgency', 'idCar'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        686 => [[['_route' => 'app_rent_show', '_controller' => 'App\\Controller\\RentController::show'], ['idrent'], ['GET' => 0], null, false, true, null]],
+        725 => [[['_route' => 'app_rent_edit', '_controller' => 'App\\Controller\\RentController::edit'], ['idrent', 'idAgency', 'idCar'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        741 => [
             [['_route' => 'app_rent_delete', '_controller' => 'App\\Controller\\RentController::delete'], ['idrent'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
