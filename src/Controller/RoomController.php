@@ -5,12 +5,19 @@ namespace App\Controller;
 use App\Entity\Room;
 use App\Entity\Hotel;
 use App\Form\RoomType;
+use App\Repository\RoomRepository;
+use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 /**   
  * @Route("/room")
  */
@@ -25,7 +32,7 @@ class RoomController extends AbstractController
             ->getRepository(Room::class)
             ->findAll();
     
-        $rooms=$paginator->paginate($rooms, $request->query->getInt('page', 1), 1);
+        $rooms=$paginator->paginate($rooms, $request->query->getInt('page', 1), 2);
 
         return $this->render('backOffice/room/index.html.twig', [
             'rooms' => $rooms,
@@ -44,6 +51,20 @@ class RoomController extends AbstractController
             'rooms' => $rooms,
             'idHotel' => $idHotel,
         ]);
+    }
+
+
+/**
+     * @Route("/liste", name="liste")
+     */
+    public function indexJson(NormalizerInterface $normalizerInterface) {
+        $repository = $this->getDoctrine()->getRepository(Room::class);
+        $room = $repository->findAll();
+        
+        $json= $normalizerInterface->normalize($room,'json',['groups'=>'post:read']);
+       // return $this->render
+ 
+        return new Response(json_encode($json));
     }
 
     /**
@@ -81,6 +102,25 @@ class RoomController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+ /**
+     * @Route("/add" , name="addRoomJson")
+     */
+    public function addRoomJson (HotelRepository $hotelRepository,Request $request , SerializerInterface $serializerInterface , EntityManagerInterface $entityManager){
+        $entityManager = $this->getDoctrine()->getManager();
+        $hotelchain = new Room();
+       $hotelchain->setRoomType($request->get('roomType'));
+       $hotelchain->setRoomCapacity($request->get('roomCapacity'));
+       $hotelchain->setNbrroom($request->get('nbrroom'));
+       $hotelchain->setPrice($request->get('price')); 
+       $a= $hotelRepository->find($request->get('fkHotel'));
+       $hotelchain->setFkHotel($a);
+       $hotelchain->setImage($request->get('image'));
+       $entityManager->persist($hotelchain);
+       $entityManager->flush();
+       $jsoncontent= $serializerInterface->serialize($hotelchain, 'json', ['groups'=>'post:read']);
+       return new Response(json_encode($jsoncontent));
+      
+    }
 
     /**
      * @Route("/{idRoom}", name="app_room_show", methods={"GET"})
@@ -90,6 +130,16 @@ class RoomController extends AbstractController
         return $this->render('backOffice/room/show.html.twig', [
             'room' => $room,
         ]);
+    }
+
+    /**
+     * @Route("/show/{idRoom}", name="showJson")
+     */
+    public function showJson ($idRoom,Request $request , SerializerInterface $serializerInterface) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $hc=$entityManager->getRepository(Room::class)->find($idRoom);
+        $jsoncontent = $serializerInterface->serialize($hc,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsoncontent));
     }
 
     /**
@@ -115,6 +165,32 @@ class RoomController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * @Route("/modifier/updateJSON", name="room_updateJSON")
+     * @Method("PUT")
+     */
+    public function modifierJson(Request $request , NormalizerInterface $normalizerInterface) {
+        $em = $this->getDoctrine()->getManager();
+        $hotelchain = $this->getDoctrine()->getManager()
+            ->getRepository(Room::class)
+            ->find($request->get("idRoom"));
+
+            $hotelchain->setRoomType($request->get('roomType'));
+            $hotelchain->setRoomCapacity($request->get('roomCapacity'));
+            $hotelchain->setNbrroom($request->get('nbrroom'));
+            $hotelchain->setPrice($request->get('price')); 
+            
+        $em->persist($hotelchain);
+        $em->flush();
+        $json=$normalizerInterface->normalize($hotelchain, 'json', ['groups' => 'post:read']);
+
+        
+        return new JsonResponse("Room a ete modifiee avec success.");
+
+    }
+
     /**
      * @Route("/{idRoom}", name="app_room_delete", methods={"POST"})
      */
@@ -128,5 +204,54 @@ class RoomController extends AbstractController
                 'Deleted Successfully!'
             );
         return $this->redirectToRoute('app_room_index');
+    }
+    /**
+     * @Route("/delete/{idRoom}", name="deleteJson")
+    */
+
+    public function deleteJson (EntityManagerInterface $em  , $idRoom, Request $request , SerializerInterface $serializerInterface) {
+        $hc=$em->getRepository(Room::class)->find($idRoom);
+        $em->remove($hc);
+        $em->flush();
+        $json=$serializerInterface->serialize($hc, 'json', ['groups' => 'post:read']);
+        return new Response("deleted!".json_encode($json));
+    }
+    /**
+     * @Route("/del", name="agence_delJSON")
+     * @Method("DELETE")
+     */
+
+    public function delJSON(Request $request , SerializerInterface $serializerInterface) {
+        $id = $request->get("idRoom");
+
+        $em = $this->getDoctrine()->getManager();
+        $agence = $em->getRepository(Room::class)->find($id);
+        if($agence!=null ) {
+            $em->remove($agence);
+            $em->flush();
+
+            //$serialize = new Serializer([new ObjectNormalizer()]);
+            $json=$serializerInterface->serialize($agence, 'json', ['groups' => 'post:read']);
+
+           // $formatted = $serialize->normalize("Agence a ete supprimee avec success.");
+            return new JsonResponse("deleted!".json_encode($json));
+
+        }else{
+            return new JsonResponse("id hc invalide.");}
+    }
+    /**
+     * @Route("/mobile/uploadImg", name="uploadImg")
+     */
+    public function uploadImg(Request $request, NormalizerInterface $normalizer){
+        //houni uploadi image
+        if (isset($_FILES['file']["name"])){
+            $img=file_get_contents($_FILES["file"]["tmp_name"]);
+            $fp=fopen("uploads\\".$_FILES['file']["name"],"w");
+            fwrite($fp,$img);
+            fclose($fp);
+
+        }
+
+        return new Response('json_encode($_FILES)');
     }
 }
