@@ -88,7 +88,7 @@ class ReservetableController extends AbstractController
             }
             }
             
-        return $this->render('frontOffice/reservetable/new.html.twig', [
+        return $this->render('BackOffice/reservetable/new.html.twig', [
             'reservetable' => $reservetable,
             'table'=> $table,
             'form' => $form->createView(),

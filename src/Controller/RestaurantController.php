@@ -39,7 +39,7 @@ class RestaurantController extends AbstractController
      */
     public function indexFront(RestaurantRepository $restaurantRepository): Response
     {
-        return $this->render('Frontoffice/restaurant/indexFront.html.twig' , [
+        return $this->render('BackOffice/restaurant/indexFront.html.twig' , [
             'restaurants' => $restaurantRepository->findAll(),
         ]);
     }

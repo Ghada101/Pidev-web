@@ -71,22 +71,25 @@ class RentController extends AbstractController
                     if ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() < $rentList[$i]->getEnddate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() == $rentList[$i]->getEnddate()) {
+             } elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() == $rentList[$i]->getEnddate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('enddate')->getData() == $rentList[$i]->getEnddate() && $form->get('startdate')->getData() > $rentList[$i]->getStartdate()) {
+
+                    }elseif ($form->get('enddate')->getData() == $rentList[$i]->getEnddate() && $form->get('startdate')->getData() > $rentList[$i]->getStartdate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() > $rentList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'this car is already rented at this date');
-                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('enddate')->getData() == $rentList[$i]->getEnddate() && $form->get('enddate')->getData() < $rentList[$i]->getStartdate()) {
+                    }
+//                    elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() > $rentList[$i]->getEnddate()) {
+//                        $this->addFlash('danger', 'this car is already rented at this date');
+//                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
+//                    }
+                    elseif ($form->get('enddate')->getData() == $rentList[$i]->getEnddate() && $form->get('enddate')->getData() < $rentList[$i]->getStartdate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
                     } elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() > $rentList[$i]->getEnddate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('startdate')->getData() > $rentList[$i]->getEnddate()) {
+                    } elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() > $rentList[$i]->getEnddate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
                     } elseif ($form->get('enddate')->getData() < $rentList[$i]->getEnddate() && $form->get('enddate')->getData() > $rentList[$i]->getStartdate()) {
