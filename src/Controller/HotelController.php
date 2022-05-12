@@ -333,6 +333,7 @@ class HotelController extends AbstractController
         $hotel1 = $em->getRepository(Hotel::class)->find(108);
         $hotel1->setRating(4);
         $em->flush();
+        return new JsonResponse("rating done");
     }
     /**
      * @Route("/mobile/uploadImg", name="uploadImg")

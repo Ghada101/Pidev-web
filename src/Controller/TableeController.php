@@ -33,7 +33,7 @@ class TableeController extends AbstractController
         $tables=$entityManager
               ->getRepository(Tablee::class)
               ->findBy(['idRestau' => $idRestau]);
-        return $this->render('Frontoffice/tablee/indexFronttable.html.twig', [
+        return $this->render('BackOffice/tablee/indexFronttable.html.twig', [
             'tables' => $tables,
             'idRestau'=> $idRestau,
         ]);
