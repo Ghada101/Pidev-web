@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 /**
  * @Route("/comment")
  */
@@ -224,6 +227,81 @@ class CommentController extends AbstractController
         return new Response($retour, 200, [
             'Content-Type' => 'application/json'
         ]);
+
+    }
+
+    /**
+     * @Route("/searchComments/firas", name="appCommentssearch")
+     */
+    public function searchComments(Request $request,SerializerInterface $serializer)
+    {
+
+        $rep = $this->getDoctrine()->getRepository(Comment::class);
+        $requestString = $request->get('searchValue');
+        $comments =  $rep->findByTitle($requestString);
+        $jsoncontent = $serializer->serialize($comments, 'json', ['groups' => ['comment_read']]);
+        $retour = json_encode($jsoncontent);
+        return new Response($retour, 200, [
+            'Content-Type' => 'application/json'
+        ]);
+
+    }
+
+    /**
+     * @Route("/mobile/listComments", name="mobile_liste_Comment", methods={"GET"})
+     */
+    public function liste_comments(Request $request,NormalizerInterface $Normalizer,CommentRepository $commentRepository)
+    {
+        $comments = $commentRepository->findByidsubject($request->get('idsubject'));
+        $jsonContent = $Normalizer->normalize($comments, 'json',['groups'=>'comment_read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+
+    /**
+     * @Route("/mobile/deletecomment", name="mobile_delete_comment")
+     */
+    public function deletecomment(Request $request,SubjectRepository  $subjectRepository)
+    {
+        $repository = $this->getDoctrine()->getRepository(Comment::class);
+        $comment = $repository->find($request->get('idcomment'));
+        $em= $this->getDoctrine()->getManager();
+        $subject= $subjectRepository->find($request->get('idsubject'));
+        $subject->setSubjectNumComments($subject->getSubjectNumComments()-1);
+        $em->remove($comment);
+        $em->flush();
+
+
+        return new Response("comment deleted successfully");
+    }
+    /**
+     * @Route("/mobile/modifiercomment", name="mobile_modifier_comment"  )
+     */
+    public function modifiercomment(Request $request,NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Comment::class);
+        $comment = $repository->find($request->get('idcomment'));
+        $comment->setCommentDescription($request->get('description'));
+        $em->flush();
+        return new Response("comment updated successfully");
+    }
+    /**
+     * @Route("/mobile/ajoutercomment", name="mobile_ajouter_comment")
+     */
+    public function ajoutercomment(Request $request,NormalizerInterface $Normalizer,SubjectRepository $subjectRepository)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $comment=new Comment();
+        $subject = $subjectRepository->find($request->get('idsubject'));
+        $comment->setCommentDate(new \DateTime("now"));
+        $comment->setCommentDescription($request->get('description'));
+        $comment->setSubject($this->getDoctrine()->getRepository(Subject::class)->findOneBy(['subjectId' => $request->get('idsubject')]));
+        $comment->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+        $subject->setSubjectNumComments($subject->getSubjectNumComments()+1);
+        $em->persist($comment);
+        $em->flush();
+        return new Response("comment added successfully");
 
     }
 }

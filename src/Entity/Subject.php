@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Subject
@@ -25,6 +26,7 @@ class Subject
      * @ORM\Column(name="subject_Id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups ("subject_read")
      */
     private $subjectId;
 
@@ -34,6 +36,7 @@ class Subject
      * @ORM\Column(name="subject_title", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Title is required")
      * @ProfanityAssert\ProfanityCheck
+     * @Groups ("subject_read")
      */
     private $subjectTitle;
 
@@ -43,6 +46,7 @@ class Subject
      * @ORM\Column(name="subject_description", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="Description is required")
      * @ProfanityAssert\ProfanityCheck
+     * @Groups ("subject_read")
      */
     private $subjectDescription;
 
@@ -50,6 +54,7 @@ class Subject
      * @var int
      *
      * @ORM\Column(name="subject_num_comments", type="integer", nullable=false)
+     * @Groups ("subject_read")
      */
     private $subjectNumComments;
 
@@ -57,6 +62,7 @@ class Subject
      * @var DateTime
      *
      * @ORM\Column(name="subject_date", type="date", nullable=false)
+     * @Groups ("subject_read")
      */
     private $subjectDate;
 
@@ -64,6 +70,7 @@ class Subject
      * @var string|null
      *
      * @ORM\Column(name="subject_image", type="string", length=255, nullable=true)
+     * @Groups ("subject_read")
      */
     private $subjectImage;
     /**
@@ -78,6 +85,7 @@ class Subject
      * @var int
      *
      * @ORM\Column(name="acceptsubject", type="integer", nullable=false)
+     * @Groups ("subject_read")
      */
     private $acceptsubject = '0';
 
@@ -85,6 +93,7 @@ class Subject
      * @var int
      *
      * @ORM\Column(name="hidesubject", type="integer", nullable=false)
+     * @Groups ("subject_read")
      */
     private $hidesubject = '0';
 
@@ -95,6 +104,7 @@ class Subject
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="User_Id", referencedColumnName="id")
      * })
+     * @Groups ("subject_read")
      */
     private $user;
 
@@ -105,6 +115,7 @@ class Subject
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="topic_Id", referencedColumnName="topic_Id")
      * })
+     * @Groups ("subject_read")
      */
     private $topic;
 
