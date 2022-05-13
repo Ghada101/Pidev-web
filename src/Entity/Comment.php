@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
 use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Comment
@@ -21,6 +22,7 @@ class Comment
      * @ORM\Column(name="comment_Id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"comment_read"})
      */
     private $commentId;
 
@@ -30,6 +32,7 @@ class Comment
      * @ORM\Column(name="comment_description", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="comment blank")
      * @ProfanityAssert\ProfanityCheck
+     * @Groups({"comment_read"})
      */
     private $commentDescription;
 
@@ -37,6 +40,7 @@ class Comment
      * @var \DateTime
      *
      * @ORM\Column(name="comment_date", type="date", nullable=false)
+     * @Groups({"comment_read"})
      */
     private $commentDate;
 
@@ -44,6 +48,7 @@ class Comment
      * @var int|null
      *
      * @ORM\Column(name="nblike", type="integer", nullable=true)
+     * @Groups({"comment_read"})
      */
     private $nblike = '0';
 
@@ -51,6 +56,7 @@ class Comment
      * @var int
      *
      * @ORM\Column(name="nbdislike", type="integer", nullable=false)
+     * @Groups({"comment_read"})
      */
     private $nbdislike = '0';
 
@@ -58,6 +64,7 @@ class Comment
      * @var string|null
      *
      * @ORM\Column(name="comment_image", type="string", length=255, nullable=true)
+     * @Groups({"comment_read"})
      */
     private $commentImage;
 
@@ -68,6 +75,7 @@ class Comment
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="User_Id", referencedColumnName="id")
      * })
+     * @Groups({"comment_read"})
      */
     private $user;
 
@@ -78,6 +86,7 @@ class Comment
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="subject_Id", referencedColumnName="subject_Id")
      * })
+     * @Groups({"comment_read"})
      */
     private $subject;
 

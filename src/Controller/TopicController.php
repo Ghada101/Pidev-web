@@ -20,6 +20,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Knp\Bundle\TimeBundle\DateTimeFormatter;
+use Vangrg\ProfanityBundle\Entity\Profanity;
+
 /**
  * @Route("/topic")
  */
@@ -239,7 +241,17 @@ public function search(Request $request,SerializerInterface $serializer)
 }
 
     /**
-     * @Route("/mobile/listTopics", name="mobile_liste_topic", methods={"GET"})
+     * @Route("/mobile/listTopicsacc", name="mobile_liste_topic", methods={"GET"})
+     */
+    public function liste_topicsAcc(Request $request,NormalizerInterface $Normalizer)
+    {
+        $repository = $this->getDoctrine()->getRepository(Topic::class);
+        $topics = $repository->findAccept(1);
+        $jsonContent = $Normalizer->normalize($topics, 'json',['groups'=>'topic']);
+        return new Response(json_encode($jsonContent));
+    }
+    /**
+     * @Route("/mobile/listTopics", name="mobile_liste_topicaccept", methods={"GET"})
      */
     public function liste_topics(Request $request,NormalizerInterface $Normalizer)
     {
@@ -260,19 +272,19 @@ public function search(Request $request,SerializerInterface $serializer)
         return new Response(json_encode($jsonContent));
     }
     /**
-     * @Route("/mobile/delete/{id}", name="mobile_delete_topic")
+     * @Route("/mobile/delete", name="mobile_delete_topic")
      */
-    public function deletetopic(Request $request,$id,NormalizerInterface $Normalizer)
+    public function deletetopic(Request $request,NormalizerInterface $Normalizer)
     {
         $repository = $this->getDoctrine()->getRepository(Topic::class);
-        $topic = $repository->find($id);
+        $topic = $repository->find($request->get('idtopic'));
         $em= $this->getDoctrine()->getManager();
         $em->remove($topic);
         $em->flush();
         return new Response("topic deleted successfully");
     }
     /**
-     * @Route("/mobile/modifier/{id}", name="mobile_modifier_topic",  )
+     * @Route("/mobile/modifier/{id}", name="mobile_modifier_topic"  )
      */
     public function modifiertopic(Request $request,$id,NormalizerInterface $Normalizer)
     {
@@ -287,7 +299,7 @@ public function search(Request $request,SerializerInterface $serializer)
     /**
      * @Route("/mobile/ajouter", name="mobile_ajouter_topic")
      */
-    public function ajoutertopic(Request $request,NormalizerInterface $Normalizer)
+    public function ajoutertopic(Request $request,NormalizerInterface $normalizer)
     {
         $em= $this->getDoctrine()->getManager();
         $topic=new Topic();
@@ -296,13 +308,41 @@ public function search(Request $request,SerializerInterface $serializer)
         $topic->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
         $topic->setTopicDate(new \DateTime('now'));
         $topic->setTopicNumSubjects(0);
+        $topic->setTopicImage($request->get('topicImage'));
 
         $em->persist($topic);
+        $em->flush();
+        $json= $normalizer->normalize($topic, "json" ,["groups"=>"topic"]);
+        return new Response(json_encode($json));
+
+    }
+
+    /**
+     * @Route("/mobile/accepter", name="app_topic_acceptermobile")
+     */
+    public function acceptertopicMobile(Request $request,TopicRepository $topicRepository,NormalizerInterface $Normalizer): Response
+    {   $em= $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Topic::class);
+        $topic = $repository->find($request->get('idtopic'));
+        $topic->setAccepttopic(1);
         $em->flush();
         return new Response("topic added successfully");
     }
 
+    /**
+     * @Route("/mobile/uploadImg", name="uploadImg")
+     */
+    public function uploadImgtopic(Request $request, NormalizerInterface $normalizer){
+        //houni uploadi image
+        if (isset($_FILES['file']["name"])){
+            $img=file_get_contents($_FILES["file"]["tmp_name"]);
+            $fp=fopen("images\\topics\\".$_FILES['file']["name"],"w");
+            fwrite($fp,$img);
+            fclose($fp);
 
+        }
 
+        return new Response('json_encode($_FILES)');
+    }
 
 }
