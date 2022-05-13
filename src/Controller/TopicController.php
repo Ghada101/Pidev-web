@@ -218,22 +218,6 @@ class TopicController extends AbstractController
 //        return  $response;
 //    }
 //
-    /**
-     * @Route("/searchTopics/firas", name="apptopicsearch")
-     */
-    public function search(Request $request,SerializerInterface $serializer)
-    {
-
-        $rep = $this->getDoctrine()->getRepository(Topic::class);
-        $requestString = $request->get('searchValue');
-        $topics =  $rep->findByTitle($requestString);
-        $jsoncontent = $serializer->serialize($topics, 'json', ['groups' => ['topics']]);
-        $retour = json_encode($jsoncontent);
-        return new Response($retour, 200, [
-            'Content-Type' => 'application/json'
-        ]);
-
-    }
 
     /**
      * @Route("/mobile/listTopicsacc", name="mobile_liste_topic", methods={"GET"})
@@ -339,7 +323,6 @@ class TopicController extends AbstractController
 
         return new Response('json_encode($_FILES)');
     }
-
 
 
 }

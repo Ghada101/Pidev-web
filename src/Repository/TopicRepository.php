@@ -65,7 +65,15 @@ class TopicRepository extends ServiceEntityRepository
         $topics = $query->getArrayResult();
         return  $topics;
     }
-
+    public function findAccept(int $acc)
+    {
+        $query =  $this->createQueryBuilder('t')
+            ->andWhere('t.accepttopic = :acc')
+            ->setParameter('acc', $acc)
+            ->getQuery();
+        $topics = $query->getArrayResult();
+        return  $topics;
+    }
 
 
 

@@ -8,6 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * Hotelchain
  *
@@ -15,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\HotelchainRepository")
  * @ORM\Table(name="`hotelchain`")
  * @UniqueEntity(fields={"hotelchainName"}, message="There is already an hotelChain with this name")
-
  */
 class Hotelchain
 {
@@ -25,6 +26,7 @@ class Hotelchain
      * @ORM\Column(name="id_HotelChain", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups ("post:read")
      */
     private $idHotelchain;
 
@@ -34,6 +36,7 @@ class Hotelchain
      * @ORM\Column(name="hotelChain_name", type="string", length=255, nullable=false)
      * @Assert\NotBlank
      * @Assert\Length(min="4" , minMessage="Name must contain at lest 4 characters.")
+     * @Groups ("post:read")
      */
     private $hotelchainName;
 
@@ -42,6 +45,7 @@ class Hotelchain
      * @Assert\NotBlank
      * @Assert\Length(min="3" , minMessage="Staff must contain 3 digits.")
      * @ORM\Column(name="hotelChain_Staff", type="integer", nullable=false)
+     * @Groups ("post:read")
      */
     private $hotelchainStaff;
 
@@ -50,6 +54,7 @@ class Hotelchain
      *
      * @ORM\Column(name="hotelChain_Description", type="string", length=255, nullable=false)
      * @Assert\NotBlank
+     * @Groups ("post:read")
      */
     private $hotelchainDescription;
 
@@ -60,6 +65,7 @@ class Hotelchain
      * @Assert\NotBlank
      * @Assert\Length(min="8" , minMessage="Phone number must contain 8 digits")
      * @Assert\Length(max="8" , maxMessage="Phone number must contain 8 digits")
+     * @Groups ("post:read")
      */
     private $phone;
 

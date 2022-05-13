@@ -9,14 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-/** 
+/**
  * Room
  *
  * @ORM\Table(name="room", indexes={@ORM\Index(name="fk_Hotel", columns={"fk_Hotel"})})
  * @ORM\Entity(repositoryClass="App\Repository\RoomRepository")
  * @ORM\Table(name="`room`")
  * @UniqueEntity(fields={"nbrroom"}, message="There is already a room with this number")
-
  */
 class Room
 {
@@ -77,15 +76,19 @@ class Room
      */
     private $price;
 
- /**
+    /**
      * @var string
      *
      * @ORM\Column(name="image", type="string", nullable=false)
      */
     private $image;
 
-   
-    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ratings;
+
+
     public function __construct()
     {
         $this->books = new ArrayCollection();
@@ -206,6 +209,18 @@ class Room
                 $book->setIdRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRatings(): ?string
+    {
+        return $this->ratings;
+    }
+
+    public function setRatings(string $ratings): self
+    {
+        $this->ratings = $ratings;
 
         return $this;
     }

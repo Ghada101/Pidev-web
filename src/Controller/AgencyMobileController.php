@@ -22,7 +22,7 @@ class AgencyMobileController extends AbstractController
         ]);
     }
     /**
-     * @Route("/mobile/getAgencies", name="GetAgenciesMobile")
+         * @Route("/mobile/getAgencies", name="GetAgenciesMobile")
      */
     public function getAgenciesMobile(Request $request, NormalizerInterface $normalizer)
     {
