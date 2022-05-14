@@ -1,87 +1,87 @@
 {% extends 'FrontOffice/frontfinal.html.twig' %}
 {% block title %}Agency{% endblock %}
 {% block body %}
-<!-- slider_area_start -->
-<div class="slider_area">
-    <div class="slider_active owl-carousel">
-        <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-12 col-md-12">
-                        <div class="slider_text text-center">
-                            <h3>Agencies</h3>
-                            <p>We are delighted to provide you the best services !</p>
-                            <a href="#" class="boxed-btn3">Explore Now</a>
+    <!-- slider_area_start -->
+    <div class="slider_area">
+        <div class="slider_active owl-carousel">
+            <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="slider_text text-center">
+                                <h3>Agencies</h3>
+                                <p>We are delighted to provide you the best services !</p>
+                                <a href="#" class="boxed-btn3">Explore Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="slider_text text-center">
+                                <h3>Agencies</h3>
+                                <p>We are delighted to provide you the best services !</p>
+                                <a href="#" class="boxed-btn3">Explore Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slider  d-flex align-items-center slider_bg_3 overlay">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="slider_text text-center">
+                                <h3>Agencies</h3>
+                                <p>We are delighted to provide you the best services !</p>
+                                <a href="#" class="boxed-btn3">Explore Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-12 col-md-12">
-                        <div class="slider_text text-center">
-                            <h3>Agencies</h3>
-                            <p>We are delighted to provide you the best services !</p>
-                           <a href="#" class="boxed-btn3">Explore Now</a>
-                        </div>
+
+    </div>
+    <!-- slider_area_end -->
+
+    <!-- where_togo_area_start  -->
+    <div class="where_togo_area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3">
+                    <div class="form_area">
+
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="single_slider  d-flex align-items-center slider_bg_3 overlay">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-12 col-md-12">
-                        <div class="slider_text text-center">
-                            <h3>Agencies</h3>
-                            <p>We are delighted to provide you the best services !</p>
-                            <a href="#" class="boxed-btn3">Explore Now</a>
-                        </div>
+                <div class="col-lg-9">
+                    <div class="search_wrap">
+                        <form class="search_form" action="#">
+                            <div class="input_field">
+                                <input type="text" placeholder="Agency name?" id="seachBarAgency">
+                            </div>
+                            <div class="input_field">
+                                <input id="datepicker" placeholder="Date">
+                            </div>
+                            <div class="input_field">
+                                <select>
+                                    <option data-display="Travel type">Travel type</option>
+                                    <option value="1">Some option</option>
+                                    <option value="2">Another option</option>
+                                </select>
+                            </div>
+                            <div class="search_btn">
+                                <button class="boxed-btn4 " type="submit">Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
-<!-- slider_area_end -->
-
-<!-- where_togo_area_start  -->
-<div class="where_togo_area">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-3">
-                <div class="form_area">
-      
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="search_wrap">
-                    <form class="search_form" action="#">
-                        <div class="input_field">
-                            <input type="text" placeholder="Agency name?" id ="seachBarAgency">
-                        </div>
-                        <div class="input_field">
-                            <input id="datepicker" placeholder="Date">
-                        </div>
-                        <div class="input_field">
-                            <select>
-                                <option data-display="Travel type">Travel type</option>
-                                <option value="1">Some option</option>
-                                <option value="2">Another option</option>
-                            </select>
-                        </div>
-                        <div class="search_btn">
-                            <button class="boxed-btn4 " type="submit" >Search</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
     <div class="popular_places_area" style="margin-left: 50px">
         <div class="row">
@@ -134,16 +134,18 @@
                                 <a href="/car/front/${agency.idAgency}">
                                     <h3>${agency.nameagency}</h3>
                                 </a>
-                                <p>${agency.agencyphonenumber}</p>
-                                <p>${agency.agencylocation}</p>
+                                <p><i class="fa fa-phone" aria-hidden="true"> </i>${agency.agencyphonenumber}</p>
+                            <div class="form-row">
+                                <p> <i class="fa fa-map-marker" aria-hidden="true"></i>${agency.agencylocation}</p>
                                 <div class="rating_days d-flex justify-content-between" style="padding-left: 290px">
                                     <div class="form-row">
                                         <p>${agency.nbrlike}</p>
                                         <a href="/agencylove/new/${agency.idAgency}">
-                                        <img src="/img/Heart/heartLike.png" style="height: 30px">
+                                        <img src="/img/Heart/heartLike.png" style="height: 30px"    >
                                         </a>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>

@@ -73,7 +73,6 @@ class AgencyController extends AbstractController
             $agencyRepository->add($agency);
             return $this->redirectToRoute('app_agency_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('BackOffice/agency/new.html.twig', [
             'agency' => $agency,
             'form' => $form->createView(),

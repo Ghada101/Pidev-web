@@ -6,8 +6,6 @@ use App\Entity\Hotelchain;
 use App\Form\HotelchainType;
 use App\Repository\HotelchainRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -78,7 +76,7 @@ class HotelchainController extends AbstractController
             return new JsonResponse("id hc invalide.");}
     }
 /**
-     * @Route("/HC", name="app_hotelchain_newhc", methods={"GET", "POST"})
+     * @Route("/web/HC", name="app_hotelchain_newhc", methods={"GET", "POST"})
      */
 
     public function new(Request $request, EntityManagerInterface $entityManager): Response

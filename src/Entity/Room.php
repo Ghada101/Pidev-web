@@ -92,13 +92,6 @@ class Room
      */
     private $image;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups ("post:read")
-     */
-    private $ratings;
-
-
     public function __construct()
     {
         $this->books = new ArrayCollection();
@@ -223,17 +216,6 @@ class Room
         return $this;
     }
 
-    public function getRatings(): ?string
-    {
-        return $this->ratings;
-    }
-
-    public function setRatings(string $ratings): self
-    {
-        $this->ratings = $ratings;
-
-        return $this;
-    }
 
 
 }

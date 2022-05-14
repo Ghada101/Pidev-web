@@ -78,6 +78,12 @@ class Hotel
     private $hotelDescription;
 
     /**
+     * @ORM\Column(type="integer" , nullable=true)
+     * @Groups ("post:read")
+     */
+    private $rating;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="hotel_Img", type="string",nullable=false)
@@ -97,11 +103,7 @@ class Hotel
      */
     private $fkHotelchain;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups ("post:read")
-     */
-    private $rating;
+
 
 
 

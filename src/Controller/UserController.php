@@ -87,7 +87,6 @@ class UserController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
@@ -220,9 +219,6 @@ class UserController extends AbstractController
 
 
     }
-
-
-
 
     /**
      * @Route("/user/password_backup", name="user_password_backup",)

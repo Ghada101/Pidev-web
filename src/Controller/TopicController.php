@@ -71,6 +71,22 @@ class TopicController extends AbstractController
         ]);
     }
     /**
+     * @Route("/searchTopics/firas", name="apptopicsearch")
+     */
+    public function search(Request $request,SerializerInterface $serializer)
+    {
+
+        $rep = $this->getDoctrine()->getRepository(Topic::class);
+        $requestString = $request->get('searchValue');
+        $topics =  $rep->findByTitle($requestString);
+        $jsoncontent = $serializer->serialize($topics, 'json', ['groups' => ['topics']]);
+        $retour = json_encode($jsoncontent);
+        return new Response($retour, 200, [
+            'Content-Type' => 'application/json'
+        ]);
+
+    }
+    /**
      * @Route("/showBack", name="app_topic_index_Back", methods={"GET", "POST"})
      */
     public function indexBack(TopicRepository $topicRepository,DateTimeFormatter $dateTimeFormatter): Response
