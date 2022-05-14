@@ -69,39 +69,21 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a class="active" href="{{ path('app_user_front') }}">home</a></li>
-                                        <li><a class="" href="travel_destination.html">Restaurant<i class="fa fa-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="destination_details.html">Restaurant details</a></li>
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
+                                        <li><a class="" href="{{ path('app_restaurant_indexFront') }}">Restaurant</a>
                                         </li>
-                                        <li><a href="#">Hotel <i class="fa fa-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="destination_details.html">Hotel details</a></li>
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
+                                        <li><a href="{{ path('app_hotel_indexFront')}}">Hotels</a>
+
                                         </li>
-                                        <li><a class="" href="travel_destination.html">Car<i class="fa fa-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="destination_details.html">Car details</a></li>
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="" href="travel_destination.html">Event<i class="fa fa-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li>Event details</li>
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
+                                        <li><a class="" href="{{ path('app_agency_frontindex')}}">Agencies</a>
                                         </li>
 
-                                        <li><a href="#">blog <i class="fa fa-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
+                                        <li><a class="" href="{{ path('app_event_indexFront') }}">Event</a>
                                         </li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><a class="active" href="about.html">About</a></li>
+
+                                        <li><a href="{{path('app_topic_index')}}">blog</a>
+                                        </li>
+                                        {#                                        <li><a href="contact.html">Contact</a></li>#}
+                                        {#                                        <li><a class="active" href="about.html">About</a></li>#}
                                     </ul>
                                 </nav>
                             </div>
@@ -109,7 +91,7 @@
                         <div class="col-xl-4 col-lg-4 d-none d-lg-block">
                             <div class="social_wrap d-flex align-items-center justify-content-end">
                                 <div class="number">
-                                    <p> <i class="fa fa -phone"></i> 10(256)-928 256</p>
+                                    <p> <i class="fa fa -phone"></i>{{ app.user.phone }}</p>
                                 </div>
                                 <div class="social_links d-none d-xl-block">
                                     {% if app.user %}

@@ -71,45 +71,24 @@ class BookController extends AbstractController
                 $bookRepository->add($book);
                 return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
             } else {
-                for ($i = 0; $i < count($bookList); $i++) {
-                    if ($form->get('startdate')->getData() == $bookList[$i]->getStartdate() && $form->get('startdate')->getData() < $bookList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'Room is already booked at this date');
-                        return $this->redirectToRoute('app_book_new', [ 'idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('startdate')->getData() == $bookList[$i]->getStartdate() && $form->get('startdate')->getData() == $bookList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'Room is already booked at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('enddate')->getData() == $bookList[$i]->getEnddate() && $form->get('startdate')->getData() > $bookList[$i]->getStartdate()) {
-                        $this->addFlash('danger', 'Room is already booked at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('startdate')->getData() == $bookList[$i]->getStartdate() && $form->get('startdate')->getData() > $bookList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'Room is already booked at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('enddate')->getData() == $bookList[$i]->getEnddate() && $form->get('enddate')->getData() < $bookList[$i]->getStartdate()) {
-                        $this->addFlash('danger', 'Room is already booked  at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('startdate')->getData() < $bookList[$i]->getStartdate() && $form->get('enddate')->getData() > $bookList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'Room is already booked at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('startdate')->getData() < $bookList[$i]->getStartdate() && $form->get('startdate')->getData() > $bookList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'Room is already booked at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('enddate')->getData() < $bookList[$i]->getEnddate() && $form->get('enddate')->getData() > $bookList[$i]->getStartdate()) {
-                        $this->addFlash('danger', 'Room is already booked  at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } elseif ($form->get('startdate')->getData() < $bookList[$i]->getStartdate() && $form->get('enddate')->getData() < $bookList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'Room is already booked  at this date');
-                        return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
-                    } else {
-                        $book->setIduser($user1);
-
-                        //$rent->setIduser($user);
-                        $book->setIdRoom($room);
-                        // $rent->setIdagency($agency);
-                        
-                        $bookRepository->add($book);
+                $i = 0;
+                while ($i < count($bookList)) {
+                    $startdate = $bookList[$i]->getStartdate();
+                    $enddate = $bookList[$i]->getEnddate();
+                    $startdate1 = $form->get('startdate')->getData();
+                    $enddate1 = $form->get('enddate')->getData();
+                    if ($startdate1 >= $startdate && $startdate1 <= $enddate || $enddate1 >= $startdate && $enddate1 <= $enddate) {
+                        $this->addFlash('danger', 'This room is already booked');
                         return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
                     }
+                    $i++;
                 }
+                $book->setIduser($user1);
+                //$rent->setIduser($user);
+                $book->setIdRoom($room);
+                // $rent->setIdagency($agency);
+                $bookRepository->add($book);
+                return $this->redirectToRoute('app_book_new', ['idRoom' => $idRoom, 'bookList' => $bookList]);
             }
         }
         return $this->render('Frontoffice/book/new.html.twig', [

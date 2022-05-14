@@ -184,7 +184,7 @@ class TopicController extends AbstractController
 
         $idTopic->setAccepttopic(1);
         $message = (new \Swift_Message('Topic Accepted '))
-            ->setFrom('boussettaoussama7@gmail.com')
+            ->setFrom('aymenkhiari99@gmail.com')
             ->setTo('oussama.boussetta@esprit.tn')
             ->setBody($this->renderView(
                 'BackOffice/topic/mailProfanity.html.twig',['topic'=>$idTopic->getTopicTitle(),'user'=>$idTopic->getUser()->getName()]
