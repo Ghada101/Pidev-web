@@ -28,10 +28,10 @@
                 <th>Restaurantimg</th>
                 <td><img src="{{ asset('uploads/') ~restaurant.restaurantimg}}" alt="" style="border: 1px solid #ddd; max-width:250px;height:200px; display: block;" }></td>
             </tr>
-            <tr>
-                <th>Idcategory</th>
-                <td>{{ restaurant.idcategory }}</td>
-            </tr>
+{#            <tr>#}
+{#                <th>Idcategory</th>#}
+{#                <td>{{ restaurant.idcategory }}</td>#}
+{#            </tr>#}
         </tbody>
     </table>
 
@@ -39,5 +39,5 @@
 
     <a href="{{ path('app_restaurant_edit', {'idRestau': restaurant.idRestau}) }}">edit</a>
 
-    {{ include('restaurant/_delete_form.html.twig') }}
+    {{ include('BackOffice/restaurant/_delete_form.html.twig') }}
 {% endblock %}

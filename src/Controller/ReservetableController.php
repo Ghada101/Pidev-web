@@ -28,7 +28,7 @@ class ReservetableController extends AbstractController
         $reservation = $entityManager
               ->getRepository(Reservetable::class)
               ->findAll();
-            return $this->render('frontOffice/reservetable/index.html.twig', [
+            return $this->render('BackOffice/reservetable/index.html.twig', [
             'reservation' =>$reservation,
         ]);
     }
@@ -101,7 +101,7 @@ class ReservetableController extends AbstractController
 
     public function calendar(): Response
     {
-        return $this->render('frontOffice/reservetable/calendar.html.twig');
+        return $this->render('BackOffice/reservetable/calendar.html.twig');
     }
 
     /**
@@ -109,7 +109,7 @@ class ReservetableController extends AbstractController
      */
     public function show(Reservetable $reservetable): Response
     {
-        return $this->render('frontOffice/reservetable/show.html.twig', [
+        return $this->render('BackOffice/reservetable/show.html.twig', [
             'reservetable' => $reservetable,
         ]);
     }
@@ -128,7 +128,7 @@ class ReservetableController extends AbstractController
             return $this->redirectToRoute('app_reservetable_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('frontOffice/reservetable/edit.html.twig', [
+        return $this->render('BackOffice/reservetable/edit.html.twig', [
             'reservetable' => $reservetable,
             'form' => $form->createView(),
         ]);

@@ -77,30 +77,19 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a class="active" href="{{ path('app_user_front') }}">home</a></li>
-                                        <li><a class="" href="travel_destination.html">Restaurant<i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="destination_details.html">Restaurant details</a></li>
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
+                                        <li><a class="" href="{{ path('app_restaurant_indexFront') }}">Restaurant</a>
                                         </li>
                                        <li><a href="{{ path('app_hotel_indexFront')}}">Hotels</a>
 
                                         </li>
                                         <li><a class="" href="{{ path('app_agency_frontindex')}}">Agencies</a>
                                         </li>
-                                        <li><a class="" href="travel_destination.html">Event<i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{{ path('app_event_indexFront') }}">Event details</a></li>
-                                            </ul>
+
+                                        <li><a class="" href="{{ path('app_event_indexFront') }}">Event</a>
                                         </li>
 
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
+                                        <li><a href="{{path('app_topic_index')}}">blog</a>
                                         </li>
-
 {#                                        <li><a href="contact.html">Contact</a></li>#}
 {#                                        <li><a class="active" href="about.html">About</a></li>#}
                                     </ul>

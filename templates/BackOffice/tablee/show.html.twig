@@ -16,10 +16,10 @@
                 <th>Description</th>
                 <td>{{ tablee.description }}</td>
             </tr>
-             <tr>
-                <th>id_Restau</th>
-                <td>{{ tablee.id_Restau }}</td>
-            </tr>
+{#             <tr>#}
+{#                <th>id_Restau</th>#}
+{#                <td>{{ tablee.id_Restau }}</td>#}
+{#            </tr>#}
         </tbody>
     </table>
 
@@ -27,5 +27,5 @@
 
     <a href="{{ path('app_tablee_edit', {'idTable': tablee.idTable}) }}">edit</a>
 
-    {{ include('tablee/_delete_form.html.twig') }}
+    {{ include('BackOffice/tablee/_delete_form.html.twig') }}
 {% endblock %}

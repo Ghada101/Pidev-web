@@ -43,8 +43,13 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      * @Assert\Length(min=6, minMessage="Your password length should be at least 6 caracters")
       * @Groups ("post:read")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="the passowrd and the confirm password fields should be the same !")
      */
     private $password;
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="the passowrd and the confirm password fields should be the same !")
+     */
+    public $confirm_password;
 
 
     /**
@@ -311,4 +316,23 @@ class User implements UserInterface
     {
         $this->captchaCode = $captchaCode;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmPassword()
+    {
+        return $this->confirm_password;
+    }
+
+    /**
+     * @param mixed $confirm_password
+     */
+    public function setConfirmPassword($confirm_password): void
+    {
+        $this->confirm_password = $confirm_password;
+    }
+
+
+
 }

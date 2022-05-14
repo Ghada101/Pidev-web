@@ -205,7 +205,7 @@ class AgencyController extends AbstractController
      */
     public function chatframeAction(Request $request)
     {
-        return $this->render('Frontoffice/agency/chattframe.html.twig');
+        return $this->render('FrontOffice/agency/chattframe.html.twig');
         //create new file
 
     }

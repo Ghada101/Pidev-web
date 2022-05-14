@@ -40,11 +40,11 @@ class RentController extends AbstractController
         $rent = new Rent();
         $form = $this->createForm(RentType::class, $rent);
         $form->handleRequest($request);
-        
-        $user = $this->getUser()->getId();
-        $user1= $em->getRepository(User::class)->find($user);
 
-       // $user = $em->getRepository(User::class)->find(90);
+        $user = $this->getUser()->getId();
+        $user1 = $em->getRepository(User::class)->find($user);
+
+        // $user = $em->getRepository(User::class)->find(90);
         $car = $em->getRepository(Car::class)->find($idCar);
         $agency = $em->getRepository(Agency::class)->find($idAgency);
 
@@ -59,7 +59,7 @@ class RentController extends AbstractController
                     ->setBody(
                         $this->renderView(
                             'Frontoffice/rent/mail.html.twig',
-                            ['name' => $user1->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(),'phone'=>$agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
+                            ['name' => $user1->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(), 'phone' => $agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
                         ),
                         'text/html'
                     );
@@ -68,37 +68,42 @@ class RentController extends AbstractController
                 return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
             } else {
                 for ($i = 0; $i < count($rentList); $i++) {
-                    if ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() < $rentList[$i]->getEnddate()) {
+                    if ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('enddate')->getData() == $rentList[$i]->getEnddate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-             } elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() == $rentList[$i]->getEnddate()) {
-                        $this->addFlash('danger', 'this car is already rented at this date');
-                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-
-                    }elseif ($form->get('enddate')->getData() == $rentList[$i]->getEnddate() && $form->get('startdate')->getData() > $rentList[$i]->getStartdate()) {
+                    } elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() <= $rentList[$i]->getEndDate() && $form->get('enddate')->getData() >= $rentList[$i]->getStartdate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
                     }
-//                    elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('startdate')->getData() > $rentList[$i]->getEnddate()) {
-//                        $this->addFlash('danger', 'this car is already rented at this date');
-//                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-//                    }
-                    elseif ($form->get('enddate')->getData() == $rentList[$i]->getEnddate() && $form->get('enddate')->getData() < $rentList[$i]->getStartdate()) {
+                    elseif ($form->get('startdate')->getData() > $rentList[$i]->getStartdate() &&  $form->get('startdate')->getData()<$rentList[$i]->getEnddate() && $form->get('enddate')->getData() > $rentList[$i]->getEndDate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
                         return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() > $rentList[$i]->getEnddate()) {
+                    }
+                    elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('enddate')->getData() >= $rentList[$i]->getEndDate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
-                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() > $rentList[$i]->getEnddate()) {
+                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                        elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() == $rentList[$i]->getEndDate()) {
+                            $this->addFlash('danger', 'this car is already rented at this date');
+                            return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                    elseif ($form->get('startdate')->getData() > $rentList[$i]->getStartdate() && $form->get('enddate')->getData() == $rentList[$i]->getEndDate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
-                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('enddate')->getData() < $rentList[$i]->getEnddate() && $form->get('enddate')->getData() > $rentList[$i]->getStartdate()) {
+                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                    elseif ($form->get('startdate')->getData() == $rentList[$i]->getStartdate() && $form->get('enddate')->getData() < $rentList[$i]->getEndDate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
-                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() < $rentList[$i]->getEnddate()) {
+                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                    elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() > $rentList[$i]->getEndDate()) {
                         $this->addFlash('danger', 'this car is already rented at this date');
-                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);
-                    } else {
+                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                    elseif ($form->get('startdate')->getData() > $rentList[$i]->getStartdate() && $form->get('enddate')->getData() < $rentList[$i]->getEndDate()) {
+                        $this->addFlash('danger', 'this car is already rented at this date');
+                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                    elseif ($form->get('startdate')->getData() < $rentList[$i]->getStartdate() && $form->get('enddate')->getData() <= $rentList[$i]->getEndDate()) {
+                        $this->addFlash('danger', 'this car is already rented at this date');
+                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                    elseif ($form->get('startdate')->getData() == $rentList[$i]->getEndDate() && $form->get('enddate')->getData() >= $rentList[$i]->getEndDate()) {
+                        $this->addFlash('danger', 'this car is already rented at this date');
+                        return $this->redirectToRoute('app_rent_new', ['idAgency' => $idAgency, 'idCar' => $idCar, 'rentList' => $rentList]);}
+                    else {
                         $rent->setIduser($user1);
                         $rent->setIdcar($car);
                         $rent->setIdagency($agency);
@@ -108,7 +113,7 @@ class RentController extends AbstractController
                             ->setBody(
                                 $this->renderView(
                                     'Frontoffice/rent/mail.html.twig',
-                                    ['name' => $user1->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(),'phone'=>$agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
+                                    ['name' => $user1->getName(), 'car' => $car->getCarnumber(), 'agency' => $agency->getNameagency(), 'phone' => $agency->getAgencyphonenumber(), 'startdate' => $form->get('startdate')->getData(), 'enddate' => $form->get('enddate')->getData()]
                                 ),
                                 'text/html'
                             );
@@ -123,6 +128,9 @@ class RentController extends AbstractController
             'rent' => $rent,
             'form' => $form->createView(),
             'rentList' => $rentList,
+            'idAgency' => $idAgency,
+            'idCar' => $idCar,
+            'rentList' => $rentList
         ]);
     }
 

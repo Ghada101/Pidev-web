@@ -105,7 +105,7 @@ class TableeController extends AbstractController
     }
 
     /**
-     * @Route("/{idTable}/delete", name="app_tablee_delete", methods={"POST"})
+     * @Route("/{idTable}/delete", name="app_tablee_delete", methods={"GET"})
      */
     public function delete(Request $request, Tablee $tablee, TableeRepository $tableeRepository, EntityManagerInterface $em , $idTable): Response
     {
