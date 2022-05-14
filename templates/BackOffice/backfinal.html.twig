@@ -77,11 +77,18 @@
 
         <!-- Nav Item - Start User Management-->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ path('app_user_index') }}" data-toggle="collapse" data-target="#collapseUser"
-               aria-expanded="true" aria-controls="collapseUser">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+               aria-expanded="true" aria-controls="collapseUsers">
                 <i class="fas fa-fw fa-user"></i>
-                <span>User Management</span>
+                <span>Users Management</span>
             </a>
+            <div id="collapseUsers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Users:</h6>
+                    <a class="collapse-item" href="{{ path('app_user_index')}}">Users</a>
+                </div>
+            </div>
+        </li>
 {#            <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">#}
 {#                <div class="bg-white py-2 collapse-inner rounded">#}
 {#                    <h6 class="collapse-header">User:</h6>#}
