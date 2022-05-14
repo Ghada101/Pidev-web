@@ -28,6 +28,7 @@ class Hotel
      * @ORM\Column(name="id_Hotel", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups ("post:read")
      */
     private $idHotel;
 
@@ -36,6 +37,7 @@ class Hotel
      * @Assert\NotBlank
      * @Assert\Length(min="4" , minMessage="Name must contain at lest 4 characters.")
      * @ORM\Column(name="hotel_Name", type="string", length=255, nullable=false)
+     * @Groups ("post:read")
      */
     private $hotelName;
 
@@ -44,6 +46,7 @@ class Hotel
      *@Assert\NotBlank
      * @Assert\Length(min="3" , minMessage="Staff must contain 3 digits.")
      * @ORM\Column(name="hotel_Staff", type="integer",  nullable=false)
+     * @Groups ("post:read")
      */
     private $hotelStaff;
 
@@ -52,6 +55,7 @@ class Hotel
      *
      * @ORM\Column(name="hotel_Location", type="string", length=255, nullable=false)
      *@Assert\NotBlank
+     * @Groups ("post:read")
      */
     private $hotelLocation;
 
@@ -61,6 +65,7 @@ class Hotel
      * @ORM\Column(name="hotel_Phone", type="integer", nullable=false)
      * @Assert\NotBlank
      * @Assert\Length(min="8" , minMessage="Phone number must contain 8 digits")
+     * @Groups ("post:read")
      */
     private $hotelPhone;
 
@@ -68,6 +73,7 @@ class Hotel
      * @var string
      * @Assert\NotBlank
      * @ORM\Column(name="hotel_Description", type="string", length=255, nullable=false)
+     * @Groups ("post:read")
      */
     private $hotelDescription;
 
@@ -75,6 +81,7 @@ class Hotel
      * @var string
      *
      * @ORM\Column(name="hotel_Img", type="string",nullable=false)
+     * @Groups ("post:read")
      */
     private $hotelImg;
 
@@ -86,11 +93,13 @@ class Hotel
      * @ORM\JoinColumns({
      * @ORM\JoinColumn(name="fk_HotelChain", referencedColumnName="id_HotelChain")
      * })
+     * @Groups ("post:read")
      */
     private $fkHotelchain;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups ("post:read")
      */
     private $rating;
 

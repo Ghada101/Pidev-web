@@ -45,9 +45,9 @@ class CarMobileController extends AbstractController
         $car->setNamecar($request->get('namecar'));
         $car->setFkAgency($agency);
          $carRepository->add($car);
-            $twillioAccountSid = 'ACeca3581c5bb96d40c3a37ddfcec48d79';
-            $twillioAuthToken = '5f643dc34c625e424881e92f9795ea04';
-            $fromNumber = '+17622429912';
+            $twillioAccountSid = 'ACedc94668aa0b0dd00fcffe5142fef786';
+            $twillioAuthToken = 'ef4ecd347ae6b917f15c74267fc5cc07';
+            $fromNumber = '+19896608233';
             $toNumber = '+21692294022';
             $client = new Client($twillioAccountSid, $twillioAuthToken);
             $client->messages->create(
@@ -137,7 +137,7 @@ class CarMobileController extends AbstractController
         return new Response("Done");
     }
     /**
-     * @Route("/mobile/uploadImg", name="uploadImg")
+     * @Route("/mobile/agencycar/uploadImgRent", name="uploadImgRent")
      */
     public function uploadImg(Request $request, NormalizerInterface $normalizer){
         //houni uploadi image

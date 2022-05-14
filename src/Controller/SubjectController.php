@@ -224,11 +224,15 @@ class SubjectController extends AbstractController
         $subject->setSubjectNumComments(0);
         $topic= $topicRepository->find($request->get('idtopic'));
         $topic->setTopicNumSubjects($topic->getTopicNumSubjects()+1);
+        $subject->setSubjectImage($request->get('subjectImage'));
 
         $em->persist($subject);
         $em->flush();
-        return new Response("subject added successfully");
+        $json= $Normalizer->normalize($topic, "json" ,["groups"=>"subject_read"]);
+        return new Response(json_encode($json));
+
 
     }
+
 
 }

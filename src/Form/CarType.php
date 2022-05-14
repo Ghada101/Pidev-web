@@ -16,12 +16,12 @@ class CarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $client = HttpClient::create();
-        $response = $client->request('GET', 'https://the-vehicles-api.herokuapp.com/brands/');
+        $response = $client->request('GET', 'https://private-anon-bf6734c767-carsapi1.apiary-mock.com/manufacturers');
         $statusCode = $response->getStatusCode();
         $content = $response->getContent();
         $c=[];
         foreach (json_decode($content) as $key => $value) {
-            $c[]=$value->{"brand"};
+            $c[]=$value->{"name"};
         }
         $builder
             ->add('namecar')

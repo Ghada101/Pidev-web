@@ -336,7 +336,7 @@ class HotelController extends AbstractController
         return new JsonResponse("rating done");
     }
     /**
-     * @Route("/mobile/uploadImg", name="uploadImg")
+     * @Route("/hotelmobile/uploadImg", name="uploadImgHotel")
      */
     public function uploadImg(Request $request, NormalizerInterface $normalizer){
         //houni uploadi image

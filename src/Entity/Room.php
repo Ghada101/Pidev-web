@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 use Symfony\Component\Validator\Constraints as Assert;
 /**
@@ -25,6 +26,7 @@ class Room
      * @ORM\Column(name="id_Room", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups ("post:read")
      */
     private $idRoom;
 
@@ -32,6 +34,7 @@ class Room
      * @var string
      * @Assert\NotBlank
      * @ORM\Column(name="room_Type", type="string", length=255, nullable=false)
+     * @Groups ("post:read")
      */
     private $roomType;
 
@@ -40,6 +43,7 @@ class Room
      *
      * @ORM\Column(name="room_capacity", type="string", length=255, nullable=false)
      * @Assert\NotBlank
+     * @Groups ("post:read")
      */
     private $roomCapacity;
 
@@ -47,6 +51,7 @@ class Room
      * @var bool
      *
      * @ORM\Column(name="isEmpty", type="boolean", nullable=true, options={"default"="1"})
+     * @Groups ("post:read")
      */
     private $isempty = true;
 
@@ -55,6 +60,7 @@ class Room
      *
      * @ORM\Column(name="nbrRoom", type="integer", nullable=false)
      * @Assert\NotBlank
+     * @Groups ("post:read")
      */
     private $nbrroom;
 
@@ -66,6 +72,7 @@ class Room
      *   @ORM\JoinColumn(name="fk_Hotel", referencedColumnName="id_Hotel")
      * })
      * @Assert\NotBlank
+     * @Groups ("post:read")
      */
     private $fkHotel;
 
@@ -73,6 +80,7 @@ class Room
      * @ORM\Column(type="float")
      * @Assert\Positive
      * @Assert\NotBlank(message="Price required")
+     * @Groups ("post:read")
      */
     private $price;
 
@@ -80,11 +88,13 @@ class Room
      * @var string
      *
      * @ORM\Column(name="image", type="string", nullable=false)
+     * @Groups ("post:read")
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups ("post:read")
      */
     private $ratings;
 

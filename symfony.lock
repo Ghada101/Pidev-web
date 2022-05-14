@@ -674,6 +674,9 @@
     "twig/twig": {
         "version": "v3.3.10"
     },
+    "twilio/sdk": {
+        "version": "6.37.0"
+    },
     "vangrg/profanity-bundle": {
         "version": "v1.1.6"
     },

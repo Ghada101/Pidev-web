@@ -54,16 +54,14 @@ class RoomController extends AbstractController
     }
 
 
-/**
-     * @Route("/liste", name="liste")
+    /**
+     * @Route("/mobile/Roomliste", name="listeMobile")
      */
     public function indexJson(NormalizerInterface $normalizerInterface) {
         $repository = $this->getDoctrine()->getRepository(Room::class);
         $room = $repository->findAll();
         
         $json= $normalizerInterface->normalize($room,'json',['groups'=>'post:read']);
-       // return $this->render
- 
         return new Response(json_encode($json));
     }
 

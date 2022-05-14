@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -19,17 +20,21 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ("post:read")
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email()
+     * @Groups ("post:read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups ("post:read")
      */
     private $roles = [];
 
@@ -37,61 +42,64 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min=6, minMessage="Your password length should be at least 6 caracters")
-     * @Assert\EqualTo(propertyPath="confirm_password", message="the passowrd and the confirm password fields should be the same !")
+      * @Groups ("post:read")
      */
     private $password;
 
 
-
-    /**
-     * @Assert\EqualTo(propertyPath="password", message="the passowrd and the confirm password fields should be the same !")
-     */
-    public $confirm_password;
-
     /**
      * @ORM\Column(type="boolean")
+     * @Groups ("post:read")
      */
     private $isVerified = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ("post:read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ("post:read")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ("post:read")
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ("post:read")
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ("post:read")
      */
     private $type;
 
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups ("post:read")
      */
     private $active;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups ("post:read")
      */
     private $ban;
 
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups ("post:read")
      */
     private $resetcode;
 
