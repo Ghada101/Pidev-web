@@ -35,7 +35,15 @@
                     {% for room in rooms %}
                         <article class="blog_item">
                             <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="{{ asset('uploads/') ~room.image}}" alt="">
+                                {% if room.image is not null %}
+                            <img class="card-img rounded-0" src="{{ asset('uploads/') ~room.image}}" alt="" >
+                                    <a href="{{ path('app_book_new' , {'idRoom': room.idRoom}) }}"class="blog_item_date">
+                                        <h3>Book</h3>
+                                        <p>NOW</p>
+                                    </a>
+                                {% else %}
+                            <img class="card-img rounded-0" src="{{ asset('uploads/') ~'DefaultRoom.jpg'}}" alt="" >
+                                {% endif %}
                             <a href="{{ path('app_book_new' , {'idRoom': room.idRoom}) }}"class="blog_item_date">
                                     <h3>Book</h3>
                                     <p>NOW</p>

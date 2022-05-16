@@ -62,9 +62,9 @@ class RegistrationFormType extends AbstractType
                     'message' => 'Please enter your phone number',
                 ]),
                 new Length([
-                    'min' => 6,
+                    'min' => 8,
                     'minMessage' => 'Your phone number should contain {{ limit }} numbers',
-                    'max' => 6,
+                    'max' => 8,
                 ])]])
             ->add('captchaCode', CaptchaType::class, array(
                 'captchaConfig' => 'ExampleCaptchaUserRegistration',

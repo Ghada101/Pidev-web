@@ -21,7 +21,6 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups ("post:read")
-
      */
     private $id;
 
@@ -42,7 +41,7 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min=6, minMessage="Your password length should be at least 6 caracters")
-      * @Groups ("post:read")
+     * @Groups ("post:read")
      * @Assert\EqualTo(propertyPath="confirm_password", message="the passowrd and the confirm password fields should be the same !")
      */
     private $password;

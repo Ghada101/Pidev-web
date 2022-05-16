@@ -60,7 +60,11 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="single_place">
                                     <div class="thumb">
-                                       <img src="{{ asset('/uploads/'~event.image) }} " alt="" width="150">
+                                        {%if event.image is null%}
+                                            <img src="{{ asset('uploads/'~'EventDefault.jpeg') }}" alt="">
+                                        {%else%}
+                                            <img src="{{ asset('/uploads/'~event.image) }} " alt="" width="150">
+                                        {%endif%}
                                         <a href="#" class="prise">{{ event.price }}</a>
                                     </div>
                                     <div class="place_info">
