@@ -132,8 +132,10 @@ class CommentController extends AbstractController
     {   $em = $this->getDoctrine()->getManager();
         $user = $this->getUser()->getId();
         $user1= $em->getRepository(User::class)->find($user);
-        $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findoneBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
+        $dislikeee=$this->getDoctrine()->getRepository(Dislikee::class)->findOneBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
         $likeee=$this->getDoctrine()->getRepository(likee::class)->findBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
+
+
         if($likeee==null){
 
             $idcom->setNblike($idcom->getNblike()+1);
@@ -142,13 +144,14 @@ class CommentController extends AbstractController
             $user2=$this->getDoctrine()->getRepository(User::class)->find($user1);
             $like->setUserid($user2);
             $entityManager->persist($like);
+            $entityManager->flush();
             if($dislikeee!=null)
             {
                 $idcom->setNbdislike($idcom->getNbdislike()-1);
                 $entityManager->remove($dislikeee);
-
+                $entityManager->flush();
             }
-            $entityManager->flush();}
+            }
         else
         {
             $this->addFlash('warning', 'You can only like once');
@@ -166,24 +169,21 @@ class CommentController extends AbstractController
         $likeee=$this->getDoctrine()->getRepository(Likee::class)->findOneBy(['commentid'=>$idcom->getCommentId(),'userid'=>$user]);
 
         if($dislikeee==null){
-          if($idcom->getNbdislike()==0){
+
             $idcom->setNbdislike($idcom->getNbdislike()+1);
             $dislike = new Dislikee();
             $dislike->setCommentid($idcom);
             $user2=$this->getDoctrine()->getRepository(User::class)->find($user1);
             $dislike->setUserid($user2);
-
+            $entityManager->persist($dislike);
+            $entityManager->flush();
             if($likeee!=null)
             {
                 $idcom->setNblike($idcom->getNblike()-1);
                 $entityManager->remove($likeee);
+                $entityManager->flush();
 
-            }
-            $entityManager->persist($dislike);
-            $entityManager->flush();
-            }
-            elseif ($idcom->getNbdislike()==1){
-                $entityManager->remove($dislikeee);
+
             }
 
 
