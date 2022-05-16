@@ -233,6 +233,22 @@ class SubjectController extends AbstractController
 
 
     }
+    /**
+     * @Route("/mobile/uploadImg/Subject", name="uploadImgSubject")
+     */
+    public function uploadImgtopic(Request $request, NormalizerInterface $normalizer){
+        //houni uploadi image
+        if (isset($_FILES['file']["name"])){
+            $img=file_get_contents($_FILES["file"]["tmp_name"]);
+            $fp=fopen("images\\subjects\\".$_FILES['file']["name"],"w");
+            fwrite($fp,$img);
+            fclose($fp);
+
+        }
+
+        return new Response('json_encode($_FILES)');
+    }
+
 
 
 }

@@ -325,10 +325,10 @@ class JsonMobileController extends AbstractController
     /**
      * @Route("/json/findUserByMail",name="userByMail")
      */
-    public function getUSerByMail(UserRepository $repo,Request $request, serializerInterface $serializer, NormalizerInterface $normalizer)
+    public function getUSerByMail(UserRepository $repo,Request $request, NormalizerInterface $normalizer)
     {
         $email = $request->get('email');
-        $email = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+        $email = $this->getDoctrine()->getRepository(User::class)->findBy(['email' => $email]);
         $json = $normalizer->normalize($email, 'json',['groups'=>'post:read']);
         return new Response(json_encode($json));
     }
