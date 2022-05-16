@@ -30,26 +30,74 @@ class EventController extends AbstractController
             'events' => $eventRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/json/codenameone", name="code_show_event", methods={"GET"})
+     */
+    public function showMobile(EventRepository $eventRepository): Response
+    {
+        $events = $eventRepository->findAll();
+        $data = array();
+        foreach ($events as $key => $event) {
+            $data[$key]['title'] = $event->getTitle();
+            $data[$key]['price'] = $event->getPrice();
+
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/codenameone/sort", name="code_show", methods={"GET"})
+     */
+    public function showMobileSorted(EventRepository $eventRepository): Response
+    {
+        $events = $eventRepository->findAll();
+        $data = array();
+        foreach ($events as $key => $event) {
+            $data[$key]['title'] = $event->getTitle();
+            $data[$key]['price'] = $event->getPrice();
+
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/codenameone/filter", name="code_filter", methods={"GET"})
+     */
+    public function showMobileByTitle(EventRepository $eventRepository, Request $request): Response
+    {
+        $title = $request->query->get("title");
+        $events = $eventRepository->findBy(
+            array(
+                'title' => $title
+            ));
+        $data = array();
+
+        foreach ($events as $key => $event) {
+            $data[$key]['title'] = $event->getTitle();
+            $data[$key]['price'] = $event->getPrice();
+
+        }
+        return new JsonResponse($data);
+    }
+
     /**
      * @Route("/codenameone/add", name="code_add")
      */
-    public function addEvent(Request $request )
+    public function addEvent(Request $request)
     {
 
         $title = $request->query->get("title");
-        $EventTime= $request->query->get("EventTime");
-        $Duration= $request->query->get("Duration");
-        $category= $request->query->get("category");
-        $Description= $request->query->get("Description");
-        $price= $request->query->get("price");
-        $venue= $request->query->get("venue");
-        $image= $request->query->get("image");
+        $EventTime = $request->query->get("EventTime");
+        $Duration = $request->query->get("Duration");
+        $category = $request->query->get("category");
+        $Description = $request->query->get("Description");
+        $price = $request->query->get("price");
+        $venue = $request->query->get("venue");
+        $image = $request->query->get("image");
 
         // $roles = $request->query->get("roles");
-
-
-
-
         $event = new Event();
         $event->setTitle($title);
         $event->setEventTime($EventTime);
@@ -61,20 +109,21 @@ class EventController extends AbstractController
         $event->setImage($image);
 
 
-        try{
+        try {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
 
             return new JsonResponse("Compte creé avec succés", 200);
-        }catch(\Exception $ex){
+        } catch (\Exception $ex) {
 
-            return new Response("exception".$ex->getMessage());
+            return new Response("exception" . $ex->getMessage());
         }
 
 
     }
+
     /**
      * @Route("/location", name="app_leaflet")
      */
@@ -83,6 +132,7 @@ class EventController extends AbstractController
         return $this->render('leaflet/leaflet.html.twig', [
         ]);
     }
+
     /**
      * @Route("/pdf", name="app_pdf", methods={"GET"})
      */
@@ -93,53 +143,55 @@ class EventController extends AbstractController
         ]);
 
     }
+
     /**
-     * @Route("/frontview", name="app_event_indexFront", methods={"GET"})
+     * @Route("/frontview", name="app_event_indexFront")
      */
     public function indexFront(EventRepository $eventRepository, Request $request): Response
     {
         $data = new SearchController();
-        $data->page = $request->get('page',1);
-        $form = $this->createForm(SearchEventType::class,$data);
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchEventType::class, $data);
         $form->handleRequest($request);
         $events = $eventRepository->findSearch($data);
 
         return $this->render('event/indexFront.html.twig', [
             'events' => $events,
-            'form'=> $form->createView()
+            'form' => $form->createView()
         ]);
     }
+
     /**
      * @Route("/download", name="app_event_download", methods={"GET"})
      */
     public function EventDataDownload(): Response
     {
-       //pdf options
+        //pdf options
         $pdfOptions = new Options();
         //Police par defaut
-        $pdfOptions->set('defaultFront','Arial');
+        $pdfOptions->set('defaultFront', 'Arial');
         $pdfOptions->setIsRemoteEnabled(true);
         /// Dompdf instance
         $dompdf = new Dompdf();
         $context = stream_context_create([
-            'ssl'=>[
-                'verify_peer'=> FALSE,
-                'verify_peer_name'=> FALSE,
-                'allow_self_signed'=>TRUE,
-                'allow_url_fopen'=>TRUE
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE,
+                'allow_url_fopen' => TRUE
             ]
         ]);
         $dompdf->setHttpContext($context);
         // HTM  generate
-        $html = $this->renderView('event/pdf.html.twig');
+        $html = $this->renderView('base.html.twig');
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4','portrait');
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         /// generate file name
-        $fichier ='Event-data.pdf';
+        $fichier = 'Event-data.pdf';
         //send pdf to webrowser
-        $dompdf->stream($fichier,[
-            'Attachment'=> true
+        $dompdf->stream($fichier, [
+            'Attachment' => true
         ]);
         return new Response();
     }
@@ -165,7 +217,6 @@ class EventController extends AbstractController
     }
 
 
-
     /**
      * @Route("/{id}", name="app_event_show", methods={"GET"})
      */
@@ -175,6 +226,7 @@ class EventController extends AbstractController
             'event' => $event,
         ]);
     }
+
     /**
      * @Route("/frontview/{id}/show", name="app_event_show_front", methods={"GET"})
      */
@@ -184,6 +236,7 @@ class EventController extends AbstractController
             'event' => $event,
         ]);
     }
+
     /**
      * @Route("/frontview/{id}/show/location", name="app_event_show_location", methods={"GET"})
      */
@@ -220,15 +273,15 @@ class EventController extends AbstractController
 
                 $event->setImage($fichier);
             }
-                $eventRepository->add($event);
-                return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
+            $eventRepository->add($event);
+            return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
 
         }
-            return $this->render('event/edit.html.twig', [
-                'event' => $event,
-                'form' => $form->createView(),
-            ]);
-        }
+        return $this->render('event/edit.html.twig', [
+            'event' => $event,
+            'form' => $form->createView(),
+        ]);
+    }
 
 
     /**
@@ -236,7 +289,7 @@ class EventController extends AbstractController
      */
     public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $eventRepository->remove($event);
         }
 

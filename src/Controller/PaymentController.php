@@ -33,7 +33,7 @@ class PaymentController extends AbstractController
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => $this->generateUrl('success_url',[],UrlGeneratorInterface::ABSOLUTE_URL),
+            'success_url' => $this->generateUrl('app_event_indexFront',[],UrlGeneratorInterface::ABSOLUTE_URL),
             'cancel_url' => $this->generateUrl('cancel_url',[],UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
         return $this->redirect($checkout_session->url,303);
@@ -43,7 +43,7 @@ class PaymentController extends AbstractController
      */
     public function successUrl(): Response
     {
-        return $this->render('payment/success.html.twig', [
+        return $this->render('event/success.html.twig', [
         ]);
     }
     /**

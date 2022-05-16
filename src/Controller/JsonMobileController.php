@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -14,6 +15,9 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 
 class JsonMobileController extends AbstractController
@@ -94,10 +98,45 @@ class JsonMobileController extends AbstractController
         return new Response(json_encode($jsonContent));
     }
 
+//    /**
+//     * @Route("/AddUserJSON", name="AddJSON")
+//     */
+//    public function AddJSON(Request $request, NormalizerInterface $Normalizer, \Swift_Mailer $mailer)
+//    {
+//        $lastname = $request->query->get("lastname");
+//        $name = $request->query->get("name");
+//        $email = $request->query->get("email");
+//        $password = $request->query->get("password");
+//        $phone = $request->query->get("phone");
+//        //$image = $request->query->get("image");
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $User = new User();
+//
+//        $User->setLastname($lastname);
+//        $User->setName($name);
+//        $User->setEmail($email);
+//        $User->setPassword($password);
+//        $User->setPhone($phone);
+//        //$User->setImage($image);
+//
+////        $message = (new \Swift_Message('Tabaani'))
+////            ->setFrom('allintravelapp@gmail.com')
+////            ->setTo($email)
+////            ->setBody("Bienvenue à Tabaani Travel Agency");
+////        $mailer->send($message);
+//
+//        $em->persist($User);
+//        $em->flush();
+//        $jsonContent = $Normalizer->normalize($User, 'json', ['groups' => 'post:read']);
+//        return new Response(json_encode($jsonContent));
+//    }
+
     /**
-     * @Route("/AddUserJSON", name="AddJSON")
+     * @Route("/AddJSONMobile", name="LoginJsonMobile")
      */
-    public function AddJSON(Request $request, NormalizerInterface $Normalizer, \Swift_Mailer $mailer)
+    public function AddJSON(Request $request,NormalizerInterface $Normalizer, \Swift_Mailer $mailer, UserPasswordEncoderInterface $encoder,
+                            EntityManagerInterface $manager  )
     {
         $lastname = $request->query->get("lastname");
         $name = $request->query->get("name");
@@ -106,32 +145,39 @@ class JsonMobileController extends AbstractController
         $phone = $request->query->get("phone");
         //$image = $request->query->get("image");
 
-        $em = $this->getDoctrine()->getManager();
+        $em=$this->getDoctrine()->getManager();
         $User = new User();
 
         $User->setLastname($lastname);
         $User->setName($name);
         $User->setEmail($email);
-        $User->setPassword($password);
+        $User->setPassword($password );
+        $User->setPassword($encoder->encodePassword($User,$request->query->get("password")));
+        $User->setRoles(["ROLE_USER"]);
+        $User->setType("client");
         $User->setPhone($phone);
+
         //$User->setImage($image);
 
-//        $message = (new \Swift_Message('Tabaani'))
-//            ->setFrom('allintravelapp@gmail.com')
-//            ->setTo($email)
-//            ->setBody("Bienvenue à Tabaani Travel Agency");
-//        $mailer->send($message);
+        $message = (new \Swift_Message('Tabaani'))
+            ->setFrom('allintravelapp@gmail.com')
+            ->setTo($email)
+            ->setBody("Bienvenue à Tabaani Travel Agency");
+        $mailer->send($message) ;
 
         $em->persist($User);
         $em->flush();
-        $jsonContent = $Normalizer->normalize($User, 'json', ['groups' => 'post:read']);
+        $jsonContent = $Normalizer->normalize($User,'json',['groups'=>'post:read']);
         return new Response(json_encode($jsonContent));
     }
+
+
 
     /**
      * @Route("/UpdateJSON/{id}", name="UpdateJSON")
      */
-    public function UpdateJSON(Request $request, NormalizerInterface $Normalizer, $id)
+    public function UpdateJSON(Request $request, NormalizerInterface $Normalizer, $id,
+                               UserPasswordEncoderInterface $encoder)
     {
 
         $id = $request->get("id");
@@ -144,9 +190,12 @@ class JsonMobileController extends AbstractController
         $User->setLastname($lastname);
         $User->setName($name);
         $User->setEmail($email);
-        $User->setPassword($password);
+//        $User->setPassword($password);
+        $User->setPassword($encoder->encodePassword($User,$request->query->get($password)));
+
 
         $em = $this->getDoctrine()->getManager();
+
         $em->persist($User);
         $em->flush();
 
@@ -186,25 +235,57 @@ class JsonMobileController extends AbstractController
 
     }
 
-    /**
-     * @Route("/LoginJSON", name="LoginJSON")
-     */
-    function LoginJSON(UserRepository $repository, Request $request, NormalizerInterface $Normalizer)
-    {
+//    /**
+//     * @Route("/LoginJSON", name="LoginJSON")
+//     */
+//    function LoginJSON(UserRepository $repository, Request $request, NormalizerInterface $Normalizer)
+//    {
+//
+//        $email = $request->query->get("email");
+//        $password = $request->query->get("password");
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $User = $em->getRepository(User::class)->findOneBy(['email' => $email, 'password' => $password]);
+//
+//        if ($User) {
+//
+//            $jsonContent = $Normalizer->normalize($User, 'json', ['groups' => 'post:read']);
+//            return new Response(json_encode($jsonContent));
+//        } else {
+//            return new Response("failed");
+//        }
+//    }
 
+
+
+    /**
+     * @Route("/LoginJSONMobile", name="LoginJSONMobile")
+     * @Method("POST")
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     */
+    function LoginJSON(UserRepository $repository,Request $request,NormalizerInterface $Normalizer,
+                       UserPasswordEncoderInterface $encoder,
+                       serializerInterface $serializer){
+        $user=new User();
+        $hash =$encoder->encodePassword($user,$request->query->get("password"));
+        $user->setPassword($hash);
         $email = $request->query->get("email");
         $password = $request->query->get("password");
 
-        $em = $this->getDoctrine()->getManager();
-        $User = $em->getRepository(User::class)->findOneBy(['email' => $email, 'password' => $password]);
+        $em=$this->getDoctrine()->getManager();
+        $User=$em->getRepository(User::class)->findOneBy(['email'=>$email,'password'=>$hash]);
 
-        if ($User) {
+        if ($User)
+        {
 
-            $jsonContent = $Normalizer->normalize($User, 'json', ['groups' => 'post:read']);
+            $jsonContent = $Normalizer->normalize($User,'json',['groups'=>'post:read']);
             return new Response(json_encode($jsonContent));
-        } else {
-            return new Response("failed");
         }
+        else {
+            return new Response("Bad credentials");
+        }
+
+
     }
 
     /**
@@ -239,6 +320,20 @@ class JsonMobileController extends AbstractController
         return new Response(json_encode($json));
 
     }
+
+
+    /**
+     * @Route("/json/findUserByMail",name="userByMail")
+     */
+    public function getUSerByMail(UserRepository $repo,Request $request, serializerInterface $serializer, NormalizerInterface $normalizer)
+    {
+        $email = $request->get('email');
+        $email = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+        $json = $normalizer->normalize($email, 'json',['groups'=>'post:read']);
+        return new Response(json_encode($json));
+    }
+
+
 
 
 }
