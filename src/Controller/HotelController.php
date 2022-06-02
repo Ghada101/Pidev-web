@@ -41,7 +41,7 @@ class HotelController extends AbstractController
         } else {
             $allhotel= $hotelRepository->findAll();
         }
-        $hotels=$paginator->paginate($allhotel, $request->query->getInt('page', 1), 3);
+        $hotels=$paginator->paginate($allhotel, $request->query->getInt('page', ), 3);
         
         return $this->render('backOffice/hotel/index.html.twig', [
             'hotels' => $hotels,
@@ -58,7 +58,7 @@ class HotelController extends AbstractController
         ->getRepository(Hotel::class)
         ->findAll();
 
-        $hotels=$paginator->paginate($hotels, $request->query->getInt('page', 1), 1);
+        $hotels=$paginator->paginate($hotels, $request->query->getInt('page', 1), 3);
 
         return $this->render('frontOffice/hotel/indexFront.html.twig', [
         'hotels' => $hotels,

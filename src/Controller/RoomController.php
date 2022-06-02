@@ -238,7 +238,7 @@ class RoomController extends AbstractController
             return new JsonResponse("id hc invalide.");}
     }
     /**
-     * @Route("/mobile/uploadImg", name="uploadImg")
+     * @Route("/mobile/uploadImg/Room", name="uploadImgroom")
      */
     public function uploadImg(Request $request, NormalizerInterface $normalizer){
         //houni uploadi image

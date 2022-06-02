@@ -42,7 +42,7 @@
 
                 <td>{{ event.title }}</td>
                 <td>{{ event.EventDate ? event.EventDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td ><img src="{{ asset('/uploads/'~event.image) }} " alt="" width="150"></td>
+                <td ><img src="{{ asset('/profil/'~event.image) }} " alt="" width="150"></td>
                 <td>{{ event.Duration }}</td>
                 <td >{{ event.category }}</td>
                 <td>{{ event.Description }}</td>

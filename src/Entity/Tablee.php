@@ -51,11 +51,11 @@ class Tablee
      */
     private $idRestau;
 
-    public function __construct()
+    /*public function __construct()
     {
         $this->reservation = new ArrayCollection();
     }
-
+*/
     public function getIdTable(): ?int
     {
         return $this->idTable;
@@ -106,13 +106,14 @@ class Tablee
       
 
 }
-/**
-     * @return Collection<int, Book>
-     */
-    public function getreservation(): Collection
-    {
-        return $this->reservation;
-    }
+
+//    /**
+//     * @return Collection<int, Book>
+//     */
+//    public function getreservation(): Collection
+//    {
+//        return $this->reservation;
+//    }
     public function addreservetable(Reservetable $reservetable): self
     {
         if (!$this->reservation->contains($reservetable)) {

@@ -300,7 +300,7 @@ class TopicController extends AbstractController
         $topic=new Topic();
         $topic->setTopicDescription($request->get('description'));
         $topic->setTopicTitle($request->get('titre'));
-        $topic->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+        $topic->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 116]));
         $topic->setTopicDate(new \DateTime('now'));
         $topic->setTopicNumSubjects(0);
         $topic->setTopicImage($request->get('topicImage'));

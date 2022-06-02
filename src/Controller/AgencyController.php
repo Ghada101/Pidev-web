@@ -131,8 +131,6 @@ class AgencyController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('app_agency_index');
     }
-
-
     /**
      * @Route("/search/{nameagency}/{pageNumber}", name="app_agency_findByname"), methods={"GET"})
      */

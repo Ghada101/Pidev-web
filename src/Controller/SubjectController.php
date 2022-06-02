@@ -219,7 +219,7 @@ class SubjectController extends AbstractController
         $subject->setSubjectDescription($request->get('description'));
         $subject->setSubjectTitle($request->get('titre'));
         $subject->setTopic($this->getDoctrine()->getRepository(Topic::class)->findOneBy(['topicId' => $request->get('idtopic')]));
-        $subject->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 90]));
+        $subject->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => 116]));
         $subject->setSubjectDate(new \DateTime('now'));
         $subject->setSubjectNumComments(0);
         $topic= $topicRepository->find($request->get('idtopic'));
@@ -233,6 +233,7 @@ class SubjectController extends AbstractController
 
 
     }
+    
     /**
      * @Route("/mobile/uploadImg/Subject", name="uploadImgSubject")
      */
